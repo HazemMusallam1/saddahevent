@@ -68,7 +68,12 @@ if (!$allowed) {
     exit;
 }
 
-// مستخدم مسجّل ولديه صلاحية → عرض الصفحة
+// مستخدم مسجّل ولديه صلاحية → عرض الصفحة مع تفعيل Pop-up Debugger تلقائياً
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-store');
-readfile($filepath);
+$html = file_get_contents($filepath);
+if (strpos($html, '</head>') !== false) {
+    $debugScript = '<script src="' . $base_dir . '/core/saddah-debugger.js"></script></head>';
+    $html = str_replace('</head>', $debugScript, $html);
+}
+echo $html;
