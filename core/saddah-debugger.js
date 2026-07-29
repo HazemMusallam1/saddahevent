@@ -9,13 +9,13 @@
     function initModal() {
         if (document.getElementById('saddah-debug-modal')) return;
         const modalHtml = `
-            <div id="saddah-debug-modal" class="hidden fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 dir-rtl text-right font-sans">
-                <div class="bg-slate-900 border border-red-500/40 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden text-slate-100 animate-in fade-in duration-200">
+            <div id="saddah-debug-modal" class="hidden fixed inset-0 z-[999999] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 dir-rtl text-right font-sans">
+                <div class="bg-slate-900 border border-red-500/50 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden text-slate-100 animate-in fade-in duration-200">
                     <div class="bg-red-950/90 border-b border-red-500/30 px-6 py-4 flex items-center justify-between shrink-0">
                         <div class="flex items-center gap-3">
                             <span class="w-3.5 h-3.5 rounded-full bg-red-500 animate-ping"></span>
                             <h3 class="font-bold text-red-400 text-lg flex items-center gap-2">
-                                <i class="fa-solid fa-bug"></i> مكتشف الأخطاء المباشر (Pop-up Live Debugger)
+                                <i class="fa-solid fa-bug"></i> مكتشف الأخطاء المباشر (Saddah Live Debugger)
                             </h3>
                         </div>
                         <button onclick="document.getElementById('saddah-debug-modal').classList.add('hidden')" class="text-slate-400 hover:text-white text-2xl p-1 transition cursor-pointer">
@@ -28,16 +28,20 @@
                             <span id="saddah-debug-type" class="text-amber-400 font-bold text-base"></span>
                         </div>
                         <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                            <span class="text-slate-400 text-xs block mb-1 font-sans">تفاصيل الخطأ ورسالة الخادم:</span>
+                            <span class="text-slate-400 text-xs block mb-1 font-sans">موقع الكود برقم السطر (File & Line Number):</span>
+                            <span id="saddah-debug-location" class="text-emerald-400 font-bold text-sm break-all"></span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block mb-1 font-sans">رسالة الخطأ والتفاصيل (Error Details):</span>
                             <pre id="saddah-debug-msg" class="text-red-300 whitespace-pre-wrap break-all text-xs max-h-60 overflow-y-auto leading-relaxed"></pre>
                         </div>
                         <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
-                            <span class="text-slate-400 text-xs block mb-1 font-sans">الرابط المسبب للخطأ (Target URL):</span>
+                            <span class="text-slate-400 text-xs block mb-1 font-sans">الرابط المستهدف (Target URL):</span>
                             <span id="saddah-debug-url" class="text-sky-400 break-all text-xs"></span>
                         </div>
                     </div>
                     <div class="bg-slate-950 border-t border-slate-800 px-6 py-3.5 flex items-center justify-between text-xs text-slate-400 shrink-0">
-                        <span>اضغط إغلاق لمتابعة التصفح أو إغلاق التنبيه</span>
+                        <span>اضغط إغلاق لمتابعة التصفح</span>
                         <button onclick="document.getElementById('saddah-debug-modal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl transition shadow-lg cursor-pointer">
                             إغلاق التنبيه (Close)
                         </button>
@@ -56,12 +60,13 @@
         initModal();
     }
 
-    window.showSaddahDebug = function(type, msg, url) {
+    window.showSaddahDebug = function(type, msg, url, locationStr) {
         initModal();
         setTimeout(() => {
             const modal = document.getElementById('saddah-debug-modal');
             if (!modal) return;
             document.getElementById('saddah-debug-type').textContent = type || 'Uncaught Exception';
+            document.getElementById('saddah-debug-location').textContent = locationStr || 'N/A';
             document.getElementById('saddah-debug-msg').textContent = typeof msg === 'object' ? JSON.stringify(msg, null, 2) : String(msg);
             document.getElementById('saddah-debug-url').textContent = url || window.location.href;
             modal.classList.remove('hidden');
@@ -71,32 +76,40 @@
     // Catch Uncaught JS Errors
     window.addEventListener('error', function(e) {
         if (e.target && (e.target.src || e.target.href)) {
-            window.showSaddahDebug('Resource Load Failed (404/Network)', `Failed to load asset: ${e.target.src || e.target.href}`, e.target.src || e.target.href);
+            window.showSaddahDebug('Resource Load Failed (404)', `فشل تحميل العنصر: ${e.target.src || e.target.href}`, e.target.src || e.target.href, 'HTML Media/Script Tag');
         } else {
-            window.showSaddahDebug('JavaScript Error', `${e.message}\nFile: ${e.filename}\nLine: ${e.lineno}:${e.colno}`, window.location.href);
+            window.showSaddahDebug('JavaScript Error', e.message, window.location.href, `${e.filename} : السطر ${e.lineno}:${e.colno}`);
         }
     }, true);
 
     // Catch Unhandled Promise Rejections
     window.addEventListener('unhandledrejection', function(e) {
-        window.showSaddahDebug('Promise Rejection Error', e.reason?.stack || e.reason || 'Unhandled Promise Rejection', window.location.href);
+        window.showSaddahDebug('Promise Rejection Error', e.reason?.stack || e.reason || 'Unhandled Promise Rejection', window.location.href, 'Async Promise Code');
     });
 
-    // Intercept fetch API calls to auto-trigger Pop-up on 404 / 500 / 403 errors
+    // Intercept fetch API calls to auto-trigger Pop-up on any error response
     const origFetch = window.fetch;
     window.fetch = async function(...args) {
+        const reqUrl = typeof args[0] === 'string' ? args[0] : (args[0]?.url || window.location.href);
         try {
             const res = await origFetch.apply(this, args);
             if (!res.ok && res.status !== 401) {
                 const clone = res.clone();
                 const text = await clone.text();
-                const reqUrl = typeof args[0] === 'string' ? args[0] : (args[0]?.url || window.location.href);
-                window.showSaddahDebug(`HTTP Status Error ${res.status}`, text.substring(0, 3000) || `Server returned HTTP status ${res.status}`, reqUrl);
+                let errorObj = null;
+                try { errorObj = JSON.parse(text); } catch(err) {}
+
+                if (errorObj) {
+                    const loc = errorObj.file ? `${errorObj.file} : السطر ${errorObj.line}` : `HTTP ${res.status}`;
+                    const detail = errorObj.error || errorObj.message || text;
+                    window.showSaddahDebug(`PHP Backend Error (${res.status})`, detail + (errorObj.trace ? "\n\nStack Trace:\n" + errorObj.trace : ""), reqUrl, loc);
+                } else {
+                    window.showSaddahDebug(`HTTP Status Error (${res.status})`, text.substring(0, 3000) || `Server returned HTTP status ${res.status}`, reqUrl, `HTTP ${res.status}`);
+                }
             }
             return res;
         } catch(err) {
-            const reqUrl = typeof args[0] === 'string' ? args[0] : (args[0]?.url || window.location.href);
-            window.showSaddahDebug('Network / API Connection Failure', err.message, reqUrl);
+            window.showSaddahDebug('Network / API Connection Failure', err.message, reqUrl, 'Browser Network Engine');
             throw err;
         }
     };

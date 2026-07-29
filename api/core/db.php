@@ -5,9 +5,26 @@
 //  POST : يستقبل القاعدة كاملة، يفرّغ الجداول ثم يعيد إدراجها (حفظ ذرّي)
 //  نقل بلا فقدان: كل صف يحفظ كائنه الأصلي كاملاً في عمود *_json.
 // ============================================================================
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
+ini_set('display_errors', '0'); // Disable raw HTML error strings so JSON isn't corrupted
 error_reporting(E_ALL);
+
+// Global Exception Handler - Converts any PHP Exception into a clear JSON error with line numbers
+set_exception_handler(function($e) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error'   => $e->getMessage(),
+        'file'    => $e->getFile(),
+        'line'    => $e->getLine(),
+        'trace'   => $e->getTraceAsString()
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+});
+
+set_error_handler(function($severity, $message, $file, $line) {
+    if (!(error_reporting() & $severity)) return;
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate');
