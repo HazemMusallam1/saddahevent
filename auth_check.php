@@ -37,7 +37,7 @@ if ($page === 'index.html') {
 
 if (!is_file($filepath)) {
     http_response_code(404);
-    echo '404 — الملف غير موجود';
+    echo "404 — الملف غير موجود. المسار المطلوب: [" . htmlspecialchars($filepath) . "]";
     exit;
 }
 
