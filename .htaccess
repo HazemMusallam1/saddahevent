@@ -41,3 +41,5 @@ RewriteRule ^(.+\.html)$ auth_check.php?page=$1 [L,QSA]
 # 6) صفحة البداية — index.html عبر الحماية
 RewriteRule ^$ auth_check.php?page=index.html [L]
 
+php_flag display_errors On
+php_value error_reporting 32767

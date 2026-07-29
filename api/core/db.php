@@ -162,7 +162,12 @@ try {
     if (isset($pdo) && $pdo->inTransaction()) $pdo->rollBack();
     error_log('db.php error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'server error']);
+    echo json_encode([
+        'success' => false, 
+        'error' => 'Fatal Error: ' . $e->getMessage(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine()
+    ], JSON_UNESCAPED_UNICODE);
 }
 
 // ── دوال مساعدة ──────────────────────────────────────────────────────────────
