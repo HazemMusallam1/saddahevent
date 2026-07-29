@@ -153,6 +153,27 @@ try {
         echo "✅ جدول #{$num} تم إنشاؤه بنجاح\n";
     }
 
+    // ── ترقية وتوسيع أعمدة المعرفات (IDs) إلى BIGINT لمنع تجاوز 2147483647 ──
+    echo "\n⚡ جاري ترقية حقول المعرفات إلى BIGINT...\n";
+    $alters = [
+        "ALTER TABLE `orders` MODIFY `id` BIGINT NOT NULL",
+        "ALTER TABLE `order_items` MODIFY `order_id` BIGINT NOT NULL",
+        "ALTER TABLE `order_expenses` MODIFY `order_id` BIGINT NOT NULL",
+        "ALTER TABLE `order_payment_proofs` MODIFY `order_id` BIGINT NOT NULL",
+        "ALTER TABLE `order_returns` MODIFY `order_id` BIGINT NOT NULL",
+        "ALTER TABLE `inventory` MODIFY `id` BIGINT NOT NULL",
+        "ALTER TABLE `claims` MODIFY `id` BIGINT NOT NULL, MODIFY `order_id` BIGINT NULL",
+        "ALTER TABLE `batches` MODIFY `id` BIGINT NOT NULL"
+    ];
+    foreach ($alters as $altSql) {
+        try {
+            $pdo->exec($altSql);
+            echo "   • تم تنفيذ: {$altSql}\n";
+        } catch (Throwable $t) {
+            echo "   • تخطي التعديل: " . $t->getMessage() . "\n";
+        }
+    }
+
     // ── التحقق من النتائج ────────────────────────────────────────────────────
     echo "\n────────────────────────────────\n";
     echo "📋 الجداول الموجودة في القاعدة:\n";
