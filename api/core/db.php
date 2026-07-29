@@ -162,6 +162,12 @@ function loadOrders($pdo, $isArchived) {
     return $out;
 }
 
+function strOrNull($v) {
+    if ($v === null) return null;
+    if (is_array($v) || is_object($v)) return json_encode($v, JSON_UNESCAPED_UNICODE);
+    return (string)$v;
+}
+
 function saveOrders($pdo, $list, $isArchived, $stmts) {
     foreach ($list as $order) {
         if (!isset($order['id'])) continue;
@@ -173,24 +179,24 @@ function saveOrders($pdo, $list, $isArchived, $stmts) {
 
         $stmts['order']->execute([
             $order['id'], $isArchived,
-            $order['date'] ?? null, $order['status'] ?? null, $order['paymentStatus'] ?? null,
+            strOrNull($order['date'] ?? null), strOrNull($order['status'] ?? null), strOrNull($order['paymentStatus'] ?? null),
             !empty($order['isConfirmed']) ? 1 : 0, !empty($order['isSettled']) ? 1 : 0, !empty($order['profitTransferred']) ? 1 : 0,
-            $c['name'] ?? null, $c['phone'] ?? null, $c['id'] ?? null, $c['deliveryDate'] ?? null,
+            strOrNull($c['name'] ?? null), strOrNull($c['phone'] ?? null), strOrNull($c['id'] ?? null), strOrNull($c['deliveryDate'] ?? null),
             num($f['subTotal'] ?? 0), num($f['total'] ?? 0), num($f['deposit'] ?? 0), num($f['securityDeposit'] ?? 0), num($f['delivery'] ?? 0),
             jenc($core),
         ]);
         $oid = $order['id'];
         foreach (array_values($order['items'] ?? []) as $i => $it) {
-            $stmts['item']->execute([$oid, $i, $it['name'] ?? null, (int)num($it['qty'] ?? 0), num($it['total'] ?? 0), jenc($it)]);
+            $stmts['item']->execute([$oid, $i, strOrNull($it['name'] ?? null), (int)num($it['qty'] ?? 0), num($it['total'] ?? 0), jenc($it)]);
         }
         foreach (array_values($order['expenses'] ?? []) as $i => $e) {
-            $stmts['exp']->execute([$oid, $i, $e['desc'] ?? ($e['name'] ?? null), num($e['amount'] ?? 0), num($e['total'] ?? 0), $e['claimId'] ?? null, $e['date'] ?? null, jenc($e)]);
+            $stmts['exp']->execute([$oid, $i, strOrNull($e['desc'] ?? ($e['name'] ?? null)), num($e['amount'] ?? 0), num($e['total'] ?? 0), strOrNull($e['claimId'] ?? null), strOrNull($e['date'] ?? null), jenc($e)]);
         }
         foreach (array_values($order['paymentProofs'] ?? []) as $i => $p) {
-            $stmts['proof']->execute([$oid, $i, $p['desc'] ?? null, num($p['amount'] ?? 0), $p['method'] ?? null, !empty($p['settledToInstitution']) ? 1 : 0, $p['date'] ?? null, isset($p['settlementId']) ? (string)$p['settlementId'] : null, jenc($p)]);
+            $stmts['proof']->execute([$oid, $i, strOrNull($p['desc'] ?? null), num($p['amount'] ?? 0), strOrNull($p['method'] ?? null), !empty($p['settledToInstitution']) ? 1 : 0, strOrNull($p['date'] ?? null), isset($p['settlementId']) ? strOrNull($p['settlementId']) : null, jenc($p)]);
         }
         foreach (array_values($order['returns'] ?? []) as $i => $r) {
-            $stmts['ret']->execute([$oid, $i, $r['desc'] ?? null, num($r['refund'] ?? 0), num($r['deducted'] ?? 0), $r['method'] ?? null, $r['date'] ?? null, jenc($r)]);
+            $stmts['ret']->execute([$oid, $i, strOrNull($r['desc'] ?? null), num($r['refund'] ?? 0), num($r['deducted'] ?? 0), strOrNull($r['method'] ?? null), strOrNull($r['date'] ?? null), jenc($r)]);
         }
     }
 }
