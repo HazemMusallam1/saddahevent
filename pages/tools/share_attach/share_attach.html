@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توثيق مرفق - نظام صده</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <style> body { background:#f1f5f9; } </style>
+</head>
+<body class="font-sans text-slate-800 min-h-screen">
+    <div class="max-w-md mx-auto p-4">
+        <!-- الترويسة -->
+        <div class="flex items-center gap-3 mb-4">
+            <a href="../../index.html" class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500"><i class="fa-solid fa-arrow-right"></i></a>
+            <div>
+                <h1 id="page-title" class="text-lg font-black flex items-center gap-2"><i class="fa-solid fa-paperclip text-emerald-500"></i> توثيق مرفق</h1>
+                <p id="page-sub" class="text-xs text-slate-400 font-bold">اربط الإيصال بالطلب الصحيح</p>
+            </div>
+        </div>
+
+        <!-- معاينة المرفق -->
+        <div id="preview-card" class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm mb-4 text-center">
+            <div id="preview-wrap" class="hidden">
+                <img id="preview-img" class="max-h-44 mx-auto rounded-lg border border-slate-200 object-contain" alt="معاينة">
+            </div>
+            <div id="preview-pdf" class="hidden text-red-500 py-3"><i class="fa-solid fa-file-pdf text-4xl"></i></div>
+            <p id="file-name" class="text-sm font-bold text-slate-700 mt-2">جارٍ قراءة المرفق…</p>
+            <p id="file-size" class="text-xs text-slate-400"></p>
+        </div>
+
+        <!-- لا يوجد مرفق -->
+        <div id="no-file" class="hidden bg-amber-50 border border-amber-200 text-amber-700 rounded-2xl p-4 text-center text-sm font-bold mb-4">
+            لم يتم العثور على مرفق مُشارَك. ارجع لواتساب وشارك الصورة مرة أخرى.
+        </div>
+
+        <!-- نموذج التوثيق -->
+        <div id="form-wrap" class="space-y-4">
+            <!-- نوع التوثيق -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
+                <label class="text-xs font-bold text-slate-500 block mb-2">نوع التوثيق</label>
+                <div id="action-tabs" class="grid grid-cols-3 gap-2"></div>
+            </div>
+
+            <!-- اختيار الطلب -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
+                <label class="text-xs font-bold text-slate-500 block mb-2">اختر الطلب</label>
+                <div class="relative mb-2">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 text-sm"></i>
+                    <input type="text" id="order-search" placeholder="ابحث باسم العميلة أو رقم الطلب…"
+                        class="w-full border border-slate-300 rounded-xl pr-9 pl-3 py-2.5 text-sm focus:border-emerald-500 outline-none">
+                </div>
+                <div id="orders-list" class="max-h-56 overflow-y-auto space-y-1.5"></div>
+            </div>
+
+            <button id="confirm-btn" onclick="confirmAttach()" disabled
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-emerald-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition">
+                <i class="fa-solid fa-hand-pointer"></i> اختر الطلب أولاً
+            </button>
+        </div>
+    </div>
+
+    <script src="../../../core/db.js"></script>
+    <script>
+        // ألوان inline لضمان الظهور (لا نعتمد على فئات Tailwind الديناميكية)
+        const ACTIONS = {
+            payment:  { title: 'إثبات دفعة', sub: 'اربط الإيصال كدفعة/عربون على الطلب', icon: 'fa-money-bill-wave', hex: '#059669', bg: '#ecfdf5', border: '#10b981' },
+            expense:  { title: 'فاتورة مصروف', sub: 'سجّل الإيصال كمصروف تشغيل على الطلب', icon: 'fa-receipt',       hex: '#dc2626', bg: '#fef2f2', border: '#ef4444' },
+            return:   { title: 'إيصال مرتجع', sub: 'اربط إيصال استرجاع المبلغ للعميل',   icon: 'fa-rotate-left',     hex: '#ea580c', bg: '#fff7ed', border: '#f97316' }
+        };
+
+        let sharedFile = null;
+        let remoteUrl = null;       // رابط كامل (آيفون عبر Shortcut)
+        let remoteFileId = null;    // اسم ملف في api/temp_uploads (آيفون)
+        let selectedOrderId = null;
+        let action = 'payment';
+
+        const $ = (id) => document.getElementById(id);
+
+        function getSharedFile() {
+            return new Promise((resolve) => {
+                const req = indexedDB.open('SaddahShareStore', 1);
+                req.onupgradeneeded = (e) => { const db = e.target.result; if (!db.objectStoreNames.contains('sharedFiles')) db.createObjectStore('sharedFiles'); };
+                req.onsuccess = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('sharedFiles')) return resolve(null);
+                    const g = db.transaction('sharedFiles', 'readonly').objectStore('sharedFiles').get('latestShare');
+                    g.onsuccess = () => resolve(g.result || null);
+                    g.onerror = () => resolve(null);
+                };
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        function showFile(file) {
+            $('file-name').innerText = file.name || 'مرفق';
+            $('file-size').innerText = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            if (file.type && file.type.startsWith('image/')) {
+                $('preview-img').src = URL.createObjectURL(file);
+                $('preview-wrap').classList.remove('hidden');
+            } else if (file.type === 'application/pdf') {
+                $('preview-pdf').classList.remove('hidden');
+            }
+        }
+
+        function showRemote(url) {
+            $('file-name').innerText = url.split('/').pop();
+            $('file-size').innerText = '';
+            $('preview-img').src = url;
+            $('preview-wrap').classList.remove('hidden');
+        }
+
+        function applyAction() {
+            const a = ACTIONS[action];
+            $('page-title').innerHTML = `<i class="fa-solid ${a.icon}" style="color:${a.hex}"></i> ${a.title}`;
+            $('page-sub').innerText = a.sub;
+            // أزرار التبويب (ألوان inline للحالة النشطة)
+            $('action-tabs').innerHTML = Object.keys(ACTIONS).map(k => {
+                const x = ACTIONS[k], on = k === action;
+                const st = on ? `style="background:${x.bg};border-color:${x.border};color:${x.hex};"` : '';
+                return `<button onclick="setAction('${k}')" ${st} class="flex flex-col items-center gap-1 justify-center text-xs font-bold rounded-xl px-1 py-2 border-2 transition ${on ? '' : 'bg-white border-slate-200 text-slate-500'}">
+                    <i class="fa-solid ${x.icon} text-lg mb-1"></i> ${x.title}</button>`;
+            }).join('');
+        }
+        window.setAction = (k) => { action = k; applyAction(); };
+
+        function orderLabel(o) {
+            const name = (o.client && o.client.name) || 'بدون اسم';
+            const date = (o.client && o.client.deliveryDate) ? new Date(o.client.deliveryDate).toLocaleDateString('ar-SA') : '';
+            return { name, date, id: o.id };
+        }
+        
+        function renderOrders(filter) {
+            const orders = (window.SaddahDB.data.orders || []);
+            const q = (filter || '').trim().toLowerCase();
+            const filtered = orders.filter(o => {
+                if (!q) return true;
+                const l = orderLabel(o);
+                return (l.name.toLowerCase().includes(q)) || String(l.id).includes(q);
+            }).slice(0, 60);
+
+            if (filtered.length === 0) { $('orders-list').innerHTML = '<p class="text-center text-xs text-slate-400 py-4">لا توجد طلبات مطابقة</p>'; return; }
+            $('orders-list').innerHTML = filtered.map(o => {
+                const l = orderLabel(o), on = String(o.id) === String(selectedOrderId);
+                return `<button onclick="selectOrder('${String(o.id).replace(/'/g, '')}')"
+                    class="w-full text-right flex items-center justify-between gap-2 p-2.5 rounded-xl border-2 transition ${on ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-transparent hover:border-slate-200'}">
+                    <div class="min-w-0">
+                        <div class="font-bold text-sm text-slate-700 truncate">${l.name}</div>
+                        <div class="text-[11px] text-slate-400">طلب #${l.id}${l.date ? ' • ' + l.date : ''}</div>
+                    </div>
+                    ${on ? '<i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>' : '<i class="fa-solid fa-chevron-left text-slate-300 shrink-0"></i>'}
+                </button>`;
+            }).join('');
+        }
+        window.selectOrder = (id) => { selectedOrderId = id; renderOrders($('order-search').value); updateConfirm(); };
+
+        function hasAttachment() { return !!(sharedFile || remoteUrl || remoteFileId); }
+        function updateConfirm() {
+            const btn = $('confirm-btn');
+            const ready = hasAttachment() && !!selectedOrderId;
+            btn.disabled = !ready;
+            btn.innerHTML = selectedOrderId
+                ? '<i class="fa-solid fa-arrow-left"></i> متابعة للطلب'
+                : '<i class="fa-solid fa-hand-pointer"></i> اختر الطلب أولاً';
+        }
+
+        window.confirmAttach = function () {
+            if (!hasAttachment()) { alert('لا يوجد مرفق'); return; }
+            if (!selectedOrderId) { alert('اختر الطلب أولاً'); return; }
+
+            const btn = $('confirm-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ التوجيه…';
+
+            // التوجيه لصفحة تتبع الطلبات لإتمام الربط
+            let url = `order_tracking.html?sharedAction=${action}&openOrderId=${encodeURIComponent(selectedOrderId)}`;
+            if (remoteUrl) url += `&remoteUrl=${encodeURIComponent(remoteUrl)}`;        // آيفون: رابط كامل
+            else if (remoteFileId) url += `&fileId=${encodeURIComponent(remoteFileId)}`; // آيفون: اسم ملف مؤقت
+            // أندرويد/ويندوز: order_tracking يقرأ الملف من IndexedDB
+
+            window.location.href = url;
+        };
+
+        // ── الإقلاع ────────────────────────────────────────────────────────────
+        (async () => {
+            const params = new URLSearchParams(location.search);
+            action = ACTIONS[params.get('action')] ? params.get('action') : 'payment';
+
+            await window.SaddahDB.init(); // مصادقة + تحميل البيانات (يحوّل لتسجيل الدخول إن لزم)
+
+            applyAction();
+            renderOrders('');
+            $('order-search').addEventListener('input', (e) => renderOrders(e.target.value));
+
+            const fileUrl = params.get('fileUrl');
+            const fileId = params.get('fileId');
+            if (fileUrl) {                       // الآيفون: رابط كامل عبر الاختصار
+                remoteUrl = fileUrl;
+                showRemote(fileUrl);
+            } else if (fileId) {                 // الآيفون: ملف مؤقت على الخادم
+                remoteFileId = fileId;
+                showRemote('api/temp_uploads/' + fileId);
+                $('file-name').innerText = 'مرفق من الآيفون';
+            } else {                             // أندرويد/ويندوز: من IndexedDB
+                sharedFile = await getSharedFile();
+                if (sharedFile) {
+                    showFile(sharedFile);
+                } else {
+                    $('no-file').classList.remove('hidden');
+                    $('preview-card').classList.add('hidden');
+                }
+            }
+            updateConfirm();
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+

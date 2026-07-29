@@ -1,0 +1,80 @@
+{
+    "id": 1781043480044,
+    "date": "١٠‏/٦‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "هيا فهد خلف الدوسري",
+        "id": "-",
+        "phone": "-",
+        "address": "-",
+        "deliveryDate": "2026-05-18",
+        "deliveryTime": "14:00",
+        "pickupDate": "2026-05-19",
+        "pickupTime": "14:00",
+        "deliveryPerson": "",
+        "returnPerson": ""
+    },
+    "financials": {
+        "subTotal": "391.32",
+        "total": "450.02 ريال",
+        "delivery": "0",
+        "deposit": "200",
+        "securityDeposit": 0,
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة كوكتيل ",
+            "desc": "قواعد ذهبية و سطح زجاجي , ارتفاع 120 سم",
+            "decorDetails": "",
+            "qty": 6,
+            "chairsCount": 0,
+            "total": "391.32",
+            "totalOriginal": "391.32",
+            "unitPrice": 65.22,
+            "originalPrice": 65.22
+        }
+    ],
+    "expenses": [],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 200,
+            "method": "transfer",
+            "fileLink": "عربون - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 200 ريال تحويل.pdf",
+                "name": "عربون - 200 ريال تحويل.pdf",
+                "link": "عربون - 200 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T22:18:50.437Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": false,
+        "deposit": true,
+        "completed": false,
+        "security": false
+    },
+    "isConfirmed": true,
+    "computed": {
+        "total": 450.02,
+        "deductedInsurance": 0,
+        "received": 200,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 0,
+        "totalExpenses": 0,
+        "revenue": 200,
+        "remaining": 0,
+        "netProfit": 200,
+        "includeTax": true,
+        "operatingShare": 20,
+        "distributableProfit": 180,
+        "fuel": 0
+    },
+    "status": "ملغي"
+}

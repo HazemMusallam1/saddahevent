@@ -1,0 +1,159 @@
+{
+    "id": 1781024878879,
+    "date": "٩‏/٦‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "جود عادل العصيمي",
+        "id": "1127804647",
+        "phone": "508136869",
+        "address": "ﺣﻲ اﻟﻮرود ﻋﻤﺎرة ٧٩ اﻟﺪور اﻟﺨﺎﻣﺲ ﻓﻠﻪ ٩",
+        "deliveryDate": "2026-01-25",
+        "deliveryTime": "15:00",
+        "pickupDate": "2026-01-26",
+        "pickupTime": "15:00",
+        "deliveryPerson": "",
+        "returnPerson": ""
+    },
+    "financials": {
+        "subTotal": "1840.00",
+        "total": "2116.00 ريال",
+        "delivery": 150,
+        "deposit": "300",
+        "securityDeposit": "500",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 300,
+        "fuel": 0
+    },
+    "items": [
+        {
+            "name": "طاولة دائرية",
+            "desc": "قواﻋﺪ ذﻫﺒﻴﺔ , ﺳﻄﺢ زﺟﺎﺟﻲ | ﺷﺎﻣﻞ ﺗﻨﺴﻴﻖ",
+            "decorDetails": "",
+            "qty": 3,
+            "chairsCount": 0,
+            "total": "1320.00",
+            "totalOriginal": "1320.00",
+            "unitPrice": 440,
+            "originalPrice": 440
+        },
+        {
+            "name": "طاولة عشاء مستطيلة",
+            "desc": "شامل تنسيق",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "520.00",
+            "totalOriginal": "520.00",
+            "unitPrice": 520,
+            "originalPrice": 520
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "عالم التوفير ",
+            "amount": 130,
+            "total": 130,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "عالم التوفير - 130 ريال",
+                "name": "عالم التوفير - 130 ريال",
+                "link": ""
+            },
+            "date": "2026-06-09T18:50:21.813Z",
+            "claimId": "1781031021813847"
+        },
+        {
+            "desc": "عمال للتوصيل ",
+            "amount": 120,
+            "total": 120,
+            "paid": 120,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عمال للتوصيل - 120 ريال.pdf",
+                "name": "عمال للتوصيل - 120 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-09T18:54:41.359Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "عربون - 300 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 300 ريال.pdf",
+                "name": "عربون - 300 ريال.pdf",
+                "link": "عربون - 300 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T18:51:35.657Z"
+        },
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 2316,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 2316 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 2316 ريال.pdf",
+                "name": "باقي المبلغ + تأمين - 2316 ريال.pdf",
+                "link": "باقي المبلغ + تأمين - 2316 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T18:52:07.923Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": false,
+        "deposit": true,
+        "completed": true,
+        "remaining": true
+    },
+    "isConfirmed": true,
+    "computed": {
+        "total": 2116,
+        "deductedInsurance": 0,
+        "received": 2616,
+        "extDelivery": 150,
+        "whDelivery": 300,
+        "otherExpenses": 250,
+        "totalExpenses": 700,
+        "revenue": 2116,
+        "remaining": -500,
+        "netProfit": 1416,
+        "includeTax": true,
+        "operatingShare": 141.6,
+        "distributableProfit": 1274.4,
+        "fuel": 0
+    },
+    "extraFinancials": {
+        "externalDelivery": 150,
+        "warehouseDelivery": 300,
+        "abdulrazzaqFuel": 0,
+        "externalDeliveryReceipt": "توصيل خارجي - 150 ريال.pdf",
+        "warehouseDeliveryReceipt": "إرجاع مستودع - 300 ريال.pdf"
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 500,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 500 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 500 ريال.pdf",
+                "name": "إرجاع التأمين - 500 ريال.pdf",
+                "link": "إرجاع التأمين - 500 ريال.pdf"
+            },
+            "date": "2026-06-09T18:52:30.806Z"
+        }
+    ]
+}

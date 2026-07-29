@@ -1,0 +1,81 @@
+{
+    "id": 1780143007808,
+    "date": "٣٠‏/٥‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "فتين",
+        "id": "-",
+        "phone": "553544113",
+        "address": "حي الروابي",
+        "deliveryDate": "2026-05-29",
+        "deliveryTime": "17:00",
+        "pickupDate": "2026-05-30",
+        "pickupTime": "17:00",
+        "deliveryPerson": "عبدالرزاق",
+        "returnPerson": "عبدالرزاق"
+    },
+    "financials": {
+        "subTotal": "278.26",
+        "total": "320.00 ريال",
+        "delivery": "0",
+        "deposit": "100",
+        "securityDeposit": "0",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "paid": "320 ريال",
+        "remaining": "0 ريال"
+    },
+    "items": [
+        {
+            "name": "تنسيق مدخل , الوان الربيع",
+            "desc": "ورد مدخل بالوان الربيع + لوحة مطبوعة + تنسيق ",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "278.26",
+            "totalOriginal": "278.26",
+            "unitPrice": 278.26,
+            "originalPrice": 278.26
+        }
+    ],
+    "expenses": [
+        {
+            "supplier": "مؤسسة انجاز للنسخ والتصوير",
+            "name": "مؤسسة انجاز للنسخ والتصوير",
+            "driveLink": "مؤسسة انجاز للنسخ والتصوير 65 ريال.pdf",
+            "amount": 65,
+            "discount": 0,
+            "afterDiscount": 65,
+            "tax": 0,
+            "total": 65,
+            "paid": 65
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 100,
+            "fileLink": "عربون 100 ريال.pdf",
+            "date": "٧‏/٦‏/٢٠٢٦"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 220,
+            "fileLink": "باقي المبلغ 220 ريال.pdf",
+            "date": "٧‏/٦‏/٢٠٢٦"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": false,
+        "deposit": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "تم الجرد",
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 25
+    }
+}

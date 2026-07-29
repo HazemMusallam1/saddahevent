@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø´Ù‡Ø±ÙŠ - ØµØ¯Ù‡</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/report_monthly.css">
+    <link rel="stylesheet" href="../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header / Navbar -->
+    <div class="no-print bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-days text-emerald-600"></i> Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø´Ù‡Ø±ÙŠ
+            </h1>
+            <div class="flex gap-2">
+                <a href="../orders/orders.html"
+                    class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-bold transition">
+                    Ø¹ÙˆØ¯Ø© Ù„Ù„Ø£Ø±Ø´ÙŠÙ
+                </a>
+                <button onclick="window.print()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Ø·Ø¨Ø§Ø¹Ø© Ø§Ù„ØªÙ‚Ø±ÙŠØ±
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8" id="monthly-container">
+
+        <div class="mb-8 text-center hidden print:block border-b border-gray-200 pb-6">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ù…Ø§Ù„ÙŠ Ø§Ù„Ø´Ù‡Ø±ÙŠ</h1>
+            <p class="text-slate-500 text-sm">Ø§Ù„ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø´Ù‡Ø±ÙŠØ© Ù„Ù„Ù…Ø¨ÙŠØ¹Ø§Øª ÙˆØ§Ù„Ù…ØµØ±ÙˆÙØ§Øª</p>
+        </div>
+
+        <!-- Monthly Cards Grid -->
+        <div id="months-grid" class="grid grid-cols-1 gap-6">
+            <!-- Ø³ÙŠØªÙ… ØªÙˆÙ„ÙŠØ¯ Ø§Ù„ÙƒØ±ÙˆØª Ø§Ù„Ø´Ù‡Ø±ÙŠØ© Ù‡Ù†Ø§ -->
+        </div>
+
+    </div>
+
+    
+    <script src="../../js/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            let s_report_monthly = document.createElement('script');
+            s_report_monthly.src = 'js/report_monthly.js';
+            document.body.appendChild(s_report_monthly);
+        });
+    </script>
+<script src="../../js/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+

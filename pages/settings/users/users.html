@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الحسابات - نظام صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <style>
+        body { background:#f8fafc; }
+        /* تأثير ظهور الإشعارات */
+        .toast { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(-20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+        .toast-exit { animation: slideOut 0.3s ease-in forwards; }
+        @keyframes slideOut { from { transform: translateY(0); opacity:1; } to { transform: translateY(-20px); opacity:0; } }
+        /* تأثير تحميل الزر */
+        .btn-loading { pointer-events: none; opacity: 0.7; }
+    </style>
+</head>
+<body class="font-sans text-slate-800">
+
+    <!-- إشعار النجاح/الخطأ -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] space-y-2"></div>
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-6">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <a href="../../index.html" class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 hover:text-slate-800"><i class="fa-solid fa-arrow-right"></i></a>
+                <div>
+                    <h1 class="text-2xl font-black flex items-center gap-2"><i class="fa-solid fa-users-gear text-indigo-500"></i> إدارة الحسابات والصلاحيات</h1>
+                    <p class="text-xs text-slate-400 font-bold">إضافة وتعديل الحسابات وتحديد صلاحية كل حساب</p>
+                </div>
+            </div>
+            <button onclick="openUserForm()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm shadow-indigo-200 transition"><i class="fa-solid fa-user-plus"></i> حساب جديد</button>
+        </div>
+
+        <!-- جدول الحسابات -->
+        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 text-slate-500 text-xs"><tr>
+                    <th class="py-3 px-3 text-right">اسم المستخدم</th><th class="py-3 px-3 text-right">الاسم</th>
+                    <th class="py-3 px-2 text-center">الدور</th><th class="py-3 px-2 text-center">الصلاحيات</th><th class="py-3 px-2 text-center">إجراءات</th>
+                </tr></thead>
+                <tbody id="users-list">
+                    <tr><td colspan="5" class="p-8 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin text-xl block mb-2"></i>جاري تحميل الحسابات...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ملاحظة -->
+        <p class="text-[11px] text-slate-400 mt-3 text-center"><i class="fa-solid fa-circle-info ml-1"></i> تغيير صلاحيات حساب مسجّل دخوله يتطلب إعادة تسجيل دخوله ليأخذ الصلاحيات الجديدة.</p>
+    </div>
+
+    <!-- ═══════════ نافذة إنشاء/تعديل حساب ═══════════ -->
+    <div id="user-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4" onclick="if(event.target===this) closeUserForm()">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+            <div class="bg-indigo-50 border-b border-indigo-100 p-4 flex justify-between items-center">
+                <h3 id="user-modal-title" class="font-black text-indigo-800">حساب جديد</h3>
+                <button onclick="closeUserForm()" class="w-8 h-8 rounded-full bg-white border border-indigo-200 text-indigo-400 hover:text-indigo-600 transition"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="p-5 space-y-4 overflow-y-auto">
+                <!-- اسم المستخدم + الاسم -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-bold text-slate-500 block mb-1">اسم المستخدم <span class="text-red-400">*</span></label>
+                        <input type="text" id="u-username" placeholder="مثال: mohammed" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition">
+                        <p id="u-username-err" class="text-[11px] text-red-500 font-bold mt-1 hidden"></p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-500 block mb-1">الاسم الظاهر</label>
+                        <input type="text" id="u-name" placeholder="مثال: محمد أحمد" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition">
+                    </div>
+                </div>
+                <!-- كلمة السر + الدور -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs font-bold text-slate-500 block mb-1">كلمة السر <span id="u-pass-hint" class="text-slate-400 font-normal"></span></label>
+                        <input type="password" id="u-password" autocomplete="new-password" placeholder="••••••" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition">
+                        <p id="u-pass-err" class="text-[11px] text-red-500 font-bold mt-1 hidden"></p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-500 block mb-1">الدور</label>
+                        <select id="u-role" onchange="onRoleChange()" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-400 outline-none bg-white cursor-pointer">
+                            <option value="admin">مدير (كل الصلاحيات)</option>
+                            <option value="supervisor">مدير الشركة (كل شيء عدا العقود والمخزون والحسابات)</option>
+                            <option value="financial">محاسب (واجهة مالية)</option>
+                            <option value="user" selected>مخصّص</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- الصلاحيات -->
+                <div id="u-perms-section">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-bold text-slate-500">الصفحات المسموح بها</label>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="selectAllPerms()" class="text-[10px] font-bold text-indigo-500 hover:text-indigo-700 transition">تحديد الكل</button>
+                            <span class="text-slate-300">|</span>
+                            <button type="button" onclick="deselectAllPerms()" class="text-[10px] font-bold text-slate-400 hover:text-slate-600 transition">إلغاء الكل</button>
+                        </div>
+                    </div>
+                    <div id="u-perms" class="grid grid-cols-2 gap-1.5"></div>
+                    <p id="u-perms-count" class="text-[11px] text-slate-400 mt-1.5"><span id="u-perms-num">0</span> صفحة محددة</p>
+                </div>
+                <p id="u-perms-admin" class="hidden text-xs text-emerald-600 font-bold bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2"><i class="fa-solid fa-circle-check ml-1"></i> المدير لديه صلاحية كل الصفحات تلقائياً.</p>
+
+                <!-- رسالة خطأ عامة -->
+                <div id="u-form-error" class="hidden text-sm font-bold text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2 text-center"></div>
+
+                <!-- زر الحفظ -->
+                <button onclick="saveUser()" id="u-save" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-indigo-200 transition">
+                    <i class="fa-solid fa-check"></i> حفظ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../core/db.js?v=20240619"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            const s = document.createElement('script');
+            s.src = '.js';
+            document.body.appendChild(s);
+        });
+    </script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

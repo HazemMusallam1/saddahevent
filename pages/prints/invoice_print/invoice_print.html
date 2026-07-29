@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <title>فاتورة ضريبية - صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../assets/css/invoice_print.css">
+</head>
+
+<body>
+
+    <div
+        class="no-print fixed top-0 w-full bg-gray-900 text-white p-4 text-center z-50 shadow-lg flex justify-center gap-4">
+        <button onclick="window.print()"
+            class="bg-brand-600 px-6 py-2 rounded-lg font-bold hover:bg-brand-500 transition shadow-lg flex items-center gap-2"><i
+                class="fa-solid fa-print"></i> طباعة الفاتورة</button>
+        <button onclick="window.close()"
+            class="bg-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-600 transition">إغلاق</button>
+    </div>
+
+    <div id="page-container">
+
+        <!-- الترويسة -->
+        <header class="flex justify-between items-start mb-8 pb-6 border-b-2 border-brand-100">
+            <div class="flex items-center gap-5">
+                <div
+                    class="bg-brand-50 p-3 rounded-2xl border-2 border-brand-100 w-24 h-24 flex items-center justify-center overflow-hidden">
+                    <img src="../../../assets/images/logo.png" alt="Saddah Logo" class="object-contain w-full h-full">
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-dark tracking-tight leading-none mb-1">صده لتأجير الأثاث</h1>
+                    <p class="text-xs font-bold text-brand-600 tracking-[0.2em] font-inter uppercase">Saddah Event
+                        Rentals</p>
+                    <div class="flex flex-col gap-1 mt-3 text-[10px] text-muted font-medium">
+                        <p class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-500"></i>
+                            جدة، المملكة العربية السعودية</p>
+                        <p class="flex items-center gap-1.5 font-inter"><i class="fa-solid fa-phone text-brand-500"></i>
+                            0533020161</p>
+                        <p class="flex items-center gap-1.5 font-inter"><i
+                                class="fa-solid fa-envelope text-brand-500"></i> saddahevent@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-end pt-2 gap-4">
+                <div class="text-right">
+                    <h2 class="text-3xl font-black text-dark uppercase tracking-wider mb-1 font-inter">TAX INVOICE</h2>
+                    <p
+                        class="text-sm text-muted font-bold mb-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-md inline-block">
+                        فاتورة ضريبية</p>
+                </div>
+                <!-- QR Code (محاكاة) -->
+                <div class="qr-placeholder rounded-lg shadow-sm border-2 border-brand-50">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Saddah%20Tax%20Invoice"
+                        alt="QR Code">
+                </div>
+            </div>
+        </header>
+
+        <!-- تفاصيل الفاتورة والعميل -->
+        <section class="grid grid-cols-2 gap-8 mb-8">
+            <!-- بيانات الفاتورة -->
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <h3
+                    class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-3 border-b border-gray-200 pb-1">
+                    تفاصيل الفاتورة</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs">رقم الفاتورة:</span>
+                        <span class="font-bold text-dark font-inter" id="inv-num">#INV-0000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs">تاريخ الإصدار:</span>
+                        <span class="font-bold text-dark font-inter" id="inv-date">YYYY-MM-DD</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs">حالة الدفع:</span>
+                        <span class="font-bold text-emerald-600" id="inv-status">مدفوع جزئياً</span>
+                    </div>
+                    <div class="flex justify-between pt-2 border-t border-gray-200">
+                        <span class="text-muted text-xs">الرقم الضريبي للمورد:</span>
+                        <span class="font-bold text-dark font-inter">300000000000003</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بيانات العميل -->
+            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <h3
+                    class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-3 border-b border-gray-100 pb-1">
+                    فاتورة إلى (العميل)</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs" id="label-name">الاسم:</span>
+                        <span class="font-bold text-gray-800" id="c-name">...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs" id="label-id">رقم الهوية:</span>
+                        <span class="font-bold text-gray-800 font-inter" id="c-id">...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs">العنوان:</span>
+                        <span class="font-bold text-gray-800" id="c-address">...</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-muted text-xs">تاريخ التوريد:</span>
+                        <span class="font-bold text-gray-800 font-inter" id="supply-date">...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- جدول المنتجات -->
+        <section class="mb-6 flex-grow">
+            <div class="rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-800 text-white text-[10px] uppercase font-bold tracking-wide">
+                            <th class="py-3 px-4 text-right">وصف السلعة / الخدمة</th>
+                            <th class="py-3 px-2 text-center w-20">الكمية</th>
+                            <th class="py-3 px-2 text-center w-24">سعر الوحدة</th>
+                            <th class="py-3 px-2 text-center w-24">المجموع (غير شامل)</th>
+                            <th class="py-3 px-4 text-center w-28">الإجمالي (شامل)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-body" class="text-xs divide-y divide-gray-100 bg-white"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- الملخص المالي -->
+        <section class="flex justify-end mb-12">
+            <div class="w-full max-w-sm">
+                <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+                    <!-- المجموع قبل الضريبة -->
+                    <div class="flex justify-between p-3 border-b border-gray-200">
+                        <span class="text-xs text-gray-600">المجموع (غير شامل الضريبة)</span>
+                        <span class="text-sm font-bold text-dark font-inter" id="subtotal-excl">0.00</span>
+                    </div>
+
+                    <!-- الضريبة -->
+                    <div class="flex justify-between p-3 border-b border-gray-200 bg-white">
+                        <span class="text-xs text-gray-600">ضريبة القيمة المضافة <span id="vat-rate-display"
+                                class="font-inter text-[10px] bg-gray-100 px-1 rounded">15%</span></span>
+                        <span class="text-sm font-bold text-dark font-inter" id="vat-val">0.00</span>
+                    </div>
+
+                    <!-- المجموع الكلي -->
+                    <div class="flex justify-between p-3 bg-gray-800 text-white">
+                        <span class="text-sm font-bold">الإجمالي المستحق (Total)</span>
+                        <span class="text-lg font-black font-inter" id="total-val">0.00</span>
+                    </div>
+                </div>
+
+                <!-- تفاصيل الدفع -->
+                <div class="mt-4 space-y-2">
+                    <div
+                        class="flex justify-between p-2 rounded bg-emerald-50 border border-emerald-100 text-emerald-800">
+                        <span class="text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-check-circle"></i>
+                            المدفوع (عربون/سداد)</span>
+                        <span class="text-sm font-black font-inter" id="paid-val">0.00</span>
+                    </div>
+                    <div class="flex justify-between p-2 rounded bg-red-50 border border-red-100 text-red-800">
+                        <span class="text-xs font-bold flex items-center gap-1"><i
+                                class="fa-solid fa-circle-exclamation"></i> المبلغ المتبقي</span>
+                        <span class="text-sm font-black font-inter" id="remaining-val">0.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- التذييل -->
+        <footer class="mt-auto pt-6 border-t border-gray-200 text-center text-[10px] text-gray-400">
+            <p class="font-bold text-gray-500 mb-1">شكراً لتعاملكم معنا</p>
+            <p>مؤسسة صده لتأجير الأثاث - سجل تجاري: 4030494529 - جدة</p>
+            <p class="font-inter mt-1">Generated by Saddah System</p>
+        </footer>
+    </div>
+
+    
+    <script src="../../../core/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            let s_invoice_print = document.createElement('script');
+            s_invoice_print.src = '.js';
+            document.body.appendChild(s_invoice_print);
+        });
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+
+
+
+

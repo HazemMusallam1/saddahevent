@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700;900&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Print Styles */
+/* Print Styles */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+        /* Full bleed, we handle padding in container */
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        font-size: 12px;
+        /* Slightly smaller base font for A4 */
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    /* Hide interactive buttons in print (Open Link, etc) */
+    a[target="_blank"] {
+        display: none !important;
+    }
+
+    /* Report Container - Full Width reset */
+    #report-container {
+        box-shadow: none !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        border: none !important;
+        min-height: auto !important;
+    }
+
+    /* Header - Force Dark Background */
+    header {
+        background-color: #0f172a !important;
+        /* bg-slate-900 */
+        color: white !important;
+        padding: 20px !important;
+    }
+
+    header h1,
+    header p,
+    header span {
+        color: white !important;
+        -webkit-text-fill-color: white !important;
+    }
+
+    /* Decorative blurs cause issues in print, hide them */
+    header .blur-\[100px\],
+    header .blur-\[80px\] {
+        display: none !important;
+    }
+
+    /* Backgrounds */
+    .bg-slate-50 {
+        background-color: #f8fafc !important;
+    }
+
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .bg-slate-900 {
+        background-color: #0f172a !important;
+    }
+
+    .bg-indigo-50 {
+        background-color: #eef2ff !important;
+    }
+
+    .bg-purple-50 {
+        background-color: #faf5ff !important;
+    }
+
+    .bg-red-50 {
+        background-color: #fef2f2 !important;
+    }
+
+    .bg-emerald-100 {
+        background-color: #d1fae5 !important;
+    }
+
+    /* Layout Grids - Ensure 2 columns fit */
+    .grid {
+        display: grid !important;
+    }
+
+    .md\:grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    .md\:col-span-2 {
+        grid-column: span 2 !important;
+    }
+
+    /* Tables */
+    table th {
+        background-color: #0f172a !important;
+        color: white !important;
+    }
+
+    table td,
+    table th {
+        padding: 8px !important;
+    }
+
+    /* Financial Split */
+    .lg\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    /* Avoid page breaks inside important elements */
+    .page-break-inside-avoid,
+    tr,
+    .bg-white.rounded-2xl {
+        page-break-inside: avoid;
+    }
+}

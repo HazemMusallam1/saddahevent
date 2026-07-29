@@ -1,0 +1,92 @@
+{
+  "id": 1784228489259,
+  "date": "١٦‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "رولان محمد مباركي",
+    "id": "1144338512",
+    "phone": "532783048",
+    "address": "الحرازات",
+    "deliveryDate": "2026-07-17",
+    "deliveryTime": "17:00",
+    "pickupDate": "2026-07-18",
+    "pickupTime": "10:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "350.00",
+    "total": "350.00 ريال",
+    "delivery": "0",
+    "deposit": "50",
+    "securityDeposit": "100",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 350,
+    "deductedInsurance": 0,
+    "received": 450,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 350,
+    "remaining": -100,
+    "netProfit": 350,
+    "includeTax": false,
+    "operatingShare": 35,
+    "distributableProfit": 315,
+    "fuel": 0
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولة مدخل بتنسيق جاهز ( لون موف)",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "350.00",
+      "totalOriginal": "350.00",
+      "unitPrice": 350,
+      "originalPrice": 350
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [
+    {
+      "desc": "باقي المبلغ + تأمين",
+      "amount": 400,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ + تأمين - 400 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ + تأمين - 400 ريال تحويل.pdf",
+        "name": "باقي المبلغ + تأمين - 400 ريال تحويل.pdf",
+        "link": "باقي المبلغ + تأمين - 400 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:16:19.172Z"
+    },
+    {
+      "desc": "عربون",
+      "amount": 50,
+      "method": "transfer",
+      "fileLink": "عربون - 50 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 50 ريال تحويل.pdf",
+        "name": "عربون - 50 ريال تحويل.pdf",
+        "link": "عربون - 50 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:17:14.619Z"
+    }
+  ],
+  "returns": []
+}

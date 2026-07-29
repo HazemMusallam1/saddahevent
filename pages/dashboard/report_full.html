@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø´Ø§Ù…Ù„ - ØµØ¯Ù‡</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/app-responsive.css?v=2">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/tailwind.css?v=2">
+    <link rel="stylesheet" href="../../assets/css/contract_print.css">
+    <style>
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0.5cm;
+            }
+
+            body {
+                font-size: 9pt;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            #page-container {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            table th,
+            table td {
+                padding: 4px 6px;
+            }
+        }
+
+        /* Screen only tweaks */
+        body {
+            background-color: #f3f4f6;
+        }
+
+        #page-container {
+            background: white;
+            min-height: 21cm;
+            width: 29.7cm;
+            /* A4 Landscape width */
+            margin: 2rem auto;
+            padding: 2cm;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        /* Table Styles matching contract */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        thead tr {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        th {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 8px;
+        }
+
+        td {
+            border-bottom: 1px solid #f3f4f6;
+            padding: 8px;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        @media print {
+            .col-actions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div
+        class="no-print fixed top-0 w-full bg-gray-900 text-white p-4 text-center z-50 shadow-lg flex justify-center gap-4">
+        <a href="../../index.html"
+            class="bg-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-600 transition">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+        <button onclick="window.print()"
+            class="bg-brand-600 px-6 py-2 rounded-lg font-bold hover:bg-brand-500 transition shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-print"></i> Ø·Ø¨Ø§Ø¹Ø© Ø§Ù„ØªÙ‚Ø±ÙŠØ±
+        </button>
+    </div>
+
+    <!-- Padding for fixed header -->
+    <div class="h-20 no-print"></div>
+
+    <div id="page-container">
+
+        <!-- Ø§Ù„ØªØ±ÙˆÙŠØ³Ø© -->
+        <header class="flex justify-between items-start mb-8 pb-6 border-b-2 border-brand-100">
+            <div class="flex items-center gap-5">
+                <div
+                    class="bg-brand-50 p-2 rounded-xl border border-brand-100 w-20 h-20 flex items-center justify-center overflow-hidden">
+                    <img src="../../assets/images/logo.png" alt="Saddah Logo" class="object-contain w-full h-full">
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-dark tracking-tight leading-none mb-1">ØµØ¯Ù‡ Ù„ØªØ£Ø¬ÙŠØ± Ø§Ù„Ø£Ø«Ø§Ø«</h1>
+                    <p class="text-[10px] font-bold text-brand-600 tracking-[0.2em] font-inter uppercase">Saddah Event
+                        Rentals</p>
+                    <div class="flex flex-col gap-1 mt-2 text-[9px] text-muted font-medium">
+                        <p class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-500"></i> Ø¬Ø¯Ø©
+                            - Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©</p>
+                        <p class="flex items-center gap-1.5 font-inter"><i class="fa-solid fa-phone text-brand-500"></i>
+                            0533020161</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right pt-2">
+                <h2 class="text-2xl font-black text-dark uppercase tracking-wider mb-1 font-inter">FINANCIAL REPORT</h2>
+                <p
+                    class="text-xs text-muted font-bold mb-4 bg-brand-50 text-brand-700 px-3 py-1 rounded-md inline-block">
+                    Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ù…Ø§Ù„ÙŠ Ø§Ù„Ø´Ø§Ù…Ù„</p>
+                <div class="text-right space-y-1">
+                    <p class="text-[10px] text-muted uppercase font-bold tracking-wider">ØªØ§Ø±ÙŠØ® Ø§Ù„ØªÙ‚Ø±ÙŠØ±</p>
+                    <p class="text-sm font-bold text-dark font-inter" id="report-date-full">YYYY-MM-DD</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters (No Print) -->
+        <div class="no-print mb-6 bg-gray-50 p-3 rounded-lg border border-gray-200 flex flex-wrap gap-3 items-end">
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 mb-1">Ù…Ù† ØªØ§Ø±ÙŠØ®</label>
+                <input type="date" id="filter-start" class="bg-white border border-gray-300 rounded px-2 py-1 text-xs">
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold text-gray-500 mb-1">Ø¥Ù„Ù‰ ØªØ§Ø±ÙŠØ®</label>
+                <input type="date" id="filter-end" class="bg-white border border-gray-300 rounded px-2 py-1 text-xs">
+            </div>
+            <button onclick="applyFilters()"
+                class="bg-gray-800 text-white px-4 py-1.5 rounded text-xs font-bold hover:bg-gray-700 transition">ØªØ­Ø¯ÙŠØ«</button>
+            <button onclick="resetFilters()" class="text-gray-500 text-xs font-bold hover:text-gray-800 underline">Ø¥Ø¹Ø§Ø¯Ø©
+                ØªØ¹ÙŠÙŠÙ†</button>
+        </div>
+
+        <!-- Summary Boxes -->
+        <section class="mb-8 grid grid-cols-4 gap-4">
+            <div class="border border-gray-200 rounded-lg p-3 text-center bg-gray-50">
+                <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">Ø¹Ø¯Ø¯ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</p>
+                <p class="text-xl font-black text-gray-800 font-inter" id="total-count">0</p>
+            </div>
+            <div class="border border-blue-100 rounded-lg p-3 text-center bg-blue-50/50">
+                <p class="text-[10px] text-blue-600 font-bold uppercase mb-1">Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</p>
+                <p class="text-xl font-black text-blue-800 font-inter" id="total-income">0.00</p>
+            </div>
+            <div class="border border-red-100 rounded-lg p-3 text-center bg-red-50/50">
+                <p class="text-[10px] text-red-600 font-bold uppercase mb-1">Ø§Ù„Ù…ØµØ±ÙˆÙØ§Øª</p>
+                <p class="text-xl font-black text-red-800 font-inter" id="total-expenses">0.00</p>
+            </div>
+            <div class="border border-emerald-200 rounded-lg p-3 text-center bg-emerald-50">
+                <p class="text-[10px] text-emerald-600 font-bold uppercase mb-1">ØµØ§ÙÙŠ Ø§Ù„Ø£Ø±Ø¨Ø§Ø­</p>
+                <p class="text-2xl font-black text-emerald-700 font-inter" id="total-profit">0.00</p>
+            </div>
+        </section>
+
+        <!-- Table -->
+        <section class="mb-8">
+            <div class="rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                <table class="w-full">
+                    <thead
+                        class="bg-slate-50 text-slate-500 text-[9px] uppercase font-bold tracking-wider border-b border-slate-200">
+                        <tr>
+                            <th class="py-2 px-1 text-right w-12">ID</th>
+                            <th class="py-2 px-1 text-right">Ø§Ù„Ø¹Ù…ÙŠÙ„</th>
+                            <th class="py-2 px-1 text-center w-20">Ø§Ù„ØªØ§Ø±ÙŠØ®</th>
+                            <th class="py-2 px-1 text-left w-20">Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</th>
+                            <th class="py-2 px-1 text-left w-20 text-red-400">Ø§Ù„Ù…ØµØ±ÙˆÙØ§Øª</th>
+                            <th class="py-2 px-1 text-left w-20 text-emerald-400">Ø§Ù„ØµØ§ÙÙŠ</th>
+                            <th class="py-2 px-1 text-center w-16">Ø§Ù„Ø­Ø§Ù„Ø©</th>
+                            <th class="py-2 px-1 text-center w-12 col-actions no-print">Ø¥Ø¬Ø±Ø§Ø¡</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-table-body" class="bg-white">
+                        <!-- Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Signature Footer -->
+        <footer class="flex justify-between items-end mt-auto pt-8 border-t-2 border-gray-800 page-break-inside-avoid">
+            <div class="text-center w-1/3">
+                <p class="text-xs font-bold text-gray-500 mb-8">Ø§Ù„Ù…Ø­Ø§Ø³Ø¨</p>
+                <div class="h-px bg-gray-300 w-32 mx-auto"></div>
+            </div>
+            <div class="text-center w-1/3">
+                <p class="text-xs font-bold text-gray-500 mb-8">Ø§Ù„Ù…Ø¯ÙŠØ± Ø§Ù„Ù…Ø§Ù„ÙŠ</p>
+                <div class="h-px bg-gray-300 w-32 mx-auto"></div>
+            </div>
+            <div class="text-center w-1/3">
+                <p class="text-xs font-bold text-gray-500 mb-8">Ø§Ù„Ø§Ø¹ØªÙ…Ø§Ø¯</p>
+                <div class="h-px bg-gray-300 w-32 mx-auto"></div>
+            </div>
+        </footer>
+
+        <div class="mt-4 text-[9px] text-center text-gray-400 font-mono">
+            System Generated Report â€¢ <span id="footer-timestamp"></span>
+        </div>
+
+    </div>
+
+    <!-- Hidden element for date logic compatibility -->
+    <div id="footer-date" class="hidden"></div>
+    
+    <script>
+        document.getElementById('footer-timestamp').innerText = new Date().toLocaleString('en-GB');
+    </script>
+    <script src="../../js/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            let s_report_full = document.createElement('script');
+            s_report_full.src = 'js/report_full.js';
+            document.body.appendChild(s_report_full);
+        });
+    </script>
+<script src="../../js/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+

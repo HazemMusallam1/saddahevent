@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f8fafc;
+    /* Lighter, cleaner background */
+    min-height: 100vh;
+    color: #1e293b;
+    /* Darker text for contrast */
+}
+
+/* Glassmorphism -> Clean Modern Cards */
+.glass-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+}
+
+.glass-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Form Inputs - High Clarity */
+.input-std {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    /* Stronger border */
+    padding: 12px 16px;
+    /* Larger touch target */
+    border-radius: 8px;
+    width: 100%;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    color: #0f172a;
+    /* Deep black-blue */
+    font-size: 14px;
+}
+
+.input-std:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input-std::placeholder {
+    color: #94a3b8;
+}
+
+/* Stepper - Integrated & subtle */
+.stepper-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+.stepper-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 0;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.step-item {
+    position: relative;
+    z-index: 1;
+    background: #f1f5f9;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #64748b;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.step-item.active {
+    background: #2563eb;
+    color: white;
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Custom Buttons - Professional Action */
+.btn-save {
+    background: #2563eb;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 15px -3px rgba(37, 99, 235, 0.4);
+}
+
+/* Section Labels - Clear Hierarchy */
+.section-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #64748b;
+    /* Neutral but distinct */
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.section-label i {
+    color: #2563eb;
+}
+
+/* Decor Items List */
+.decor-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+
+.decor-item:hover {
+    background: #fff;
+    border-color: #cbd5e1;
+}
+
+/* Table Refinements */
+table th {
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 0.3px;
+}
+
+table tr:hover td {
+    background-color: #f8fafc;
+}

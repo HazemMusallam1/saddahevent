@@ -1,0 +1,57 @@
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f8fafc;
+}
+
+.btn-icon {
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    transform: translateY(-2px);
+}
+
+/* أنماط أزرار الحالة */
+.status-btn {
+    @apply px-3 py-1 rounded-full text-[10px] font-bold border transition-all duration-200 flex items-center gap-1 cursor-pointer select-none;
+}
+
+.status-btn.active {
+    @apply bg-emerald-100 text-emerald-700 border-emerald-200 shadow-sm;
+}
+
+.status-btn.inactive {
+    @apply bg-white text-slate-400 border-slate-200 hover:bg-slate-50;
+}
+
+/* زر خاص لإرجاع التأمين */
+.return-btn.active {
+    @apply bg-blue-100 text-blue-700 border-blue-200 shadow-sm;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #print-area,
+    #print-area * {
+        visibility: visible;
+    }
+
+    #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+        padding: 20px;
+    }
+
+    /* Hide URL printing in some browsers */
+    @page {
+        size: A4;
+        margin: 10mm;
+    }
+}

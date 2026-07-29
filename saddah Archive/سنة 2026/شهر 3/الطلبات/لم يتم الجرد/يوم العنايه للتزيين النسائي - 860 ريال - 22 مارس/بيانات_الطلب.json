@@ -1,0 +1,64 @@
+{
+    "id": 1773845076232,
+    "date": "١٨‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "company",
+        "name": "يوم العنايه للتزيين النسائي",
+        "id": "4030213567",
+        "phone": "",
+        "address": "ابحر",
+        "deliveryDate": "2026-03-22",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-03-23",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "747.83",
+        "total": "860.00 ريال",
+        "delivery": "0",
+        "deposit": "",
+        "securityDeposit": "200",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "22 كرسي ",
+            "desc": "كراسي ديور ",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "747.83",
+            "totalOriginal": "747.83",
+            "unitPrice": 747.83,
+            "originalPrice": 747.83
+        }
+    ],
+    "expenses": [],
+    "paymentProofs": [],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 860,
+        "deductedInsurance": 0,
+        "received": 0,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 0,
+        "totalExpenses": 0,
+        "revenue": 860,
+        "remaining": 860,
+        "netProfit": 860,
+        "includeTax": true,
+        "operatingShare": 86,
+        "distributableProfit": 774,
+        "fuel": 0
+    }
+}

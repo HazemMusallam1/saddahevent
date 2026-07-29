@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ØªÙ‚Ø±ÙŠØ± Ø§Ù„Ø·Ù„Ø¨ - ØµØ¯Ù‡</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/report_single.css">
+    <link rel="stylesheet" href="../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navbar / No Print -->
+    <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../orders/orders.html"
+                class="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition font-bold text-sm">
+                <i class="fa-solid fa-arrow-right"></i> Ø¹ÙˆØ¯Ø© Ù„Ù„Ø£Ø±Ø´ÙŠÙ
+            </a>
+            <div class="flex gap-2">
+                <button onclick="window.print()"
+                    class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-700 transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Ø·Ø¨Ø§Ø¹Ø© / PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Container -->
+    <div id="report-container"
+        class="max-w-5xl mx-auto my-8 bg-white shadow-2xl shadow-slate-200/50 rounded-3xl overflow-hidden min-h-[900px] border border-slate-100/50">
+
+        <!-- Premium Header -->
+        <header class="relative p-10 bg-slate-900 text-white overflow-hidden">
+            <!-- decorative background elements -->
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-[100px] opacity-20 -mr-20 -mt-20 pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-48 h-48 bg-purple-500 rounded-full blur-[80px] opacity-20 -ml-16 -mb-16 pointer-events-none">
+            </div>
+
+            <div class="relative z-10 flex justify-between items-start">
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center p-2 shadow-lg hover:scale-105 transition duration-500">
+                            <img src="../../assets/images/logo.png" alt="Saddah"
+                                class="w-full h-full object-contain brightness-0 invert drop-shadow-md">
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-black tracking-tight text-white mb-1" id="main-report-title">ØµØ¯Ù‡
+                                Ù„ØªØ£Ø¬ÙŠØ± Ù„ÙˆØ§Ø²Ù… Ø§Ù„Ù…Ù†Ø§Ø³Ø¨Ø§Øª
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end text-right">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 backdrop-blur-sm mb-4">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                        <span class="text-xs font-bold text-indigo-100 tracking-wider uppercase">ØªÙ‚Ø±ÙŠØ± Ø·Ù„Ø¨</span>
+                    </div>
+
+                    <div class="flex flex-col items-end gap-1">
+                        <p class="text-xs text-slate-400 uppercase font-bold tracking-widest">Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨</p>
+                        <p class="text-4xl font-black font-inter tracking-tight text-white" id="order-id">#---</p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-2 font-inter opacity-60" id="report-date">---</p>
+                    <div id="header-actions" class="mt-4"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Summary Cards -->
+        <div class="p-10 -mt-8 relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Client Card -->
+                <div
+                    class="md:col-span-2 bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/40 border border-slate-100 flex flex-col justify-between group hover:border-indigo-100 transition duration-300">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                                <i class="fa-solid fa-user-tie text-lg"></i>
+                            </div>
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¹Ù…ÙŠÙ„</h3>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-800 mb-2 truncate" id="client-name">---</h2>
+                    </div>
+                    <div class="flex flex-col gap-2 mt-2 pt-4 border-t border-slate-50">
+                        <p
+                            class="flex items-center gap-3 text-sm text-slate-600 group-hover:text-indigo-600 transition">
+                            <i class="fa-solid fa-phone text-slate-300 w-4"></i>
+                            <span id="client-phone" class="font-inter font-medium">---</span>
+                        </p>
+                        <p class="flex items-center gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-map-pin text-slate-300 w-4"></i>
+                            <span id="client-address" class="truncate">---</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/40 border border-slate-100 flex flex-col justify-between group hover:border-purple-100 transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
+                            <i class="fa-regular fa-calendar-check text-lg"></i>
+                        </div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ø§Ù„Ù…Ø®Ø·Ø· Ø§Ù„Ø²Ù…Ù†ÙŠ</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="relative pl-4 border-r-2 border-slate-100">
+                            <div
+                                class="absolute top-1.5 -right-[5px] w-2 h-2 rounded-full bg-green-400 ring-2 ring-white">
+                            </div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-0.5">Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</p>
+                            <p class="text-sm font-bold text-slate-700 font-inter leading-tight" id="date-start">---</p>
+                        </div>
+                        <div class="relative pl-4 border-r-2 border-slate-100">
+                            <div
+                                class="absolute top-1.5 -right-[5px] w-2 h-2 rounded-full bg-red-400 ring-2 ring-white">
+                            </div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-0.5">Ø§Ù„Ø¥Ø±Ø¬Ø§Ø¹</p>
+                            <p class="text-sm font-bold text-slate-700 font-inter leading-tight" id="date-end">---</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Status -->
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/40 border border-slate-100 flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-slate-50 to-white opacity-50"></div>
+                    <div class="relative z-10 w-full">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Ø­Ø§Ù„Ø© Ø§Ù„Ø·Ù„Ø¨</h3>
+                        <div id="order-status-container" class="flex flex-col items-center gap-2">
+                            <span id="order-status"
+                                class="px-5 py-2 rounded-full text-sm font-black tracking-wide shadow-sm transform transition hover:scale-105">
+                                ---
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="px-10 mb-10">
+            <h3 class="text-base font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-list-check text-sm"></i>
+                </span>
+                <span>Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</span>
+            </h3>
+
+            <div class="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-800 text-white">
+                        <tr>
+                            <th class="py-4 px-6 text-right font-bold tracking-wide w-[40%] text-xs uppercase">
+                                Ø§Ù„ÙˆØµÙ</th>
+                            <th class="py-4 px-6 text-center font-bold tracking-wide text-xs uppercase">Ø§Ù„Ø¹Ø¯Ø¯</th>
+                            <th class="py-4 px-6 text-center font-bold tracking-wide text-xs uppercase">Ø³Ø¹Ø± Ø§Ù„ÙˆØ­Ø¯Ø©</th>
+                            <th class="py-4 px-6 text-center font-bold tracking-wide text-xs uppercase">Ø§Ù„Ø¶Ø±ÙŠØ¨Ø© (15%)
+                            </th>
+                            <th class="py-4 px-6 text-center font-bold tracking-wide text-xs uppercase">Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-table-body" class="divide-y divide-slate-100 bg-white">
+                        <!-- JS Rendered -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Financial Section (Split Design) -->
+        <div class="px-10 mb-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- Left: Payment Status & Notes -->
+            <div class="space-y-6">
+                <!-- Payment Progress -->
+                <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Ø­Ø§Ù„Ø© Ø§Ù„Ø¯ÙØ¹</h4>
+
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <p class="text-sm font-bold text-emerald-600 mb-1">Ø§Ù„Ù…Ø¯ÙÙˆØ¹</p>
+                            <p class="text-2xl font-black text-emerald-600 font-inter tracking-tight" id="val-paid">0.00
+                            </p>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xs font-bold text-red-400 mb-1">Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ</p>
+                            <p class="text-lg font-bold text-red-500 font-inter tracking-tight" id="val-remaining">0.00
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="h-3 bg-slate-100 rounded-full overflow-hidden flex shadow-inner">
+                        <div id="bar-paid" class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-full shadow-lg"
+                            style="width: 0%"></div>
+                        <div id="bar-remaining" class="bg-slate-200 h-full" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <!-- Proofs Preview (Mini) -->
+                <div class="page-break-inside-avoid">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-paperclip"></i> Ø§Ù„Ù…Ø±ÙÙ‚Ø§Øª
+                    </h4>
+                    <div id="proofs-container" class="grid grid-cols-2 gap-3">
+                        <!-- JS Rendered -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: The Bill -->
+            <div class="bg-slate-50/50 rounded-2xl border border-slate-200 p-8 shadow-sm">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center text-sm py-1">
+                        <span class="font-medium text-slate-500">Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹ Ø§Ù„ÙØ±Ø¹ÙŠ</span>
+                        <span class="font-bold text-slate-700 font-inter tabular-nums text-base"
+                            id="val-subtotal">0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm py-1" id="row-delivery">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-slate-500">Ø§Ù„ØªÙˆØµÙŠÙ„</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-600">Flat
+                                Rate</span>
+                        </div>
+                        <span class="font-bold text-slate-700 font-inter tabular-nums text-base"
+                            id="val-delivery">0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm py-1 hidden" id="row-discount">
+                        <span class="font-medium text-emerald-600">Ø§Ù„Ø®ØµÙ…</span>
+                        <span class="font-bold text-emerald-600 font-inter tabular-nums text-base"
+                            id="val-discount">-0.00</span>
+                    </div>
+                </div>
+
+                <div class="my-6 border-t-2 border-dashed border-slate-200"></div>
+
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="block text-sm font-bold text-slate-400 uppercase tracking-wider">Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ
+                            Ø§Ù„Ù†Ù‡Ø§Ø¦ÙŠ</span>
+                        <span class="text-xs text-slate-400 font-light">Ø´Ø§Ù…Ù„ Ø§Ù„Ø¶Ø±ÙŠØ¨Ø© (15%)</span>
+                    </div>
+                    <span class="text-4xl font-black text-slate-800 font-inter tracking-tighter"
+                        id="val-total">0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expenses (Fully Visible) -->
+        <div class="px-10 mb-12 page-break-inside-avoid">
+            <div class="border-t border-slate-100 pt-8">
+                <div id="expenses-wrap" class="bg-red-50/50 border border-red-100 rounded-2xl p-6">
+                    <h3 class="text-sm font-bold text-red-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-receipt"></i> Ø§Ù„Ù…ØµØ±ÙˆÙØ§Øª ÙˆØ§Ù„Ø£Ø±Ø¨Ø§Ø­
+                    </h3>
+                    <div id="expenses-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <!-- JS Rendered -->
+                    </div>
+                    <div class="border-t border-red-100 pt-4 flex justify-between items-center mt-4">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-red-700 uppercase mb-1">Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ù…ØµØ±ÙˆÙØ§Øª</span>
+                            <span class="text-xl font-bold text-red-600 font-inter" id="val-expenses">0.00</span>
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <span class="text-xs font-bold text-emerald-600 uppercase mb-1" id="label-profit">ØµØ§ÙÙŠ
+                                Ø§Ù„Ø±Ø¨Ø­</span>
+                            <span class="text-2xl font-black text-emerald-600 font-inter" id="val-profit">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Footer -->
+        <footer class="bg-slate-900 text-slate-400 py-8 text-center border-t border-slate-800">
+
+            <p class="text-xs font-medium tracking-wide mb-1">ØªÙ… Ø§Ø³ØªØ®Ø±Ø§Ø¬ Ù‡Ø°Ø§ Ø§Ù„ØªÙ‚Ø±ÙŠØ± Ù…Ù† Ù†Ø¸Ø§Ù… "ØµØ¯Ù‡"</p>
+            <p class="font-inter text-[10px] opacity-40 date-generated">Generated at: ---</p>
+        </footer>
+
+    </div>
+
+    
+    <script src="../../js/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            let s_report_single = document.createElement('script');
+            s_report_single.src = 'js/report_single.js';
+            document.body.appendChild(s_report_single);
+        });
+    </script>
+<script src="../../js/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+

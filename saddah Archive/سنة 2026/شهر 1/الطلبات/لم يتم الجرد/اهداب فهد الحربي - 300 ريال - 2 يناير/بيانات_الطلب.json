@@ -1,0 +1,131 @@
+{
+    "id": 1767095007710,
+    "date": "٣٠‏/١٢‏/٢٠٢٥",
+    "client": {
+        "type": "individual",
+        "name": "اهداب فهد الحربي",
+        "id": "1133418242",
+        "phone": "54 933 0060",
+        "address": "حي الجامعه ، سكن جامعة الملك عبدالعزيز لاعضاء هيئة التدريس ، فيلا D056",
+        "deliveryDate": "2026-01-02",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-01-03",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "217.40",
+        "total": "300.00 ريال",
+        "delivery": 0,
+        "deposit": "100",
+        "securityDeposit": "100",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 100,
+        "fuel": 0
+    },
+    "items": [
+        {
+            "name": "كراسي ديور راتان",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 10,
+            "chairsCount": 0,
+            "total": "217.40"
+        }
+    ],
+    "paymentStatus": {
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true,
+        "securityReturned": true
+    },
+    "isConfirmed": true,
+    "expenses": [
+        {
+            "desc": "افاق يوم الجمعة",
+            "amount": 50,
+            "total": 50,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "افاق يوم الجمعة - 50 ريال",
+                "name": "افاق يوم الجمعة - 50 ريال",
+                "link": ""
+            },
+            "date": "2026-06-09T18:47:02.395Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 100,
+            "method": "transfer",
+            "fileLink": "عربون - 100 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 100 ريال.pdf",
+                "name": "عربون - 100 ريال.pdf",
+                "link": "عربون - 100 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T18:35:45.831Z"
+        },
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 300 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 300 ريال.pdf",
+                "name": "باقي المبلغ + تأمين - 300 ريال.pdf",
+                "link": "باقي المبلغ + تأمين - 300 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T18:37:14.605Z"
+        }
+    ],
+    "isSettled": true,
+    "contractUrl": "https://drive.google.com/drive/folders/1YeiYuNv4KgKGsFoKTxKsd9Ze-WkPhlSN?usp=drive_link",
+    "status": "تم التسليم",
+    "computed": {
+        "total": 300,
+        "deductedInsurance": 0,
+        "received": 400,
+        "extDelivery": 0,
+        "whDelivery": 100,
+        "otherExpenses": 50,
+        "totalExpenses": 150,
+        "revenue": 300,
+        "remaining": -100,
+        "netProfit": 150,
+        "includeTax": true,
+        "operatingShare": 15,
+        "distributableProfit": 135,
+        "fuel": 0
+    },
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 100,
+        "abdulrazzaqFuel": 0,
+        "warehouseDeliveryReceipt": "إرجاع مستودع - 100 ريال.pdf"
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 100,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 100 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 100 ريال.pdf",
+                "name": "إرجاع التأمين - 100 ريال.pdf",
+                "link": "إرجاع التأمين - 100 ريال.pdf"
+            },
+            "date": "2026-06-09T18:37:37.642Z"
+        }
+    ]
+}

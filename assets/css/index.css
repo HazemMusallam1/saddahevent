@@ -1,0 +1,39 @@
+body {
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    background:
+        radial-gradient(900px 500px at 100% -8%, #ede9fe 0%, rgba(237, 233, 254, 0) 55%),
+        radial-gradient(820px 460px at -8% 6%, #e0f2fe 0%, rgba(224, 242, 254, 0) 50%),
+        #f8fafc;
+    background-attachment: fixed;
+}
+
+/* بطاقات التنقل */
+.card-btn {
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card-btn:hover {
+    transform: translateY(-4px);
+}
+.card-btn:hover .card-chevron {
+    transform: translateX(-5px);
+    opacity: 1;
+}
+
+/* بطاقات المؤشرات (KPI) */
+.kpi-card {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -14px rgba(2, 6, 23, .22);
+}
+
+/* ظهور تدريجي للأرقام عند التحميل */
+.fade-in {
+    animation: fadeIn .5s ease both;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

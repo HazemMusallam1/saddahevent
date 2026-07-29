@@ -1,0 +1,59 @@
+body {
+    font-family: 'Tajawal', sans-serif;
+    -webkit-print-color-adjust: exact;
+    background: #f3f4f6;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    @page {
+        size: A4;
+        margin: 0mm;
+    }
+
+    #page-container {
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+#page-container {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.qr-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}

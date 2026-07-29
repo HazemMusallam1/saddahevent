@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700;900&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 5mm;
+    }
+
+    body {
+        background: white;
+        margin: 0;
+        padding-bottom: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    #report-content {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .shadow-sm,
+    .shadow-xl {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .bg-white {
+        background-color: white !important;
+    }
+
+    table {
+        font-size: 10px;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 4px 8px !important;
+    }
+
+    /* Ensure text colors serve well on paper */
+    .text-slate-500 {
+        color: #64748b !important;
+    }
+
+    .text-slate-800 {
+        color: #1e293b !important;
+    }
+}

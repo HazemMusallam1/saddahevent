@@ -1,0 +1,111 @@
+{
+    "id": 1774212506687,
+    "date": "٢٢‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "الاء عبدالله الغامدي",
+        "id": "1077698395",
+        "phone": "",
+        "address": "حي النعيم",
+        "deliveryDate": "2026-03-23",
+        "deliveryTime": "17:00",
+        "pickupDate": "2026-03-24",
+        "pickupTime": "17:00",
+        "deliveryPerson": "",
+        "returnPerson": ""
+    },
+    "financials": {
+        "subTotal": "1043.48",
+        "total": "1200.00 ريال",
+        "delivery": "0",
+        "deposit": "300",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة مستطيلة",
+            "desc": "قواعد ذهبية و سطح زجاج",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "1043.48",
+            "totalOriginal": "1043.48",
+            "unitPrice": 1043.48,
+            "originalPrice": 1043.48
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "مغاسل الدرة البيضاء",
+            "amount": 20,
+            "total": 20,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "مغاسل الدرة البيضاء - 20 ريال.jpeg",
+                "name": "مغاسل الدرة البيضاء - 20 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:53:57.858Z",
+            "claimId": "1781207637858517"
+        },
+        {
+            "desc": "مؤسسة انجاز للنسخ و التصوير",
+            "amount": 35,
+            "total": 35,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "مؤسسة انجاز للنسخ و التصوير - 35 ريال.pdf",
+                "name": "مؤسسة انجاز للنسخ و التصوير - 35 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:54:33.736Z",
+            "claimId": "1781207673736601"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "عربون - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 300 ريال تحويل.pdf",
+                "name": "عربون - 300 ريال تحويل.pdf",
+                "link": "عربون - 300 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:54:53.929Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "computed": {
+        "total": 1200,
+        "deductedInsurance": 0,
+        "received": 300,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 55,
+        "totalExpenses": 55,
+        "revenue": 1200,
+        "remaining": 900,
+        "netProfit": 1145,
+        "includeTax": true,
+        "operatingShare": 114.5,
+        "distributableProfit": 1030.5,
+        "fuel": 0
+    }
+}

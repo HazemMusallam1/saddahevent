@@ -1,0 +1,146 @@
+{
+    "id": 1774546964789,
+    "date": "٢٦‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "وتين حسين",
+        "id": "1122834474",
+        "phone": "541442104",
+        "address": "ابحر الجنوبية , قاعة القصر الخاص",
+        "deliveryDate": "2026-04-04",
+        "deliveryTime": "21:00",
+        "pickupDate": "2026-04-05",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "539.13",
+        "total": "620.00 ريال",
+        "delivery": 0,
+        "deposit": "300",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 0,
+        "fuel": 30
+    },
+    "items": [
+        {
+            "name": "جهاز ليزر الاسماء",
+            "desc": "جهاز ليزر الاسماء مع عدسة ",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "539.13",
+            "totalOriginal": "539.13",
+            "unitPrice": 539.13,
+            "originalPrice": 539.13
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "قرطاسية روائع ابحر",
+            "amount": 4,
+            "total": 4,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "قرطاسية روائع ابحر - 4 ريال.jpeg",
+                "name": "قرطاسية روائع ابحر - 4 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-10T12:49:19.266Z",
+            "claimId": "1781095759266286"
+        },
+        {
+            "desc": "عدسة ليزر",
+            "amount": 120,
+            "total": 120,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "عدسة ليزر - 120 ريال",
+                "name": "عدسة ليزر - 120 ريال",
+                "link": ""
+            },
+            "date": "2026-06-10T13:29:05.695Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون + باقي المبلغ",
+            "amount": 620,
+            "method": "transfer",
+            "fileLink": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+                "name": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+                "link": "عربون + باقي المبلغ - 620 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T12:48:11.172Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "تأمين - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "تأمين - 300 ريال تحويل.pdf",
+                "name": "تأمين - 300 ريال تحويل.pdf",
+                "link": "تأمين - 300 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T12:48:35.516Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "تم الجرد",
+    "computed": {
+        "total": 620,
+        "deductedInsurance": 0,
+        "received": 920,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 124,
+        "totalExpenses": 124,
+        "revenue": 620,
+        "remaining": 0,
+        "netProfit": 496,
+        "includeTax": true,
+        "operatingShare": 49.6,
+        "distributableProfit": 446.4,
+        "fuel": 30
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 300,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 300 ريال تحويل.pdf",
+                "name": "إرجاع التأمين - 300 ريال تحويل.pdf",
+                "link": "إرجاع التأمين - 300 ريال تحويل.pdf"
+            },
+            "date": "2026-06-10T12:49:45.790Z"
+        }
+    ],
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 30
+    }
+}

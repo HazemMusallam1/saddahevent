@@ -1,0 +1,4 @@
+.env
+*.env
+error_log.txt
+debug.php

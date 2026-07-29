@@ -1,0 +1,146 @@
+{
+    "id": 1773846027469,
+    "date": "١٨‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "ندى القبيسي",
+        "id": "1077911798",
+        "phone": "",
+        "address": "الفارسي بلازا , مقابل ردسي مول ",
+        "deliveryDate": "2026-03-30",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-03-31",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "1043.48",
+        "total": "1200.00 ريال",
+        "delivery": 0,
+        "deposit": "300",
+        "securityDeposit": "500",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 220,
+        "fuel": 30
+    },
+    "items": [
+        {
+            "name": "طاولتين مستطيلة",
+            "desc": "قواعد ذهبية و سطح زجاجي",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 18,
+            "total": "1043.48",
+            "totalOriginal": "1043.48",
+            "unitPrice": 1043.48,
+            "originalPrice": 1043.48
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "افاق",
+            "amount": 50,
+            "total": 50,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "افاق - 50 ريال",
+                "name": "افاق - 50 ريال",
+                "link": ""
+            },
+            "date": "2026-06-11T19:30:44.082Z"
+        },
+        {
+            "desc": "تعويض للعميلة بسبب اختلاف في الطلب",
+            "amount": 200,
+            "total": 200,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "تعويض للعميلة بسبب اختلاف في الطلب - 200 ريال.pdf",
+                "name": "تعويض للعميلة بسبب اختلاف في الطلب - 200 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:31:06.558Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "عربون - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 300 ريال تحويل.pdf",
+                "name": "عربون - 300 ريال تحويل.pdf",
+                "link": "عربون - 300 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:23:42.313Z"
+        },
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 1400,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 1400 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 1400 ريال تحويل.pdf",
+                "name": "باقي المبلغ + تأمين - 1400 ريال تحويل.pdf",
+                "link": "باقي المبلغ + تأمين - 1400 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:24:22.094Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 1200,
+        "deductedInsurance": 0,
+        "received": 1700,
+        "extDelivery": 0,
+        "whDelivery": 220,
+        "otherExpenses": 250,
+        "totalExpenses": 470,
+        "revenue": 1200,
+        "remaining": 200,
+        "netProfit": 730,
+        "includeTax": true,
+        "operatingShare": 73,
+        "distributableProfit": 657,
+        "fuel": 30
+    },
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 220,
+        "abdulrazzaqFuel": 30,
+        "warehouseDeliveryReceipt": "إرجاع مستودع - 220 ريال.pdf"
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين + تعويض للعميلة بقيمة 200 ريال بسبب اختلاف في الطلب",
+            "refund": 700,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين + تعويض للعميلة بقيمة 200 ريال بسبب اختلاف في الطلب - 700 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين + تعويض للعميلة بقيمة 200 ريال بسبب اختلاف في الطلب - 700 ريال تحويل.pdf",
+                "name": "إرجاع التأمين + تعويض للعميلة بقيمة 200 ريال بسبب اختلاف في الطلب - 700 ريال تحويل.pdf",
+                "link": "إرجاع التأمين + تعويض للعميلة بقيمة 200 ريال بسبب اختلاف في الطلب - 700 ريال تحويل.pdf"
+            },
+            "date": "2026-06-11T19:27:00.528Z"
+        }
+    ]
+}

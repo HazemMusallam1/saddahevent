@@ -1,0 +1,621 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الحاسبة - نظام صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/calculator.css">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <style>
+        /* ═══ بطاقة المنتج المميّز: طاولات خشب ═══ */
+        .tbl-card { border:2px solid #e9d5ff; background:linear-gradient(180deg,#faf5ff 0%,#fff 60%); border-radius:16px; padding:13px 14px; box-shadow:0 2px 8px rgba(147,51,234,.07); }
+        .tbl-card-on { border-color:#9333ea; box-shadow:0 4px 14px rgba(147,51,234,.16); }
+        .tbl-head { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+        .tbl-title { display:flex; align-items:center; gap:8px; font-weight:800; color:#1e293b; font-size:15px; }
+        .tbl-star { width:28px; height:28px; border-radius:8px; background:#9333ea; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; box-shadow:0 2px 6px rgba(147,51,234,.4); }
+        .tbl-badge { font-size:9px; font-weight:800; color:#7e22ce; background:#f3e8ff; border:1px solid #e9d5ff; padding:2px 8px; border-radius:20px; }
+        .tbl-qty { display:flex; align-items:center; gap:5px; background:#fff; border:1px solid #e9d5ff; border-radius:10px; padding:4px 6px; }
+        .tbl-step { width:26px; height:26px; border-radius:7px; background:#f3e8ff; color:#7e22ce; display:flex; align-items:center; justify-content:center; transition:all .12s; }
+        .tbl-step:hover { background:#9333ea; color:#fff; }
+        .tbl-qty-input { width:42px; text-align:center; font-weight:800; font-size:16px; color:#1e293b; background:transparent; outline:none; border:none; -moz-appearance:textfield; }
+        .tbl-qty-input::-webkit-outer-spin-button, .tbl-qty-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+        .tbl-hint { margin-top:9px; font-size:11px; color:#a78bfa; font-weight:700; display:flex; align-items:center; gap:6px; }
+        .tbl-body { margin-top:11px; padding-top:11px; border-top:1px solid #f0e6fb; display:flex; flex-direction:column; gap:10px; }
+        .tbl-cap { font-size:11px; font-weight:800; color:#7e22ce; background:#faf5ff; border:1px solid #f0e6fb; border-radius:8px; padding:5px 10px; display:inline-flex; align-items:center; gap:6px; width:fit-content; }
+        .tbl-people-row { display:flex; align-items:center; flex-wrap:wrap; gap:9px; background:#faf5ff; border:1px solid #f0e6fb; border-radius:10px; padding:7px 11px; }
+        .tbl-people-label { font-size:11px; font-weight:800; color:#7e22ce; display:inline-flex; align-items:center; gap:6px; }
+        .tbl-people { display:flex; align-items:center; gap:4px; background:#fff; border:1px solid #e9d5ff; border-radius:9px; padding:3px 5px; }
+        .tbl-pstep { width:24px; height:24px; border-radius:7px; background:#f3e8ff; color:#7e22ce; display:flex; align-items:center; justify-content:center; transition:all .12s; }
+        .tbl-pstep:hover { background:#9333ea; color:#fff; }
+        .tbl-people-input { width:46px; text-align:center; font-weight:800; font-size:15px; color:#1e293b; background:transparent; outline:none; border:none; -moz-appearance:textfield; font-family:'Inter',sans-serif; }
+        .tbl-people-input::-webkit-outer-spin-button, .tbl-people-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+        .tbl-people-note { font-size:10px; font-weight:700; color:#a78bfa; }
+        /* زر إرسال الأسعار + مودال العرض */
+        .tbl-send { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:800; color:#fff; background:#25D366; border:none; padding:5px 11px; border-radius:20px; cursor:pointer; box-shadow:0 2px 6px rgba(37,211,102,.35); transition:all .13s; }
+        .tbl-send:hover { background:#1ebe5b; transform:translateY(-1px); }
+        .offer-cat { width:100%; display:flex; align-items:center; gap:13px; padding:13px 14px; border-radius:13px; border:1.5px solid #e6e9ef; background:#fff; cursor:pointer; transition:all .13s; text-align:right; }
+        .offer-cat:hover { border-color:#9333ea; background:#faf5ff; }
+        .offer-cat .ic { width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+        .offer-cat .t1 { font-weight:800; font-size:13.5px; color:#1e293b; }
+        .offer-cat .t2 { font-size:10.5px; color:#94a3b8; margin-top:1px; }
+        #offer-size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+        .offer-size-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:9px 4px; border-radius:11px; border:1.5px solid #e9d5ff; background:#faf5ff; cursor:pointer; transition:all .12s; }
+        .offer-size-btn:hover { border-color:#9333ea; background:#9333ea; }
+        .offer-size-btn:hover .ppl, .offer-size-btn:hover .tbn { color:#fff; }
+        .offer-size-btn .ppl { font-weight:800; font-size:13px; color:#7e22ce; font-family:'Inter',sans-serif; }
+        .offer-size-btn .tbn { font-size:9.5px; color:#a78bfa; font-weight:700; }
+        .tbl-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }
+        .tbl-pkg { display:flex; align-items:center; justify-content:center; gap:5px; padding:9px 6px; border-radius:10px; border:1.5px solid #e6e9ef; background:#fff; font-size:11.5px; font-weight:800; color:#64748b; cursor:pointer; transition:all .13s; }
+        .tbl-pkg:hover { border-color:#c084fc; color:#7e22ce; }
+        .tbl-pkg-on { border-color:#9333ea; background:#9333ea; color:#fff; box-shadow:0 2px 8px rgba(147,51,234,.3); }
+        .tbl-colors { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+        .tbl-color { font-size:11px; font-weight:700; padding:5px 11px; border-radius:20px; border:1.5px solid #e6e9ef; background:#fff; color:#475569; cursor:pointer; transition:all .12s; }
+        .tbl-color:hover { border-color:#c084fc; }
+        .tbl-color-on { border-color:#9333ea; background:#f3e8ff; color:#7e22ce; }
+        .tbl-custom { width:100%; border:1.5px solid #e9d5ff; border-radius:10px; padding:8px 10px; font-size:12px; font-family:inherit; resize:vertical; outline:none; background:#faf5ff; color:#334155; }
+        .tbl-custom:focus { border-color:#9333ea; background:#fff; }
+        .tbl-price { display:flex; align-items:center; flex-wrap:wrap; gap:10px; padding:10px 12px; border-radius:11px; background:#f3e8ff; border:1px solid #e9d5ff; }
+        .tbl-orig { font-size:12px; color:#94a3b8; text-decoration:line-through; font-family:'Inter',sans-serif; font-weight:700; }
+        .tbl-final { font-size:20px; font-weight:900; color:#7e22ce; font-family:'Inter',sans-serif; }
+        .tbl-save { font-size:10px; font-weight:800; color:#047857; background:#d1fae5; border:1px solid #a7f3d0; padding:3px 9px; border-radius:20px; display:inline-flex; align-items:center; gap:4px; margin-inline-start:auto; }
+        @media (max-width:480px){ .tbl-final{ font-size:18px; } .tbl-save{ margin-inline-start:0; } }
+    </style>
+</head>
+
+<body class="text-gray-800 pb-20">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Header -->
+    <div class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="../../index.html"
+                    class="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors group">
+                    <div class="bg-gray-50 p-2 rounded-lg group-hover:bg-emerald-50 transition"><i
+                            class="fa-solid fa-arrow-right"></i></div>
+                    <span class="font-bold text-sm hidden sm:inline">عودة للرئيسية</span>
+                </a>
+                
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="bg-emerald-50 text-emerald-600 p-2 rounded-lg"><i class="fa-solid fa-calculator"></i></div>
+                <h1 class="font-black text-lg text-gray-800">حاسبة العقود</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- القسم الأيمن: المنتجات -->
+        <div class="lg:col-span-2 space-y-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 min-h-[500px]">
+                <!-- رأس القائمة -->
+                <div class="flex flex-wrap justify-between items-center mb-5 border-b border-gray-100 pb-4 gap-2">
+                    <h2 class="font-bold text-gray-700 flex items-center gap-2">
+                        <i class="fa-solid fa-boxes-stacked text-emerald-500"></i> المنتجات المتاحة
+                    </h2>
+                    <button onclick="confirmResetCart()"
+                        class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded-lg hover:bg-red-100 transition font-bold">
+                        <i class="fa-solid fa-trash-can"></i> تصفير السلة
+                    </button>
+                </div>
+
+                <!-- أدوات التحكم -->
+                <div class="bg-gray-50 p-3 rounded-xl mb-5 space-y-3 border border-gray-100">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-grow">
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"><i
+                                    class="fa-solid fa-search"></i></span>
+                            <input type="text" id="search" placeholder="ابحث باسم المنتج..."
+                                class="input-std pr-10 bg-white" onkeyup="renderItems()">
+                        </div>
+                        <select id="filter-type" class="input-std sm:w-1/3 bg-white cursor-pointer text-xs font-bold"
+                            onchange="renderItems()">
+                            <option value="all">كل التصنيفات</option>
+                        </select>
+                        <button onclick="openCustomItemModal()" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition whitespace-nowrap text-sm flex justify-center items-center gap-2 border border-blue-200">
+                            <i class="fa-solid fa-plus"></i> طلب مخصص
+                        </button>
+                    </div>
+
+                    <div class="flex gap-2 justify-center sm:justify-start">
+                        <button onclick="setSourceFilter('all')" id="btn-src-all"
+                            class="filter-btn active">الكل</button>
+                        <button onclick="setSourceFilter('internal')" id="btn-src-internal"
+                            class="filter-btn inactive">منتجاتنا</button>
+                        <button onclick="setSourceFilter('external')" id="btn-src-external"
+                            class="filter-btn inactive">خارجية</button>
+                    </div>
+                </div>
+
+                <!-- المنتج المميّز (طاولات خشب) — مثبّت بالأعلى -->
+                <div id="featured-container" class="mb-4"></div>
+
+                <!-- شبكة المنتجات -->
+                <div id="items-container" class="space-y-3">
+                    <!-- سيتم تعبئة المنتجات هنا -->
+                </div>
+
+                <!-- رسالة فارغة -->
+                <div id="empty-state" class="hidden text-center py-10">
+                    <div class="text-gray-300 text-5xl mb-3"><i class="fa-solid fa-box-open"></i></div>
+                    <p class="text-gray-400 text-sm">لا توجد منتجات مطابقة للبحث</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الأيسر: تفاصيل العقد -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl shadow-lg border border-emerald-100 p-5 sticky top-24">
+
+                <div class="flex items-center gap-2 mb-4 text-emerald-800 border-b border-emerald-50 pb-2">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <h2 class="text-lg font-black">تفاصيل العقد</h2>
+                </div>
+
+                <!-- 1. بيانات العميل -->
+                <div class="space-y-3 mb-4">
+                    <!-- نوع العميل -->
+                    <div class="grid grid-cols-2 gap-2 bg-gray-100 p-1 rounded-lg">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="client_type" value="individual" class="hidden peer" checked
+                                onchange="toggleClientType()">
+                            <div
+                                class="text-center py-1.5 rounded-md text-xs font-bold text-gray-500 peer-checked:bg-white peer-checked:text-emerald-600 peer-checked:shadow-sm transition-all">
+                                <i class="fa-solid fa-user"></i> فرد
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="client_type" value="company" class="hidden peer"
+                                onchange="toggleClientType()">
+                            <div
+                                class="text-center py-1.5 rounded-md text-xs font-bold text-gray-500 peer-checked:bg-white peer-checked:text-emerald-600 peer-checked:shadow-sm transition-all">
+                                <i class="fa-solid fa-building"></i> شركة
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- حقول الادخال -->
+                    <div id="inputs-individual" class="space-y-2 fade-in">
+                        <input type="text" id="c-name" class="input-std" placeholder="اسم المستأجر (مطلوب)">
+                        <input type="text" id="c-id" class="input-std" placeholder="رقم الهوية">
+                    </div>
+
+                    <div id="inputs-company" class="space-y-2 hidden fade-in">
+                        <input type="text" id="c-comp-name" class="input-std border-blue-200 bg-blue-50/20"
+                            placeholder="اسم المنشأة (مطلوب)">
+                        <input type="text" id="c-vat-id" class="input-std border-blue-200 bg-blue-50/20"
+                            placeholder="الرقم الضريبي">
+                    </div>
+
+                    <div class="flex gap-2">
+                        <div class="relative flex-grow">
+                            <input type="tel" id="c-phone" class="input-std pl-12 text-left dir-ltr font-mono"
+                                placeholder="5xxxxxxxx">
+                            <span
+                                class="absolute left-3 top-2.5 text-gray-400 text-xs font-bold select-none">+966</span>
+                        </div>
+                        <button onclick="openTemplateModal()"
+                            class="bg-emerald-50 text-emerald-600 border border-emerald-200 hover:bg-emerald-100 px-3 rounded-lg transition-colors"
+                            title="نماذج واتساب">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </button>
+                    </div>
+
+                    <input type="text" id="c-address" class="input-std" placeholder="العنوان (الحي/المدينة)">
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="c-delivery" class="input-std text-xs bg-blue-50/30" placeholder="مسؤول التوصيل (اختياري)">
+                        <input type="text" id="c-return" class="input-std text-xs bg-blue-50/30" placeholder="مسؤول الإرجاع (اختياري)">
+                    </div>
+                </div>
+
+                <!-- 2. التواريخ -->
+                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 mb-4 space-y-3">
+                    <!-- خيارات نوع التاريخ -->
+                    <div class="flex items-center gap-4 mb-2 justify-center border-b border-gray-200 pb-2">
+                        <label class="cursor-pointer flex items-center gap-1 text-xs font-bold text-gray-600">
+                            <input type="radio" name="calendar_type" value="gregorian" checked class="text-emerald-600" onchange="toggleCalendarType()">
+                            ميلادي
+                        </label>
+                        <label class="cursor-pointer flex items-center gap-1 text-xs font-bold text-gray-600">
+                            <input type="radio" name="calendar_type" value="hijri" class="text-emerald-600" onchange="toggleCalendarType()">
+                            هجري
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] font-bold text-emerald-600 flex items-center gap-1 mb-1">
+                            <i class="fa-solid fa-truck-ramp-box"></i> التسليم (بداية العقد)
+                        </label>
+                        <div class="flex gap-2 relative">
+                            <input type="date" id="date-start" class="input-std text-xs bg-white flex-1 transition-all">
+                            <input type="text" id="hijri-start" readonly onclick="openHijriModal('start')" class="input-std text-xs bg-white flex-1 hidden text-center dir-ltr cursor-pointer hover:border-emerald-400 transition-colors" placeholder="اختر التاريخ الهجري">
+                            <input type="time" id="time-start" class="input-std text-xs bg-white w-20" value="14:00">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-red-500 flex items-center gap-1 mb-1">
+                            <i class="fa-solid fa-clock-rotate-left"></i> الاستلام (نهاية العقد)
+                        </label>
+                        <div class="flex gap-2 relative">
+                            <input type="date" id="date-end" class="input-std text-xs bg-white flex-1 transition-all">
+                            <input type="text" id="hijri-end" readonly onclick="openHijriModal('end')" class="input-std text-xs bg-white flex-1 hidden text-center dir-ltr cursor-pointer hover:border-emerald-400 transition-colors" placeholder="اختر التاريخ الهجري">
+                            <input type="time" id="time-end" class="input-std text-xs bg-white w-20" value="12:00">
+                        </div>
+                    </div>
+                    <div id="hijri-hint" class="hidden text-[10px] text-gray-400 text-center">أدخل التاريخ الهجري وسيتم تحويله تلقائياً</div>
+                </div>
+
+                <!-- 3. الملخص المالي -->
+                <div class="space-y-2 text-sm mb-6 border-t border-gray-100 pt-4">
+                    <div class="flex justify-between items-center text-gray-500 text-xs">
+                        <span>المجموع الفرعي</span>
+                        <span id="subtotal-display" class="font-bold text-gray-800">0.00</span>
+                    </div>
+
+                    <div class="flex justify-between items-center group">
+                        <span class="flex items-center gap-1 text-xs font-bold text-gray-600"><i
+                                class="fa-solid fa-truck text-gray-400"></i> توصيل</span>
+                        <input type="number" id="del-fee" value="0" class="input-std w-20 py-1 text-center text-xs h-8"
+                            oninput="calcTotal()">
+                    </div>
+
+                    <div class="flex justify-between items-center group">
+                        <span class="flex items-center gap-1 text-xs font-bold text-gray-600"><i
+                                class="fa-solid fa-percent text-gray-400"></i> الضريبة (%)</span>
+                        <div class="flex items-center gap-2 justify-end">
+                            <span id="vat-value-display" class="text-[10px] text-gray-400">0.00</span>
+                            <input type="number" id="vat-rate" value="0"
+                                class="input-std w-16 py-1 text-center text-xs h-8" oninput="calcTotal()">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center group">
+                        <span class="flex items-center gap-1 text-xs font-bold text-emerald-600"><i
+                                class="fa-solid fa-hand-holding-dollar"></i> عربون</span>
+                        <input type="number" id="deposit" value="0"
+                            class="input-std w-20 py-1 text-center text-xs h-8 border-emerald-200 focus:border-emerald-500"
+                            oninput="calcTotal()">
+                    </div>
+
+                    <div class="flex justify-between items-center group">
+                        <span class="flex items-center gap-1 text-xs font-bold text-red-500"><i
+                                class="fa-solid fa-shield-halved"></i> تأمين</span>
+                        <input type="number" id="security-deposit" value="0"
+                            class="input-std w-20 py-1 text-center text-xs h-8 border-red-200 focus:border-red-500">
+                    </div>
+
+                    <div class="flex justify-between items-center pt-3 border-t border-dashed border-gray-300 mt-2">
+                        <span class="font-black text-gray-800">الإجمالي النهائي</span>
+                        <span id="total-display" class="font-black text-xl text-emerald-600">0.00 ريال</span>
+                    </div>
+                </div>
+
+                <!-- 4. المصروفات التشغيلية -->
+                <div class="bg-red-50/30 rounded-lg p-3 border border-red-100 mb-6 space-y-2">
+                    <div class="flex justify-between items-center border-b border-red-100 pb-2">
+                        <span class="text-xs font-bold text-red-600 flex items-center gap-1">
+                            <i class="fa-solid fa-receipt"></i> المصروفات
+                        </span>
+                        <button onclick="addExpenseRow()" class="bg-red-50 text-red-600 border border-red-200 px-2 py-1 rounded hover:bg-red-100 transition text-[10px] font-bold">
+                            <i class="fa-solid fa-plus"></i> إضافة مصروف
+                        </button>
+                    </div>
+                    <div id="expenses-container" class="space-y-2 empty:hidden">
+                        <!-- سيتم تعبئة المصروفات هنا -->
+                    </div>
+                    <div id="expenses-empty" class="text-center text-[10px] text-gray-400 py-1">
+                        لا توجد مصروفات مسجلة
+                    </div>
+                </div>
+
+                <!-- زر الحفظ -->
+                <button onclick="saveAndComplete()"
+                    class="w-full bg-emerald-600 text-white py-3.5 rounded-lg font-bold hover:bg-emerald-700 active:scale-95 transition-all shadow-lg shadow-emerald-100 flex justify-center items-center gap-2 mb-2">
+                    <i class="fa-solid fa-check-circle"></i> إتمام وحفظ الطلب
+                </button>
+
+                <!-- زر إلغاء التعديل -->
+                <button id="cancel-edit-btn" onclick="cancelEditSession()"
+                    class="hidden w-full bg-slate-100 text-slate-600 py-3.5 rounded-lg font-bold hover:bg-slate-200 active:scale-95 transition-all shadow-sm flex justify-center items-center gap-2 mb-4">
+                    <i class="fa-solid fa-times"></i> إلغاء التعديل والعودة للتتبع
+                </button>
+
+                <!-- أزرار الإجراءات (معطلة افتراضياً) -->
+                <div class="grid grid-cols-2 gap-2 opacity-50 pointer-events-none transition-opacity duration-300"
+                    id="print-buttons">
+                    <!-- الفاتورة -->
+                    <div class="flex flex-col gap-1">
+                        <button onclick="openPrint('invoice')"
+                            class="bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg font-bold hover:bg-gray-100 transition text-xs flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-print"></i> فاتورة
+                        </button>
+                        <button onclick="sendWhatsApp('invoice')"
+                            class="bg-emerald-50 text-emerald-700 border border-emerald-100 py-1 rounded-lg font-bold hover:bg-emerald-100 transition text-[10px] flex justify-center items-center gap-1">
+                            <i class="fa-brands fa-whatsapp"></i> إرسال
+                        </button>
+                    </div>
+
+                    <!-- العقد -->
+                    <div class="flex flex-col gap-1">
+                        <button onclick="openPrint('contract')"
+                            class="bg-gray-800 text-white py-2 rounded-lg font-bold hover:bg-gray-700 transition text-xs flex justify-center items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-file-signature"></i> عقد
+                        </button>
+                        <button onclick="sendWhatsApp('contract')"
+                            class="bg-gray-100 text-gray-700 border border-gray-200 py-1 rounded-lg font-bold hover:bg-gray-200 transition text-[10px] flex justify-center items-center gap-1">
+                            <i class="fa-brands fa-whatsapp"></i> إرسال
+                        </button>
+                    </div>
+
+                    <!-- عرض السعر -->
+                    <div class="col-span-2 flex items-center gap-1 mt-1">
+                        <button onclick="openPrint('quotation')"
+                            class="flex-grow bg-blue-50 text-blue-700 border border-blue-200 py-2 rounded-lg font-bold hover:bg-blue-100 transition text-xs flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-file-invoice"></i> عرض سعر
+                        </button>
+                        <button onclick="sendWhatsApp('quotation')"
+                            class="w-10 bg-blue-100 text-blue-800 border border-blue-200 py-2 rounded-lg font-bold hover:bg-blue-200 transition flex justify-center items-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قوالب الواتساب (Modal) -->
+    <div id="template-modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop p-4 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden border border-gray-200 slide-up">
+            <div class="bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-4 flex justify-between items-center">
+                <h3 class="text-white font-bold text-lg flex items-center gap-2"><i class="fa-brands fa-whatsapp"></i>
+                    اختر النموذج</h3>
+                <button onclick="closeTemplateModal()"
+                    class="text-emerald-100 hover:text-white transition bg-white/10 w-8 h-8 rounded-full flex items-center justify-center"><i
+                        class="fa-solid fa-times"></i></button>
+            </div>
+
+            <div class="p-6 space-y-3">
+                <button onclick="sendTemplate('request')"
+                    class="w-full bg-white hover:bg-emerald-50 border border-gray-200 hover:border-emerald-200 text-gray-700 hover:text-emerald-700 p-4 rounded-xl flex items-center gap-4 transition-all group text-right shadow-sm hover:shadow-md">
+                    <div
+                        class="bg-gray-100 p-3 rounded-full group-hover:bg-emerald-100 group-hover:text-emerald-600 transition-colors">
+                        <i class="fa-solid fa-file-signature text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-sm">طلب بيانات عميل</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">لإكمال الحجز وإصدار العقد</div>
+                    </div>
+                </button>
+
+                <button onclick="sendTemplate('offers')"
+                    class="w-full bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-200 text-gray-700 hover:text-blue-700 p-4 rounded-xl flex items-center gap-4 transition-all group text-right shadow-sm hover:shadow-md">
+                    <div
+                        class="bg-gray-100 p-3 rounded-full group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
+                        <i class="fa-solid fa-images text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-sm">عروضنا</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">رابط قائمة العروض والمنتجات</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال إرسال أسعار الطاولات للعميل -->
+    <div id="tables-offer-modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop p-4 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-200 slide-up max-h-[92vh] flex flex-col">
+            <div class="bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-4 flex justify-between items-center shrink-0">
+                <h3 class="text-white font-bold text-lg flex items-center gap-2"><i class="fa-solid fa-paper-plane"></i> إرسال الأسعار للعميل</h3>
+                <button onclick="closeTablesOfferModal()"
+                    class="text-purple-100 hover:text-white transition bg-white/10 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="p-5 overflow-y-auto">
+                <!-- رقم العميل (يُعبّأ تلقائياً من نموذج الطلب) -->
+                <label class="text-xs font-bold text-slate-500 block mb-1">رقم العميل (واتساب)</label>
+                <div class="relative mb-4">
+                    <input type="tel" id="offer-phone" class="input-std pl-12 text-left dir-ltr font-mono w-full" placeholder="5xxxxxxxx">
+                    <span class="absolute left-3 top-2.5 text-gray-400 text-xs font-bold select-none">+966</span>
+                </div>
+
+                <!-- الخطوة 1: اختيار الفئة -->
+                <div id="offer-step1" class="space-y-2.5">
+                    <button onclick="tablesOfferPickCategory('comprehensive')" class="offer-cat">
+                        <span class="ic" style="background:#f3e8ff;color:#9333ea;"><i class="fa-solid fa-layer-group"></i></span>
+                        <span><span class="t1">رسالة شاملة</span><span class="t2">مقارنة الباقات الثلاث لعدد معيّن</span></span>
+                    </button>
+                    <button onclick="tablesOfferPickCategory('premade')" class="offer-cat">
+                        <span class="ic" style="background:#ecfdf5;color:#059669;"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                        <span><span class="t1">تنسيق جاهز</span><span class="t2">سعر باقة التنسيق الجاهز مع الخصم</span></span>
+                    </button>
+                    <button onclick="tablesOfferPickCategory('custom')" class="offer-cat">
+                        <span class="ic" style="background:#fdf2f8;color:#db2777;"><i class="fa-solid fa-crown"></i></span>
+                        <span><span class="t1">تنسيق خاص (VIP)</span><span class="t2">سعر باقة التصميم المخصص</span></span>
+                    </button>
+                    <button onclick="tablesOfferPickCategory('basic')" class="offer-cat">
+                        <span class="ic" style="background:#f8fafc;color:#475569;"><i class="fa-solid fa-table"></i></span>
+                        <span><span class="t1">أسعار أساسية</span><span class="t2">باقة بدون تنسيق (طاولات + كراسي)</span></span>
+                    </button>
+                </div>
+
+                <!-- الخطوة 2: اختيار عدد الأشخاص -->
+                <div id="offer-step2" class="hidden">
+                    <button onclick="tablesOfferBack()" class="text-xs font-bold text-slate-500 hover:text-purple-600 mb-3 flex items-center gap-1.5"><i class="fa-solid fa-arrow-right"></i> رجوع للفئات</button>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-100 px-3 py-1 rounded-full" id="offer-cat-label"></span>
+                        <span class="text-[11px] text-slate-400 font-bold">— اختر عدد الأشخاص</span>
+                    </div>
+                    <div id="offer-size-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Item Modal -->
+    <div id="custom-item-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop p-4 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-200 slide-up">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-4 flex justify-between items-center">
+                <h3 class="text-white font-bold text-lg flex items-center gap-2"><i class="fa-solid fa-plus-circle"></i> إضافة منتج / طلب مخصص</h3>
+                <button onclick="closeCustomItemModal()" class="text-blue-100 hover:text-white transition bg-white/10 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <div class="p-6 space-y-4 max-h-[85vh] overflow-y-auto">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">نوع المنتج</label>
+                        <select id="custom-item-type" class="input-std w-full" onchange="toggleCustomItemFields()">
+                            <option value="خدمة">خدمة</option>
+                            <option value="باقة (طاولة+كراسي)">باقة (طاولة+كراسي)</option>
+                            <option value="قطعة فردية">قطعة فردية</option>
+                            <option value="إضاءة">إضاءة</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">الاسم</label>
+                        <input type="text" id="custom-item-name" class="input-std w-full" placeholder="مثال: تجهيز طاولة كبار الشخصيات">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">تفاصيل / وصف (اختياري)</label>
+                    <input type="text" id="custom-item-desc" class="input-std w-full" placeholder="مثل: كنب ملكي مع ورد طبيعي...">
+                </div>
+
+                <!-- Custom capacity, only visible if package -->
+                <div id="custom-item-capacity-container" class="hidden bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <label class="block text-sm font-bold text-gray-700 mb-1">عدد الكراسي للمجموعة الواحدة</label>
+                    <input type="number" id="custom-item-capacity" class="input-std w-full" placeholder="مثال: 5" value="0">
+                </div>
+
+                <!-- Decor Option -->
+                <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg space-y-3">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="custom-item-has-decor" class="w-4 h-4 text-emerald-600 rounded" onchange="toggleCustomItemFields()">
+                        <span class="text-sm font-bold text-gray-700">هذا المنتج يتضمن خيار تنسيق إضافي</span>
+                    </label>
+                    <div id="custom-item-decor-container" class="hidden pl-6">
+                        <label class="block text-xs font-bold text-gray-500 mb-1">سعر التنسيق الافتراضي (ريال)</label>
+                        <input type="number" id="custom-item-decor-fee" class="input-std w-full font-mono" placeholder="0" value="0">
+                    </div>
+                </div>
+                
+                <label class="flex items-center gap-2 cursor-pointer bg-blue-50 p-3 rounded-lg border border-blue-100 mb-2 hover:bg-blue-100 transition">
+                    <input type="checkbox" id="custom-item-vat-included" class="w-4 h-4 text-blue-600 rounded">
+                    <span class="text-xs font-bold text-blue-800">الأسعار المدخلة أدناه شاملة ضريبة القيمة المضافة (15%)</span>
+                </label>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">السعر الأساسي (قبل الخصم)</label>
+                        <div class="relative">
+                            <input type="number" id="custom-item-price" class="input-std w-full font-mono text-center" placeholder="0" oninput="calcCustomPrices('price')">
+                            <span class="absolute left-3 top-2.5 text-xs text-gray-400">ريال</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">نسبة الخصم %</label>
+                        <div class="relative">
+                            <input type="number" id="custom-item-discount" class="input-std w-full font-mono text-center border-yellow-200 bg-yellow-50/30 text-yellow-700" placeholder="0" oninput="calcCustomPrices('discount')">
+                            <span class="absolute left-3 top-2.5 text-xs text-yellow-600">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-emerald-600 mb-1">السعر النهائي للعميل (بعد الخصم)</label>
+                    <div class="relative">
+                        <input type="number" id="custom-item-final" class="input-std w-full font-bold font-mono text-center text-lg border-emerald-300 bg-emerald-50 text-emerald-700" placeholder="0" oninput="calcCustomPrices('final')">
+                        <span class="absolute left-3 top-3 text-sm text-emerald-600 font-bold">ريال</span>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100">
+                    <button onclick="saveCustomItem()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-md flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-check"></i> إضافة للسلة وحفظ بالمستودع
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التقويم الهجري -->
+    <div id="hijri-modal" class="fixed inset-0 z-[100] hidden flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4 transition-all duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden slide-up border border-gray-100">
+            <div class="bg-emerald-600 px-5 py-4 flex justify-between items-center text-white">
+                <h3 class="font-bold flex items-center gap-2"><i class="fa-regular fa-calendar"></i> اختيار التاريخ الهجري</h3>
+                <button onclick="closeHijriModal()" class="text-emerald-100 hover:text-white transition w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <input type="hidden" id="hijri-modal-target">
+                
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">اليوم</label>
+                        <select id="hijri-day" class="input-std w-full text-center font-bold text-gray-700 bg-gray-50 border border-gray-200 cursor-pointer h-12 rounded-xl focus:border-emerald-500">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">الشهر</label>
+                        <select id="hijri-month" class="input-std w-full text-center font-bold text-gray-700 bg-gray-50 border border-gray-200 cursor-pointer h-12 rounded-xl focus:border-emerald-500">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">السنة</label>
+                        <select id="hijri-year" class="input-std w-full text-center font-bold text-gray-700 bg-gray-50 border border-gray-200 cursor-pointer h-12 rounded-xl focus:border-emerald-500">
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="confirmHijriDate()" class="w-full mt-4 bg-emerald-600 text-white py-3.5 rounded-xl font-bold shadow-md hover:bg-emerald-700 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-check-circle"></i> تأكيد وإدراج التاريخ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../core/fs-helpers-save_v2.js"></script>
+    <script src="../../../core/db.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            // Load calculator script dynamically after DB is ready
+            const script = document.createElement('script');
+            script.src = '.js';
+            document.body.appendChild(script);
+        });
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

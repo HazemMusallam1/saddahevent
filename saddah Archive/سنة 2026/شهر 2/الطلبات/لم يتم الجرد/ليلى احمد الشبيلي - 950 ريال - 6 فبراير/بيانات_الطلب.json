@@ -1,0 +1,137 @@
+{
+    "id": 1769811284778,
+    "date": "٣١‏/١‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "ليلى احمد الشبيلي",
+        "id": "1081167262",
+        "phone": "548007124",
+        "address": "جدة حي المروة ",
+        "deliveryDate": "2026-02-06",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-02-07",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "826.09",
+        "total": "950.00 ريال",
+        "delivery": "0",
+        "deposit": "200",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة عشاء",
+            "desc": "قواعد ذهبية , سطح زجاجي , كراسي ديور | شامل تنسيق",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "826.09",
+            "totalOriginal": "1043.48",
+            "unitPrice": 826.09,
+            "originalPrice": 1043.48
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "توصيل",
+            "amount": 130,
+            "date": "2026-02-16T07:23:47.120Z",
+            "attachment": null
+        },
+        {
+            "desc": "توصيل ",
+            "amount": 120,
+            "date": "2026-02-16T07:24:00.602Z",
+            "attachment": null
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 200,
+            "method": "transfer",
+            "fileLink": "عربون - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 200 ريال تحويل.pdf",
+                "name": "عربون - 200 ريال تحويل.pdf",
+                "link": "عربون - 200 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-17T14:47:23.450Z"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 750,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ - 750 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ - 750 ريال تحويل.pdf",
+                "name": "باقي المبلغ - 750 ريال تحويل.pdf",
+                "link": "باقي المبلغ - 750 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-17T14:47:31.612Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 300,
+            "method": "cash",
+            "fileLink": "تأمين - 300 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "تأمين - 300 ريال كاش",
+                "name": "تأمين - 300 ريال كاش",
+                "link": "تأمين - 300 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-17T14:47:43.192Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "contractUrl": "https://drive.google.com/drive/folders/1SDeB86aPLNC_QPsfQFapKSLPjDlWSAWe?usp=drive_link",
+    "status": "تم التسليم",
+    "computed": {
+        "total": 950,
+        "deductedInsurance": 0,
+        "received": 1250,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 250,
+        "totalExpenses": 250,
+        "revenue": 950,
+        "remaining": 0,
+        "netProfit": 700,
+        "includeTax": true,
+        "operatingShare": 70,
+        "distributableProfit": 630,
+        "fuel": 0
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 300,
+            "deducted": 0,
+            "method": "cash",
+            "fileLink": "إرجاع التأمين - 300 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "إرجاع التأمين - 300 ريال كاش",
+                "name": "إرجاع التأمين - 300 ريال كاش",
+                "link": "إرجاع التأمين - 300 ريال كاش"
+            },
+            "date": "2026-06-17T14:45:56.813Z"
+        }
+    ]
+}

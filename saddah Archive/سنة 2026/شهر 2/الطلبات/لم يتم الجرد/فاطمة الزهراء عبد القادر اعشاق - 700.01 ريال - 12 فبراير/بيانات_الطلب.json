@@ -1,0 +1,121 @@
+{
+    "id": 1770290433786,
+    "date": "٥‏/٢‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "فاطمة الزهراء عبد القادر  اعشاق",
+        "id": "2494800382",
+        "phone": "544147689",
+        "address": "JDMA8420, 8420 Abd Ibn Al Hashas, 2839, Al Marwah District, Jeddah 23542",
+        "deliveryDate": "2026-02-12",
+        "deliveryTime": "13:00",
+        "pickupDate": "2026-02-13",
+        "pickupTime": "13:00"
+    },
+    "financials": {
+        "subTotal": "608.70",
+        "total": "700.01 ريال",
+        "delivery": "0",
+        "deposit": "200",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة عشاء",
+            "desc": "قواعد ذهبية , سطح زجاجي , كراسي ديور | شامل تنسيق",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "608.70",
+            "totalOriginal": "826.09",
+            "unitPrice": 608.7,
+            "originalPrice": 826.09
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "توصيل افاق + عامل",
+            "amount": 130,
+            "date": "2026-02-16T07:25:49.275Z",
+            "attachment": null
+        },
+        {
+            "desc": "توصيل افاق + عامل ",
+            "amount": 50,
+            "date": "2026-02-16T07:25:59.693Z",
+            "attachment": null
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 200,
+            "method": "transfer",
+            "fileLink": "عربون - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 200 ريال تحويل.pdf",
+                "name": "عربون - 200 ريال تحويل.pdf",
+                "link": "عربون - 200 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-17T14:41:54.982Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 300,
+            "method": "cash",
+            "fileLink": "تأمين - 300 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "تأمين - 300 ريال كاش",
+                "name": "تأمين - 300 ريال كاش",
+                "link": "تأمين - 300 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-17T14:42:56.292Z"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 500,
+            "method": "cash",
+            "fileLink": "باقي المبلغ - 500 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "باقي المبلغ - 500 ريال كاش",
+                "name": "باقي المبلغ - 500 ريال كاش",
+                "link": "باقي المبلغ - 500 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-17T14:43:10.973Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "completed": true,
+        "remaining": true,
+        "deposit": true,
+        "security": true
+    },
+    "isConfirmed": true,
+    "contractUrl": "https://drive.google.com/drive/folders/17x4giJ4Fy8edJdh634gKxCkGVfG79hRx?usp=drive_link",
+    "status": "تم التسليم",
+    "computed": {
+        "total": 700.01,
+        "deductedInsurance": 0,
+        "received": 1000,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 180,
+        "totalExpenses": 180,
+        "revenue": 700.01,
+        "remaining": -299.99,
+        "netProfit": 520.01,
+        "includeTax": true,
+        "operatingShare": 52,
+        "distributableProfit": 468.01,
+        "fuel": 0
+    }
+}

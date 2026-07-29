@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأرشيف والتقارير المالية - صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f1f5f9; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Scrollbar styles */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="text-slate-800 pb-20">
+
+    <!-- Header -->
+    <div class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                <a href="../../index.html" class="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition group">
+                    <div class="bg-slate-50 p-2 rounded-lg group-hover:bg-indigo-50 transition"><i class="fa-solid fa-arrow-right"></i></div>
+                    <span class="font-bold text-sm hidden sm:inline">عودة للرئيسية</span>
+                </a>
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-50 p-3 rounded-xl text-indigo-600 border border-indigo-100 shadow-sm">
+                        <i class="fa-solid fa-vault text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-black text-xl text-slate-800">الجرد المالي</h1>
+                        <p class="text-xs text-slate-400 font-bold">إدارة الجرد، والتقارير المالية الشاملة</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters & Export -->
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div class="flex items-center gap-2">
+                    <select id="year-filter" onchange="filterArchive()" class="bg-white border border-slate-200 text-slate-700 font-bold text-sm rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm cursor-pointer min-w-[100px]">
+                        <!-- Years will be populated by JS -->
+                    </select>
+                    <select id="month-filter" onchange="filterArchive()" class="bg-white border border-slate-200 text-slate-700 font-bold text-sm rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm cursor-pointer min-w-[140px]">
+                        <option value="all">كل الشهور</option>
+                        <option value="01">يناير</option>
+                        <option value="02">فبراير</option>
+                        <option value="03">مارس</option>
+                        <option value="04">أبريل</option>
+                        <option value="05">مايو</option>
+                        <option value="06">يونيو</option>
+                        <option value="07">يوليو</option>
+                        <option value="08">أغسطس</option>
+                        <option value="09">سبتمبر</option>
+                        <option value="10">أكتوبر</option>
+                        <option value="11">نوفمبر</option>
+                        <option value="12">ديسمبر</option>
+                    </select>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="massCreateFoldersFS()" class="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2 font-bold text-sm" title="إنشاء مجلدات للطلبات القديمة الموثقة">
+                        <i class="fa-solid fa-folder-plus"></i>
+                        <span class="hidden sm:inline">تهيئة المجلدات</span>
+                    </button>
+                    <button onclick="exportArchiveToExcel()" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl shadow-md transition flex items-center justify-center gap-2 font-bold text-sm" title="تصدير تقرير إكسيل للشهر المحدد">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span class="hidden sm:inline">تصدير إكسيل</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+
+        <!-- Financial Dashboard Cards -->
+        <div>
+            <h2 class="text-slate-500 font-black text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-pie text-indigo-400"></i> المؤشرات المالية <span id="current-month-label" class="text-indigo-600">للشهر الحالي</span></h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- إجمالي الإيرادات -->
+                <div class="glass-card rounded-2xl p-5 border-t-4 border-t-emerald-500">
+                    <p class="text-xs font-bold text-slate-400 mb-1">الإيرادات المحصلة</p>
+                    <h3 class="text-2xl font-black text-slate-800" id="stat-revenue">0 <span class="text-sm text-slate-400">ر.س</span></h3>
+                </div>
+                
+                <!-- المصروفات -->
+                <div class="glass-card rounded-2xl p-5 border-t-4 border-t-red-500">
+                    <p class="text-xs font-bold text-slate-400 mb-1">المصروفات المباشرة</p>
+                    <h3 class="text-2xl font-black text-slate-800" id="stat-expenses">0 <span class="text-sm text-slate-400">ر.س</span></h3>
+                </div>
+
+                <!-- الديون -->
+                <div class="glass-card rounded-2xl p-5 border-t-4 border-t-orange-500">
+                    <p class="text-xs font-bold text-slate-400 mb-1">المبالغ المتبقية (ديون)</p>
+                    <h3 class="text-2xl font-black text-slate-800" id="stat-debts">0 <span class="text-sm text-slate-400">ر.س</span></h3>
+                </div>
+
+                <!-- صافي الربح -->
+                <div class="glass-card rounded-2xl p-5 border-t-4 border-t-blue-500 md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-50 to-transparent">
+                    <p class="text-xs font-bold text-blue-600 mb-1">صافي أرباح الشهر</p>
+                    <h3 class="text-3xl font-black text-blue-700" id="stat-profit">0 <span class="text-sm text-blue-500">ر.س</span></h3>
+                </div>
+            </div>
+
+            <!-- Distribution Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400">ميزانية التشغيل (10%)</p>
+                        <p class="text-lg font-black text-slate-700" id="stat-op">0</p>
+                    </div>
+                    <div class="bg-slate-50 w-10 h-10 rounded-full flex items-center justify-center text-slate-400"><i class="fa-solid fa-gears"></i></div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400">المجموعة الأولى (30%)</p>
+                        <p class="text-lg font-black text-indigo-600" id="stat-g1">0</p>
+                    </div>
+                    <div class="bg-indigo-50 w-10 h-10 rounded-full flex items-center justify-center text-indigo-400"><i class="fa-solid fa-users"></i></div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400">المجموعة الثانية (30%)</p>
+                        <p class="text-lg font-black text-indigo-600" id="stat-g2">0</p>
+                    </div>
+                    <div class="bg-indigo-50 w-10 h-10 rounded-full flex items-center justify-center text-indigo-400"><i class="fa-solid fa-users"></i></div>
+                </div>
+                <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400">المجموعة الثالثة (30%)</p>
+                        <p class="text-lg font-black text-indigo-600" id="stat-g3">0</p>
+                    </div>
+                    <div class="bg-indigo-50 w-10 h-10 rounded-full flex items-center justify-center text-indigo-400"><i class="fa-solid fa-users"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table / List -->
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-slate-500 font-black text-lg flex items-center gap-2"><i class="fa-solid fa-boxes-stacked text-indigo-400"></i> قائمة طلبات الشهر</h2>
+                <div class="flex gap-2 text-sm font-bold">
+                    <span class="flex items-center gap-1 text-emerald-600"><i class="fa-solid fa-circle text-[8px]"></i> تم الجرد: <span id="count-audited">0</span></span>
+                    <span class="flex items-center gap-1 text-orange-500"><i class="fa-solid fa-circle text-[8px]"></i> قيد الانتظار: <span id="count-pending">0</span></span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold text-xs uppercase">
+                            <tr>
+                                <th class="py-4 px-6">رقم الطلب</th>
+                                <th class="py-4 px-6">العميل</th>
+                                <th class="py-4 px-6">التاريخ</th>
+                                <th class="py-4 px-6">إجمالي الطلب</th>
+                                <th class="py-4 px-6">المصروفات</th>
+                                <th class="py-4 px-6">صافي الربح</th>
+                                <th class="py-4 px-6">المتبقي للعميل</th>
+                                <th class="py-4 px-6">الحالة</th>
+                                <th class="py-4 px-6 text-center">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="archive-table-body" class="divide-y divide-slate-100">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="empty-state" class="hidden p-10 text-center">
+                    <div class="text-slate-300 mb-2"><i class="fa-solid fa-folder-open text-5xl"></i></div>
+                    <h3 class="text-lg font-bold text-slate-600">لا توجد طلبات في هذا الشهر</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Auditing/Details Modal -->
+    <div id="audit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transform scale-95 transition-transform duration-300" id="audit-modal-content">
+            <div class="bg-slate-50 border-b border-slate-200 p-5 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-black text-slate-800" id="audit-title">تفاصيل وجرد الطلب</h3>
+                    <p class="text-xs font-bold text-slate-500 mt-1" id="audit-subtitle">مراجعة مالية شاملة</p>
+                </div>
+                <button onclick="closeAuditModal()" class="bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-slate-200 shadow-sm">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6">
+                <!-- Smart Warnings Box (Hidden by default) -->
+                <div id="audit-warnings-container" class="hidden bg-red-50 border border-red-200 rounded-xl p-4">
+                    <p class="text-xs font-bold text-red-700 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> تنبيهات قبل الجرد:</p>
+                    <ul id="audit-warnings-list" class="list-disc list-inside text-[11px] text-red-600 space-y-1 font-bold">
+                    </ul>
+                </div>
+
+                <!-- Client Info & Order Status -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold mb-1">العميل</p>
+                        <p class="text-sm font-black text-slate-800" id="audit-client-name">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold mb-1">تاريخ التسليم</p>
+                        <p class="text-sm font-bold text-slate-700" id="audit-delivery-date">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold mb-1">حالة الطلب</p>
+                        <p class="text-sm font-bold px-3 py-1 rounded bg-white border border-slate-200" id="audit-order-status">-</p>
+                    </div>
+                </div>
+
+                <!-- Financials Overview -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-100 text-center">
+                        <p class="text-[10px] font-bold text-emerald-600 mb-1">إجمالي الإيرادات</p>
+                        <p class="text-lg font-black text-emerald-700" id="am-revenue">0</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-xl p-3 border border-blue-100 text-center">
+                        <p class="text-[10px] font-bold text-blue-600 mb-1">المبلغ المستلم</p>
+                        <p class="text-lg font-black text-blue-700" id="am-received">0</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-3 border border-orange-100 text-center">
+                        <p class="text-[10px] font-bold text-orange-600 mb-1">المتبقي للتحصيل</p>
+                        <p class="text-lg font-black text-orange-700" id="am-remaining">0</p>
+                    </div>
+                    <div class="bg-red-50 rounded-xl p-3 border border-red-100 text-center">
+                        <p class="text-[10px] font-bold text-red-600 mb-1">المصروفات والمسترجع</p>
+                        <p class="text-lg font-black text-red-700" id="am-expenses">0</p>
+                    </div>
+                    <div class="bg-indigo-50 rounded-xl p-3 border border-indigo-100 text-center col-span-2 md:col-span-1 shadow-sm">
+                        <p class="text-[10px] font-bold text-indigo-600 mb-1">صافي الربح</p>
+                        <p class="text-lg font-black text-indigo-700" id="am-net-profit">0</p>
+                    </div>
+                </div>
+
+                <!-- زر احتساب الضريبة ضمن الربح -->
+                <div class="flex items-center justify-center mt-3">
+                    <button id="am-tax-btn" onclick="window.ArchiveActions.toggleAuditTax()"
+                        class="px-4 py-2 rounded-lg text-xs font-bold border border-purple-200 bg-white text-purple-600 hover:bg-purple-50 transition flex items-center gap-2"
+                        title="عند التفعيل: تُحتسب الضريبة (15%) ضمن صافي الربح لهذا الطلب — للحالات التي لا تُدفع فيها الضريبة للدولة.">
+                        <i class="fa-solid fa-percent"></i> <span id="am-tax-label">غير شامل الضريبة</span>
+                    </button>
+                </div>
+
+                <!-- Detailed Lists Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Items -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-3">
+                        <h4 class="text-xs font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2"><i class="fa-solid fa-box text-blue-500 ml-1"></i> المنتجات والخدمات</h4>
+                        <div id="audit-items-list" class="space-y-2 max-h-32 overflow-y-auto custom-scrollbar"></div>
+                    </div>
+                    
+                    <!-- Payments -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-3">
+                        <h4 class="text-xs font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2"><i class="fa-solid fa-money-bill-wave text-emerald-500 ml-1"></i> دفعات العميل</h4>
+                        <div id="audit-payments-list" class="space-y-2 max-h-32 overflow-y-auto custom-scrollbar"></div>
+                    </div>
+
+                    <!-- Expenses -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-3">
+                        <h4 class="text-xs font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2"><i class="fa-solid fa-receipt text-red-500 ml-1"></i> المصروفات</h4>
+                        <div id="audit-expenses-list" class="space-y-2 max-h-32 overflow-y-auto custom-scrollbar"></div>
+                    </div>
+
+                    <!-- Returns -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-3">
+                        <h4 class="text-xs font-bold text-slate-800 mb-2 border-b border-slate-100 pb-2"><i class="fa-solid fa-rotate-left text-orange-500 ml-1"></i> المرتجعات</h4>
+                        <div id="audit-returns-list" class="space-y-2 max-h-32 overflow-y-auto custom-scrollbar"></div>
+                    </div>
+                </div>
+
+                <!-- Shortcuts to Tracking actions -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-xs font-bold text-slate-500 mb-3"><i class="fa-solid fa-link"></i> إجراءات سريعة لتسوية الطلب قبل الجرد:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <a href="../orders/order_tracking.html" id="link-tracking" class="bg-white border border-slate-200 text-slate-700 text-xs font-bold py-2 px-3 rounded-lg hover:bg-slate-100 transition text-center flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-satellite-dish text-emerald-500"></i> شاشة التتبع
+                        </a>
+                        <button id="btn-view-contract" class="bg-white border border-slate-200 text-slate-700 text-xs font-bold py-2 px-3 rounded-lg hover:bg-slate-100 transition text-center flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-file-contract text-blue-500"></i> عرض العقد
+                        </button>
+                        <button id="btn-edit-order" class="bg-white border border-slate-200 text-slate-700 text-xs font-bold py-2 px-3 rounded-lg hover:bg-slate-100 transition text-center flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-pen text-orange-500"></i> تعديل الطلب
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-2">* لتسجيل الدفعات، المرتجعات، أو المصروفات، استخدم (شاشة التتبع) ثم عُد لتأكيد الجرد.</p>
+                </div>
+
+                <!-- Status Check -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <div class="relative">
+                            <input type="checkbox" id="audit-confirm-check" class="sr-only">
+                            <div class="w-10 h-6 bg-slate-200 rounded-full shadow-inner transition-colors duration-300" id="audit-toggle-bg"></div>
+                            <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full shadow transition-transform duration-300" id="audit-toggle-dot"></div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">حالة الجرد</p>
+                            <p class="text-[10px] text-slate-500">بتفعيل هذا الخيار سيتم نقل الطلب لقائمة (تم الجرد) وإغلاقه مالياً.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-2">
+                <button onclick="closeAuditModal()" class="px-5 py-2 rounded-xl font-bold text-slate-500 hover:bg-slate-200 transition text-sm">إلغاء</button>
+                <button onclick="window.ArchiveActions.saveAuditStatus()" class="px-6 py-2 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-check"></i> حفظ التعديلات
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../../core/fs-helpers-save_v2.js"></script>
+    
+
+
+    <script src="../../../core/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            let s_archive = document.createElement('script');
+            s_archive.src = '.js';
+            document.body.appendChild(s_archive);
+            let s_excel_export = document.createElement('script');
+            s_excel_export.src = '.js';
+            document.body.appendChild(s_excel_export);
+        });
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,101 @@
+{
+  "id": 1783707953570,
+  "date": "١٠‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "مرام محمد جابر",
+    "id": "2168700942",
+    "phone": "560068286",
+    "address": "درة العروس",
+    "deliveryDate": "2026-07-25",
+    "deliveryTime": "19:00",
+    "pickupDate": "2026-07-26",
+    "pickupTime": "07:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "750.00",
+    "total": "750.00 ريال",
+    "delivery": "0",
+    "deposit": "200",
+    "securityDeposit": "200",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 750,
+    "deductedInsurance": 0,
+    "received": 200,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 750,
+    "remaining": 550,
+    "netProfit": 750,
+    "includeTax": false,
+    "operatingShare": 75,
+    "distributableProfit": 675,
+    "fuel": 0
+  },
+  "status": "مكتمل",
+  "items": [
+    {
+      "name": "تنسيق فقط لطاولة 10 اشخاص (الوان الربيع))",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "350.00",
+      "totalOriginal": "350.00",
+      "unitPrice": 350,
+      "originalPrice": 350
+    },
+    {
+      "name": "كراسي ديور",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 10,
+      "chairsCount": 0,
+      "total": "250.00",
+      "totalOriginal": "250.00",
+      "unitPrice": 25,
+      "originalPrice": 25
+    },
+    {
+      "name": "لوحة + ستاند",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "150.00",
+      "totalOriginal": "150.00",
+      "unitPrice": 150,
+      "originalPrice": 150
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 200 ريال تحويل.pdf",
+        "name": "عربون - 200 ريال تحويل.pdf",
+        "link": "عربون - 200 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:48:20.112Z"
+    }
+  ],
+  "returns": [],
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  }
+}

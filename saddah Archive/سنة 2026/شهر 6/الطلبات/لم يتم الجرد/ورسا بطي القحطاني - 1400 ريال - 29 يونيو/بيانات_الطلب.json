@@ -1,0 +1,191 @@
+{
+  "id": 1780168133280,
+  "date": "٣٠‏/٥‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "ورسا بطي القحطاني",
+    "id": "1122533308",
+    "phone": "507027795",
+    "address": " الخمرة ",
+    "deliveryDate": "2026-06-29",
+    "deliveryTime": "13:00",
+    "pickupDate": "2026-06-30",
+    "pickupTime": "13:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "1217.39",
+    "total": "1400.00 ريال",
+    "delivery": "0",
+    "deposit": "200",
+    "securityDeposit": "300",
+    "vatRate": "15",
+    "includeTaxInProfit": true
+  },
+  "paymentStatus": {
+    "securityReturned": false,
+    "deposit": true,
+    "completed": true,
+    "remaining": true
+  },
+  "isConfirmed": true,
+  "computed": {
+    "total": 1400,
+    "deductedInsurance": 0,
+    "received": 1700,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 515.74,
+    "totalExpenses": 515.74,
+    "revenue": 1400,
+    "remaining": -300,
+    "netProfit": 884.26,
+    "includeTax": true,
+    "operatingShare": 88.43,
+    "distributableProfit": 795.83,
+    "fuel": 30
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 30
+  },
+  "status": "مكتمل",
+  "items": [
+    {
+      "name": "طاولة زجاج مع ١٠ كراسي مع تنسيق + طاولة مدخل مع تنسيق",
+      "desc": "طاولة زجاج مع ١٠ كراسي مع تنسيق + طاولة مدخل مع تنسيق (لون التنسيق : لون زهري  )",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "1217.39",
+      "totalOriginal": "1217.39",
+      "unitPrice": 1217.39,
+      "originalPrice": 1217.39
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "شركة طيف البستان التجارية",
+      "amount": 17.4,
+      "total": 20.01,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "شركة طيف البستان التجارية - 20.01 ريال.jpeg",
+        "name": "شركة طيف البستان التجارية - 20.01 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-06-26T15:56:33.144Z",
+      "claimId": "178248939314467"
+    },
+    {
+      "desc": "شركة تولا الحديثة التجارية",
+      "amount": 343.8,
+      "total": 395.37,
+      "paid": 395,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "شركة تولا الحديثة التجارية - 395.37 ريال.jpeg",
+        "name": "شركة تولا الحديثة التجارية - 395.37 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-06-26T15:58:09.347Z",
+      "claimId": "1782489489347897"
+    },
+    {
+      "desc": "مؤسسة انجاز للنسخ و التصوير ",
+      "amount": 20,
+      "total": 20,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "مؤسسة انجاز للنسخ و التصوير - 20 ريال.jpeg",
+        "name": "مؤسسة انجاز للنسخ و التصوير - 20 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-06-29T14:53:21.636Z"
+    },
+    {
+      "desc": "دهان للمدخل",
+      "amount": 45.36,
+      "total": 45.36,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "دهان للمدخل - 45.36 ريال.jpeg",
+        "name": "دهان للمدخل - 45.36 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-06-29T14:54:45.102Z"
+    },
+    {
+      "desc": "مغاسل الدرة البيضاء",
+      "amount": 35,
+      "total": 35,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "folder",
+        "data": "مغاسل الدرة البيضاء - 35 ريال",
+        "name": "مغاسل الدرة البيضاء - 35 ريال",
+        "link": ""
+      },
+      "date": "2026-06-29T14:55:14.090Z"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 500,
+      "method": "transfer",
+      "fileLink": "عربون - 500 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 500 ريال تحويل.pdf",
+        "name": "عربون - 500 ريال تحويل.pdf",
+        "link": "عربون - 500 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-30T14:38:36.339Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 900,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 900 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ - 900 ريال تحويل.pdf",
+        "name": "باقي المبلغ - 900 ريال تحويل.pdf",
+        "link": "باقي المبلغ - 900 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-30T14:39:11.833Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 300,
+      "method": "cash",
+      "fileLink": "تأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 300 ريال كاش",
+        "name": "تأمين - 300 ريال كاش",
+        "link": "تأمين - 300 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-30T14:39:22.634Z"
+    }
+  ],
+  "returns": []
+}

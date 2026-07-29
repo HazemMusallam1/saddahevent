@@ -1,0 +1,78 @@
+{
+  "id": 1784408453347,
+  "date": "١٩‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "فاطمة العتيبي",
+    "id": "-",
+    "phone": "506554448",
+    "address": "حي المنارات ابحر",
+    "deliveryDate": "2026-07-26",
+    "deliveryTime": "13:00",
+    "pickupDate": "2026-07-27",
+    "pickupTime": "14:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "600.00",
+    "total": "600.00 ريال",
+    "delivery": "0",
+    "deposit": "100",
+    "securityDeposit": "100",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 600,
+    "deductedInsurance": 0,
+    "received": 100,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 600,
+    "remaining": 500,
+    "netProfit": 600,
+    "includeTax": false,
+    "operatingShare": 60,
+    "distributableProfit": 540,
+    "fuel": 0
+  },
+  "items": [
+    {
+      "name": "ثلاث طاولات خشب مع كراسي + مفرش",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 15,
+      "total": "600.00",
+      "totalOriginal": "600.00",
+      "unitPrice": 600,
+      "originalPrice": 600
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 100,
+      "method": "transfer",
+      "fileLink": "عربون - 100 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 100 ريال تحويل.pdf",
+        "name": "عربون - 100 ريال تحويل.pdf",
+        "link": "عربون - 100 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:45:06.497Z"
+    }
+  ],
+  "returns": [],
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  }
+}

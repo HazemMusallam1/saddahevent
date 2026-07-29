@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700;900&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+@media print {
+    body {
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    #monthly-container {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 5mm;
+    }
+
+    .break-inside-avoid {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        border: 1px solid #cbd5e1 !important;
+        /* slate-300 */
+    }
+
+    /* Hide scrollbars in print */
+    .overflow-y-auto {
+        overflow: visible !important;
+        max-height: none !important;
+    }
+
+    /* Grid adjustments for print */
+    .grid-cols-1 {
+        display: block;
+    }
+
+    .md\:grid-cols-3 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .md\:col-span-1 {
+        width: 30%;
+        padding-right: 10px;
+    }
+
+    .md\:col-span-2 {
+        width: 70%;
+    }
+}

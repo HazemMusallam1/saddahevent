@@ -1,0 +1,43 @@
+# ============================================================================
+#  نظام صده — إعدادات الاستضافة (هوستنقر / LiteSpeed-Apache)
+# ============================================================================
+
+# 0) تشغيل عرض أخطاء PHP (للتطوير — أوقفه في الإنتاج)
+php_flag display_errors On
+php_value error_reporting 32767
+
+RewriteEngine On
+
+# 1) فرض HTTPS (يحوّل أي زيارة http إلى https)
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 2) توجيه /api/db إلى واجهة PHP — تبقى الواجهة الأمامية تستخدم /api/db كما هي
+RewriteRule ^api/db/?$ api/core/db.php [L,QSA]
+
+# 3) منع تحميل ملف قاعدة البيانات وملفات الحسابات والنسخ المؤقتة مباشرة (حماية)
+<FilesMatch "^saddah_database">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^auth_(users|rate)\.json">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.(tmp|rar|bat)$">
+  Require all denied
+</FilesMatch>
+
+# 4) ترويسات أمان أساسية
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# 5) حماية صفحات HTML من جهة الخادم (الدخول بدون جلسة → تسجيل الدخول)
+#    login.html مستثناة لأنها صفحة تسجيل الدخول نفسها
+RewriteCond %{REQUEST_URI} \.html$ [NC]
+RewriteCond %{REQUEST_URI} !login\.html$ [NC]
+RewriteRule ^(.+\.html)$ auth_check.php?page=$1 [L,QSA]
+
+# 6) صفحة البداية — index.html عبر الحماية
+RewriteRule ^$ auth_check.php?page=index.html [L]
+

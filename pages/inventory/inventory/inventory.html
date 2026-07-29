@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المخزون - نظام صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../assets/css/inventory.css">
+    <style>
+        .step-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="pb-20">
+
+    <!-- Header -->
+    <div class="glass-header sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition group">
+                <div
+                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-blue-50 transition">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+                <span class="font-bold text-sm">عودة للرئيسية</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <div
+                    class="bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-xl text-gray-800 leading-tight">إدارة المخزون</h1>
+                    <p class="text-xs text-gray-400 font-bold">المنتجات والخدمات</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 py-10 space-y-10">
+
+        <!-- Stepper -->
+        <div class="stepper-container">
+            <div class="stepper-line"></div>
+            <div class="step-item active cursor-pointer" onclick="goToStep(1)" id="step-indicator-1"><i
+                    class="fa-solid fa-info-circle ml-2"></i>معلومات المنتج</div>
+            <div class="step-item cursor-pointer" onclick="goToStep(2)" id="step-indicator-2"><i
+                    class="fa-solid fa-coins ml-2"></i>الأسعار والكميات</div>
+            <div class="step-item cursor-pointer" onclick="goToStep(3)" id="step-indicator-3"><i
+                    class="fa-solid fa-wand-magic-sparkles ml-2"></i>التجهيز</div>
+        </div>
+
+        <!-- إضافة منتج جديد Card -->
+        <div class="glass-card p-1" id="form-container">
+            <div class="bg-white rounded-[15px] p-8">
+                <div class="flex justify-between items-center mb-8 border-b border-gray-100 pb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-gray-800 flex items-center gap-3" id="form-title">
+                            <span class="text-blue-600">إضافة</span> منتج جديد
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1 font-medium">أدخل تفاصيل المنتج الجديد لإضافته للنظام</p>
+                    </div>
+
+                    <button onclick="resetForm()"
+                        class="text-sm text-red-500 hover:text-red-700 font-bold hidden bg-red-50 px-4 py-2 rounded-lg transition"
+                        id="cancel-edit-btn">
+                        <i class="fa-solid fa-times ml-1"></i> إلغاء التعديل
+                    </button>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- 1. معلومات المنتج -->
+                    <div id="step-content-1" class="step-content active">
+                        <span class="section-label">
+                            <i class="fa-solid fa-layer-group"></i> 1. معلومات المنتج
+                        </span>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                            <!-- اسم المنتج -->
+                            <div class="md:col-span-4">
+                                <label class="block text-xs font-bold text-gray-500 mb-2">اسم المنتج <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" id="p-name" class="input-std" placeholder="مثلاً: طاولة ملكية فاخرة">
+                            </div>
+
+                            <!-- نوع المنتج -->
+                            <div class="md:col-span-3">
+                                <label class="block text-xs font-bold text-gray-500 mb-2">نوع المنتج</label>
+                                <div class="flex gap-2">
+                                    <div class="relative w-full">
+                                        <select id="p-type" class="input-std appearance-none cursor-pointer">
+                                            <!-- Populated by JS -->
+                                        </select>
+                                        <i
+                                            class="fa-solid fa-chevron-down absolute left-3 top-3.5 text-gray-400 text-xs pointer-events-none"></i>
+                                    </div>
+                                    <button onclick="addNewType()"
+                                        class="bg-blue-50 text-blue-600 w-11 rounded-lg hover:bg-blue-100 transition border border-blue-100 flex-shrink-0"
+                                        title="إضافة تصنيف جديد">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- لون المنتج -->
+                            <div class="md:col-span-3">
+                                <label class="block text-xs font-bold text-gray-500 mb-2">لون المنتج</label>
+                                <input type="text" id="p-color" class="input-std" placeholder="مثلاً: ذهبي">
+                            </div>
+
+                            <!-- صورة المنتج -->
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-gray-500 mb-2">صورة المنتج</label>
+                                <div class="flex items-center gap-2">
+                                    <label for="p-image"
+                                        class="cursor-pointer bg-white border border-gray-200 text-gray-500 px-2 py-2.5 rounded-lg text-xs font-bold hover:border-blue-400 hover:text-blue-600 transition flex items-center justify-center gap-2 w-full shadow-sm group">
+                                        <i
+                                            class="fa-solid fa-cloud-arrow-up group-hover:-translate-y-0.5 transition-transform"></i>
+                                        رفع صورة
+                                    </label>
+                                    <input type="file" id="p-image" class="hidden" accept="image/*"
+                                        onchange="handleImageUpload(this)">
+                                    <div id="preview-box"
+                                        class="w-10 h-10 flex-shrink-0 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden hidden shadow-sm">
+                                        <img id="img-preview" src="" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- وصف عام -->
+                            <div class="md:col-span-12">
+                                <label class="block text-xs font-bold text-gray-500 mb-2">وصف عام</label>
+                                <input type="text" id="p-desc" class="input-std"
+                                    placeholder="تفاصيل إضافية عن المنتج...">
+                            </div>
+
+                            <!-- مصدر المنتج -->
+                            <div class="md:col-span-12">
+                                <div
+                                    class="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-wrap items-center gap-6">
+                                    <label class="block text-xs font-bold text-gray-500">مصدر المنتج:</label>
+                                    <div class="flex items-center gap-6">
+                                        <label class="flex items-center gap-2 cursor-pointer group">
+                                            <div
+                                                class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-blue-500 transition relative">
+                                                <input type="radio" name="p-source" value="internal"
+                                                    class="opacity-0 absolute inset-0 cursor-pointer" checked
+                                                    onchange="toggleSource()">
+                                                <div
+                                                    class="w-2.5 h-2.5 rounded-full bg-blue-600 opacity-0 transition-opacity check-circle">
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="text-sm font-bold text-gray-700 group-hover:text-blue-700 transition">مستودعنا</span>
+                                        </label>
+
+                                        <label class="flex items-center gap-2 cursor-pointer group">
+                                            <div
+                                                class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-orange-500 transition relative">
+                                                <input type="radio" name="p-source" value="external"
+                                                    class="opacity-0 absolute inset-0 cursor-pointer"
+                                                    onchange="toggleSource()">
+                                                <div
+                                                    class="w-2.5 h-2.5 rounded-full bg-orange-500 opacity-0 transition-opacity check-circle">
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="text-sm font-bold text-gray-700 group-hover:text-orange-700 transition">مورد
+                                                خارجي</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- External Supplier Fields -->
+                                    <div id="supplier-fields"
+                                        class="hidden flex-grow grid grid-cols-2 gap-4 border-r border-gray-300 pr-6 mr-2">
+                                        <div>
+                                            <input type="text" id="p-supplier"
+                                                class="input-std !bg-white !py-2 !text-xs"
+                                                placeholder="اسم الشركة/المورد">
+                                        </div>
+                                        <div>
+                                            <input type="tel" id="p-supplier-phone"
+                                                class="input-std !bg-white !py-2 !text-xs" placeholder="رقم التواصل">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="goToStep(2)"
+                                class="bg-blue-600 text-white px-8 py-2.5 rounded-lg font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 flex items-center gap-2 transition-all">
+                                <span>التالي</span> <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. الأسعار والكميات -->
+                    <div id="step-content-2" class="step-content">
+                        <span class="section-label">
+                            <i class="fa-solid fa-coins text-green-600"></i> 2. الأسعار والكميات
+                        </span>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="block text-xs font-bold text-gray-500">سعر التأجير <span
+                                            class="text-red-500">*</span></label>
+                                    <button type="button" onclick="removeTax()"
+                                        class="text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded hover:bg-red-100 transition whitespace-nowrap font-bold"
+                                        title="خصم 15% ضريبة القيمة المضافة">إزالة 15% ضريبة</button>
+                                </div>
+                                <div class="relative">
+                                    <input type="number" id="p-price" class="input-std text-center font-bold text-lg"
+                                        placeholder="0">
+                                    <span class="absolute left-3 top-3 text-xs text-gray-400 font-bold">ريال</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2">العدد المتوفر</label>
+                                <input type="number" id="p-stock" class="input-std text-center" placeholder="0">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2 tooltip"
+                                    title="سيظهر تنبيه عندما يقل العدد عن هذا الرقم">تنبيه نقص العدد عن</label>
+                                <input type="number" id="p-low-stock" class="input-std text-center"
+                                    placeholder="مثلاً: 5">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2">عدد الأشخاص (للطاولات)</label>
+                                <input type="number" id="p-capacity"
+                                    class="input-std text-center font-bold text-purple-600 bg-purple-50/30 border-purple-100"
+                                    placeholder="0">
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-between">
+                            <button onclick="goToStep(1)"
+                                class="bg-gray-100 text-gray-600 px-6 py-2.5 rounded-lg font-bold hover:bg-gray-200 transition-all">
+                                <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                            </button>
+                            <button onclick="goToStep(3)"
+                                class="bg-blue-600 text-white px-8 py-2.5 rounded-lg font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 flex items-center gap-2 transition-all">
+                                <span>التالي</span> <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3. تجهيزات إضافية -->
+                    <div id="step-content-3" class="step-content">
+                        <span class="section-label">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i> 3. تجهيزات إضافية (اختياري)
+                        </span>
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                            <div class="mb-5 flex items-center gap-4">
+                                <label class="block text-xs font-bold text-gray-500">تكلفة التجهيز الإضافية (إن
+                                    وجدت):</label>
+                                <div class="relative w-32">
+                                    <input type="number" id="p-decor-fee" class="input-std text-center font-bold"
+                                        placeholder="0">
+                                    <span class="absolute left-3 top-2.5 text-xs text-gray-400 font-bold">ريال</span>
+                                </div>
+                            </div>
+
+                            <label class="block text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">الأدوات
+                                المطلوبة للتجهيز:</label>
+                            <div id="decor-components-list" class="space-y-2 mb-4"></div>
+
+                            <div class="flex gap-2 items-center">
+                                <button onclick="addDecorComponent()"
+                                    class="bg-white text-purple-600 border border-purple-200 w-11 h-11 rounded-lg hover:bg-purple-50 transition shadow-sm flex items-center justify-center flex-shrink-0"
+                                    title="إضافة أداة">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <input type="number" id="new-comp-qty" class="input-std w-20 text-center"
+                                    placeholder="الكمية" value="1">
+                                <input type="text" id="new-comp-name" class="input-std flex-grow"
+                                    placeholder="اسم الأداة (مثلاً: شمعدان، كرسي...)">
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-between items-center border-t border-gray-100 pt-6">
+                            <button onclick="goToStep(2)"
+                                class="bg-gray-100 text-gray-600 px-6 py-2.5 rounded-lg font-bold hover:bg-gray-200 transition-all">
+                                <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                            </button>
+                            <button onclick="saveItem()" id="save-btn" class="btn-save flex items-center gap-2">
+                                <i class="fa-solid fa-check"></i> <span>حفظ البيانات</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- قائمة المنتجات -->
+        <div class="glass-card p-1">
+            <div class="bg-white rounded-[15px] p-6">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 class="text-lg font-bold text-gray-700 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ul text-gray-400"></i> سجل المنتجات
+                    </h2>
+
+                    <div class="flex gap-3 w-full md:w-auto">
+                        <div class="flex bg-gray-100 p-1 rounded-lg">
+                            <button onclick="filterTable('all')" id="filter-all"
+                                class="px-4 py-1.5 text-xs font-bold bg-white rounded-md shadow-sm text-gray-800 transition">الكل</button>
+                            <button onclick="filterTable('internal')" id="filter-internal"
+                                class="px-4 py-1.5 text-xs font-bold text-gray-500 hover:text-blue-600 transition">مستودعنا</button>
+                            <button onclick="filterTable('external')" id="filter-external"
+                                class="px-4 py-1.5 text-xs font-bold text-gray-500 hover:text-orange-600 transition">موردين</button>
+                        </div>
+
+                        <div class="relative flex-grow md:flex-grow-0">
+                            <input type="text" id="search-box" placeholder="بحث باسم المنتج..."
+                                class="input-std pl-9 py-2 text-sm w-full md:w-64" onkeyup="renderTable()">
+                            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المنتج المميّز: طاولات خشب (تحرير الألوان + مرجع الأسعار) -->
+                <div id="featured-product-panel" class="mb-5"></div>
+
+                <div class="overflow-x-auto rounded-xl border border-gray-100">
+                    <table class="w-full text-sm text-right">
+                        <thead class="bg-gray-50 text-gray-500 font-bold border-b border-gray-200">
+                            <tr>
+                                <th class="p-4 w-20"></th>
+                                <th class="p-4">المنتج</th>
+                                <th class="p-4">المصدر</th>
+                                <th class="p-4 text-center">السعر</th>
+                                <th class="p-4 text-center">العدد</th>
+                                <th class="p-4 text-center w-28">خيارات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-body" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../../../core/db.js"></script>
+    <script>
+        // تعريف goToStep مباشرةً حتى يعمل زر "التالي" فوراً بدون انتظار تحميل inventory.js
+        function goToStep(step) {
+            if (step < 1 || step > 3) return;
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('step-content-' + step);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.step-item').forEach((el, index) => {
+                if (index + 1 === step) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+            const title = document.getElementById('form-title');
+            if (title) title.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await window.SaddahDB.init();
+            } catch (e) {
+                console.error('خطأ أثناء تهيئة قاعدة البيانات:', e);
+            }
+            // تحميل inventory.js مع معالجة الأخطاء
+            let s_inventory = document.createElement('script');
+            s_inventory.src = '.js';
+            s_inventory.onerror = function() {
+                console.error('فشل تحميل inventory.js');
+                alert('حدث خطأ في تحميل صفحة المخزون. حاول تحديث الصفحة.');
+            };
+            document.body.appendChild(s_inventory);
+        });
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+
+
+
+

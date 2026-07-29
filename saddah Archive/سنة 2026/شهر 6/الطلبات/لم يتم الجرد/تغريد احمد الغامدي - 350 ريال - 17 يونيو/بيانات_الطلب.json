@@ -1,0 +1,146 @@
+{
+  "id": 1781446352219,
+  "date": "١٤‏/٦‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "تغريد احمد الغامدي",
+    "id": "1128508999",
+    "phone": "573870786",
+    "address": "حي السنابل",
+    "deliveryDate": "2026-06-17",
+    "deliveryTime": "15:15",
+    "pickupDate": "2026-06-19",
+    "pickupTime": "14:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "350.00",
+    "total": "350.00 ريال",
+    "delivery": 0,
+    "deposit": "100",
+    "securityDeposit": "100",
+    "vatRate": "0",
+    "includeTaxInProfit": true,
+    "returnDelivery": 0,
+    "fuel": 29
+  },
+  "paymentStatus": {
+    "securityReturned": false,
+    "deposit": true,
+    "completed": true,
+    "remaining": true
+  },
+  "isConfirmed": true,
+  "computed": {
+    "total": 350,
+    "deductedInsurance": 0,
+    "received": 450,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 55,
+    "totalExpenses": 55,
+    "revenue": 350,
+    "remaining": -100,
+    "netProfit": 295,
+    "includeTax": true,
+    "operatingShare": 29.5,
+    "distributableProfit": 265.5,
+    "fuel": 29
+  },
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 29
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "تنسيق ل 6 اشخاص ",
+      "desc": "تنسيق فقط ل 6 اشخاص , لون التنسيق موف ",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "350.00",
+      "totalOriginal": "350.00",
+      "unitPrice": 350,
+      "originalPrice": 350
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "مؤسسة انجاز للنسخ والتصوير (كروت)",
+      "amount": 25,
+      "total": 25,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "مؤسسة انجاز للنسخ والتصوير (كروت) - 25 ريال.pdf",
+        "link": "saddah://1781446352219/المصروفات/مؤسسة انجاز للنسخ والتصوير (كروت) - 25 ريال.pdf"
+      },
+      "date": "2026-06-18T12:41:59.785Z",
+      "claimId": "1781786519785775"
+    },
+    {
+      "desc": "مؤسسة فاست سيرفزيس (كروت) خطا بلكروت",
+      "amount": 20,
+      "total": 20,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "مؤسسة فاست سيرفزيس (كروت) خطا بلكروت - 20 ريال.jpeg",
+        "link": "saddah://1781446352219/المصروفات/مؤسسة فاست سيرفزيس (كروت) خطا بلكروت - 20 ريال.jpeg"
+      },
+      "date": "2026-06-18T12:42:57.459Z",
+      "claimId": "1781786577459421"
+    },
+    {
+      "desc": "tawqeer",
+      "amount": 10,
+      "total": 10,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "tawqeer - 10 ريال.jpeg",
+        "link": "saddah://1781446352219/المصروفات/tawqeer - 10 ريال.jpeg"
+      },
+      "date": "2026-06-18T12:48:01.609Z",
+      "claimId": "1781786881609393"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 100,
+      "method": "transfer",
+      "fileLink": "عربون - 100 ريال تحويل.jpeg",
+      "attachment": {
+        "type": "file",
+        "name": "عربون - 100 ريال تحويل.jpeg",
+        "link": "saddah://1781446352219/الدفعات/عربون - 100 ريال تحويل.jpeg"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-15T15:01:04.240Z"
+    },
+    {
+      "desc": "باقي المبلغ + تأمين",
+      "amount": 350,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ + تأمين - 350 ريال تحويل.jpeg",
+      "attachment": {
+        "type": "file",
+        "name": "باقي المبلغ + تأمين - 350 ريال تحويل.jpeg",
+        "link": "saddah://1781446352219/الدفعات/باقي المبلغ + تأمين - 350 ريال تحويل.jpeg"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-18T12:45:28.313Z"
+    }
+  ],
+  "returns": []
+}

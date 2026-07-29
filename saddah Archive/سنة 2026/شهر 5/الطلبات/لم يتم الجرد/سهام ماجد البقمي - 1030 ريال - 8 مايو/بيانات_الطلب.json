@@ -1,0 +1,128 @@
+{
+    "id": 1777401727865,
+    "date": "٢٨‏/٤‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "سهام ماجد البقمي",
+        "id": "1099886010",
+        "phone": "966537234348",
+        "address": "حي المريخ",
+        "deliveryDate": "2026-05-08",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-05-09",
+        "pickupTime": "09:00",
+        "deliveryPerson": "عاطف",
+        "returnPerson": "افاق"
+    },
+    "financials": {
+        "subTotal": "895.65",
+        "total": "1030.00 ريال",
+        "delivery": 0,
+        "deposit": "200",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "paid": "1330 ريال",
+        "remaining": "0 ريال",
+        "returnDelivery": 0,
+        "fuel": 20
+    },
+    "items": [
+        {
+            "name": "طاولة زجاج مع تنسيق ",
+            "desc": "قواعد ذهبية و سطح زجاجي , تنسيق البنفسجي",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "834.78",
+            "totalOriginal": "834.78",
+            "unitPrice": 834.78,
+            "originalPrice": 834.78
+        },
+        {
+            "name": "طاولة بوفيه",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "60.87",
+            "totalOriginal": "60.87",
+            "unitPrice": 60.87,
+            "originalPrice": 60.87
+        }
+    ],
+    "expenses": [
+        {
+            "supplier": "عمال",
+            "name": "عمال",
+            "driveLink": "عمال 25 ريال.pdf",
+            "amount": 25,
+            "discount": 0,
+            "afterDiscount": 25,
+            "tax": 0,
+            "total": 25,
+            "paid": 25
+        },
+        {
+            "supplier": "خياطة",
+            "name": "خياطة",
+            "driveLink": "خياطة 80 ريال.jpeg",
+            "amount": 80,
+            "discount": 0,
+            "afterDiscount": 80,
+            "tax": 0,
+            "total": 80,
+            "paid": 80
+        },
+        {
+            "desc": "خياطة قماش",
+            "amount": 80,
+            "total": 80,
+            "paid": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "expense_1780845649287_فاتورة خياطة قماش لثلاث طاولات - 80 ريال.jpeg",
+                "name": "expense_1780845649287_فاتورة خياطة قماش لثلاث طاولات - 80 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-07T15:20:49.439Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 1130,
+            "fileLink": "باقي المبلغ + تأمين 1130 ريال.pdf",
+            "date": "٧‏/٦‏/٢٠٢٦"
+        },
+        {
+            "desc": "عربون",
+            "amount": 200,
+            "fileLink": "عربون 200 ريال.pdf",
+            "date": "٧‏/٦‏/٢٠٢٦"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "تم الجرد",
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 20
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 300,
+            "deducted": 0,
+            "fileLink": "إرجاع التأمين 300 مرتجع.pdf",
+            "date": "٢‏/٦‏/٢٠٢٦"
+        }
+    ]
+}

@@ -1,0 +1,137 @@
+{
+  "id": 1783850704048,
+  "date": "١٢‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "سمر عقيل الزهراني",
+    "id": "-",
+    "phone": "500553850",
+    "address": "حي النسيم",
+    "deliveryDate": "2026-07-12",
+    "deliveryTime": "19:00",
+    "pickupDate": "2026-07-14",
+    "pickupTime": "14:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "880.00",
+    "total": "880.00 ريال",
+    "delivery": "0",
+    "deposit": "200",
+    "securityDeposit": "200",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 880,
+    "deductedInsurance": 0,
+    "received": 1080,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 60,
+    "totalExpenses": 60,
+    "revenue": 880,
+    "remaining": -200,
+    "netProfit": 820,
+    "includeTax": false,
+    "operatingShare": 82,
+    "distributableProfit": 738,
+    "fuel": 0
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولة خشب مع تنسيق جاهز (وردي)",
+      "desc": "طاولة خشب مع تنسيق جاهز (وردي) مع كراسي + ( كروت مجانا )",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 12,
+      "total": "880.00",
+      "totalOriginal": "890.00",
+      "unitPrice": 880,
+      "originalPrice": 890
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "مغاسل الدرة البيضاء",
+      "amount": 25,
+      "total": 25,
+      "paid": 25,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "مغاسل الدرة البيضاء - 25 ريال.jpg",
+        "name": "مغاسل الدرة البيضاء - 25 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-07-12T12:01:31.287Z",
+      "claimId": "1784410794150338"
+    },
+    {
+      "desc": "مؤسسة انجاز للنسخ والتصوير",
+      "amount": 35,
+      "total": 35,
+      "paid": 35,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "مؤسسة انجاز للنسخ والتصوير - 35 ريال.jpeg",
+        "name": "مؤسسة انجاز للنسخ والتصوير - 35 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-07-18T21:25:12.668Z",
+      "claimId": "1784410813625202"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 200 ريال تحويل.pdf",
+        "name": "عربون - 200 ريال تحويل.pdf",
+        "link": "عربون - 200 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:27:40.891Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 680,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 680 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ - 680 ريال تحويل.pdf",
+        "name": "باقي المبلغ - 680 ريال تحويل.pdf",
+        "link": "باقي المبلغ - 680 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:28:20.719Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 200,
+      "method": "cash",
+      "fileLink": "تأمين - 200 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 200 ريال كاش",
+        "name": "تأمين - 200 ريال كاش",
+        "link": "تأمين - 200 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-07-18T21:40:46.998Z"
+    }
+  ],
+  "returns": []
+}

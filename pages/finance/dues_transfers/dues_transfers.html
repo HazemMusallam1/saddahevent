@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويلات المستحقات - صدة</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <style>
+        body { background: #f8fafc; }
+        .dir-ltr { direction: ltr; }
+        .tab-btn { transition: all .2s; }
+    </style>
+</head>
+
+<body class="font-sans text-slate-800">
+    <div class="max-w-5xl mx-auto p-4 sm:p-6">
+
+        <!-- الترويسة -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <a href="../../index.html" class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500 hover:text-slate-800 transition">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-black text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-money-bill-transfer text-indigo-500"></i> تحويلات المستحقات
+                    </h1>
+                    <p class="text-xs text-slate-400 font-bold">أرباح الشريك التشغيلي • مصاريف التشغيل والبنزين • المطالبات</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- أزرار التبويبات -->
+        <div class="flex flex-wrap gap-2 mb-5">
+            <button id="tb-profits" onclick="duesSwitch('profits')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow">
+                <i class="fa-solid fa-hand-holding-dollar"></i> تحويل أرباح الطلبات
+            </button>
+            <button id="tb-fuel" onclick="duesSwitch('fuel')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm bg-white text-slate-600 border border-slate-200">
+                <i class="fa-solid fa-gas-pump"></i> مصاريف التشغيل والبنزين
+            </button>
+            <button id="tb-claims" onclick="duesSwitch('claims')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm bg-white text-slate-600 border border-slate-200">
+                <i class="fa-solid fa-file-invoice-dollar"></i> المطالبات
+            </button>
+        </div>
+
+        <!-- ═══ تبويب: أرباح الطلبات ═══ -->
+        <div id="tab-profits">
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">المعلّق (لم يُحوّل)</div><div class="text-xl font-black text-orange-600"><span id="pf-pending">0</span> <span class="text-xs">ر.س</span></div></div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">المحوّل للشريك</div><div class="text-xl font-black text-emerald-600"><span id="pf-done">0</span> <span class="text-xs">ر.س</span></div></div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">الإجمالي</div><div class="text-xl font-black text-slate-700"><span id="pf-total">0</span> <span class="text-xs">ر.س</span></div></div>
+            </div>
+            <div id="profit-selbar" class="hidden items-center justify-between bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2.5 mb-3">
+                <span class="text-sm font-bold text-indigo-700"><span id="profit-selcount">0</span> محدّد • <span id="profit-selsum">0</span> ر.س</span>
+                <button onclick="openDuesBatch('profit')" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-1"><i class="fa-solid fa-file-circle-check"></i> تسوية كدفعة + إيصال</button>
+            </div>
+            <div id="profits-list-container" class="space-y-5"></div>
+            <div id="profits-empty" class="hidden text-center text-slate-400 text-sm py-10 bg-white border border-slate-200 rounded-2xl">لا توجد طلبات لها حصة تشغيلية.</div>
+            <div class="mt-5">
+                <h3 class="text-sm font-bold text-slate-600 mb-2 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-slate-400"></i> سجل الدفعات</h3>
+                <div id="profits-log" class="space-y-2"></div>
+                <div id="profits-log-empty" class="hidden text-center text-slate-400 text-xs py-6 bg-white border border-slate-200 rounded-2xl">لا توجد دفعات مسجّلة بعد.</div>
+            </div>
+        </div>
+
+        <!-- ═══ تبويب: التشغيل والبنزين ═══ -->
+        <div id="tab-fuel" class="hidden">
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">المعلّق</div><div class="text-xl font-black text-orange-600"><span id="fu-pending">0</span> <span class="text-xs">ر.س</span></div></div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">تم صرفه</div><div class="text-xl font-black text-emerald-600"><span id="fu-done">0</span> <span class="text-xs">ر.س</span></div></div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">الإجمالي</div><div class="text-xl font-black text-slate-700"><span id="fu-total">0</span> <span class="text-xs">ر.س</span></div></div>
+            </div>
+            <div id="fuel-selbar" class="hidden items-center justify-between bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2.5 mb-3">
+                <span class="text-sm font-bold text-indigo-700"><span id="fuel-selcount">0</span> محدّد • <span id="fuel-selsum">0</span> ر.س</span>
+                <button onclick="openDuesBatch('fuel')" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-1"><i class="fa-solid fa-file-circle-check"></i> تسوية كدفعة + إيصال</button>
+            </div>
+            <div id="fuel-list-container" class="space-y-5"></div>
+            <div id="fuel-empty" class="hidden text-center text-slate-400 text-sm py-10 bg-white border border-slate-200 rounded-2xl">لا توجد مصاريف بنزين مسجّلة.</div>
+            <div class="mt-5">
+                <h3 class="text-sm font-bold text-slate-600 mb-2 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-slate-400"></i> سجل الدفعات</h3>
+                <div id="fuel-log" class="space-y-2"></div>
+                <div id="fuel-log-empty" class="hidden text-center text-slate-400 text-xs py-6 bg-white border border-slate-200 rounded-2xl">لا توجد دفعات مسجّلة بعد.</div>
+            </div>
+        </div>
+
+        <!-- ═══ تبويب: المطالبات ═══ -->
+        <div id="tab-claims" class="hidden">
+            <div class="flex items-center justify-between mb-4 gap-3">
+                <div class="grid grid-cols-2 gap-3 flex-1">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">مطالبات معلّقة</div><div class="text-xl font-black text-red-600"><span id="cl-count">0</span></div></div>
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 text-center"><div class="text-[11px] font-bold text-slate-400 mb-1">إجمالي المعلّق</div><div class="text-xl font-black text-slate-700"><span id="cl-total">0</span> <span class="text-xs">ر.س</span></div></div>
+                </div>
+                <a href="../finance/claims.html" class="shrink-0 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-3 rounded-xl flex items-center gap-2 transition" title="الإدارة المتقدمة: دفعات وإيصالات تحويل">
+                    <i class="fa-solid fa-layer-group"></i> تسوية بالدفعات والإيصالات
+                </a>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-slate-500 text-xs"><tr>
+                        <th class="py-3 px-3 text-right">الموظف</th><th class="py-3 px-2 text-right">المطالبة</th>
+                        <th class="py-3 px-2 text-center">المبلغ</th><th class="py-3 px-2 text-center">الصرف</th>
+                    </tr></thead>
+                    <tbody id="claims-list"></tbody>
+                </table>
+                <div id="claims-empty" class="hidden text-center text-slate-400 text-sm py-10">لا توجد مطالبات معلّقة.</div>
+            </div>
+            <div class="mt-5">
+                <h3 class="text-sm font-bold text-slate-600 mb-2 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-slate-400"></i> سجل الدفعات (المسددة)</h3>
+                <div id="claims-log" class="space-y-2"></div>
+                <div id="claims-log-empty" class="hidden text-center text-slate-400 text-xs py-6 bg-white border border-slate-200 rounded-2xl">لا توجد دفعات مسددة بعد.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- نافذة تسوية الدفعة + إيصال -->
+    <div id="dues-batch-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-indigo-50 border-b border-indigo-100 p-4 flex justify-between items-center">
+                <h3 class="font-black text-indigo-800 flex items-center gap-2"><i class="fa-solid fa-file-circle-check"></i> تسوية دفعة + توثيق</h3>
+                <button onclick="closeDuesBatch()" class="w-8 h-8 rounded-full bg-white border border-indigo-200 text-indigo-400 hover:text-indigo-700"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="p-5 space-y-4">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm">
+                    <div class="flex justify-between mb-1"><span class="text-slate-500" id="db-kind-label">—</span><span class="font-bold text-slate-700"><span id="db-count">0</span> عناصر</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">إجمالي الدفعة</span><span class="font-black text-emerald-600 dir-ltr"><span id="db-total">0</span> ر.س</span></div>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-500 block mb-1">ملاحظة (اختياري)</label>
+                    <input type="text" id="db-note" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-400 outline-none" placeholder="مثال: تحويل بنكي بتاريخ ...">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-500 block mb-1">إيصال التحويل (صورة/PDF) — للتوثيق</label>
+                    <input type="file" id="db-receipt" accept="image/*,.pdf" class="w-full text-sm border border-slate-300 rounded-lg px-2 py-1.5 file:ml-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-indigo-50 file:text-indigo-700 file:text-xs file:font-bold">
+                    <p class="text-[11px] text-slate-400 mt-1">يُحفظ الإيصال وتفاصيل الدفعة في مجلد النظام تلقائياً.</p>
+                </div>
+                <button onclick="window.DuesTransfersActions.confirmDuesBatch()" id="db-confirm" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i> تأكيد التسوية والحفظ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="../../../core/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+            const s = document.createElement('script');
+            s.src = '.js';
+            document.body.appendChild(s);
+        });
+    </script>
+    <script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+

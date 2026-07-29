@@ -1,0 +1,15 @@
+{
+    "users": [
+        {
+            "username": "admin",
+            "name": "المدير",
+            "hash": "$2y$10$bu0OjGhT62q7hDvkiVjTC.IxdRqLRH3q5RXi\/bRQ\/ixadkG.JHLFq",
+            "role": "admin",
+            "perms": [
+                "*"
+            ],
+            "webauthn_cred_id": "AbSnExDnCYy4Gxj42\/gnmDni6AUhH7AHbiXMRdkSscj4BauCrmZY3tOn\/8o1q1YL9wn8WBKeYwf12I\/Q5ay7RQQ=",
+            "webauthn_pub_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUAkShDO0jVwbvJBlUSpk4WSBHM9i43MnmHJBVCr5pxE+Sa5ecuhYSGptLEru7BNCSXNihCB5FTWO+B9JUAyBhw=="
+        }
+    ]
+}

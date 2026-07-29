@@ -1,0 +1,200 @@
+{
+    "id": 1772742497986,
+    "date": "٥‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "نجلاء عبدالرحمن",
+        "id": "1040755074",
+        "phone": "1040755074",
+        "address": "حي الفيصلية , شارع احمد بن خالد , فيلا 23",
+        "deliveryDate": "2026-03-29",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-03-30",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "1739.13",
+        "total": "2200.00 ريال",
+        "delivery": "173.91",
+        "deposit": "500",
+        "securityDeposit": "500",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "3 طاولات مستطيلة",
+            "desc": "قواعد ذهبية و سطح زجاجي",
+            "decorDetails": "1x تنسيق اخضر و ابيض",
+            "qty": 1,
+            "chairsCount": 30,
+            "total": "1739.13",
+            "totalOriginal": "1739.13",
+            "unitPrice": 1739.13,
+            "originalPrice": 1739.13
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "الدانوب ",
+            "amount": 16,
+            "total": 16,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الدانوب - 16 ريال.jpeg",
+                "name": "الدانوب - 16 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:32:40.563Z",
+            "claimId": "1781206360563334"
+        },
+        {
+            "desc": "تموينات تمون",
+            "amount": 15,
+            "total": 15,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "تموينات تمون - 15 ريال.jpeg",
+                "name": "تموينات تمون - 15 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:33:04.789Z",
+            "claimId": "1781206384789187"
+        },
+        {
+            "desc": "اكليل الورد",
+            "amount": 326.96,
+            "total": 376,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "اكليل الورد - 376 ريال.pdf",
+                "name": "اكليل الورد - 376 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:33:56.563Z",
+            "claimId": "1781206436563551"
+        },
+        {
+            "desc": "الابتكار للاقمشة",
+            "amount": 125,
+            "total": 125,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الابتكار للاقمشة - 125 ريال.jpeg",
+                "name": "الابتكار للاقمشة - 125 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:34:26.737Z",
+            "claimId": "1781206466737130"
+        },
+        {
+            "desc": "شركة جوري الربيع للتجارة",
+            "amount": 35,
+            "total": 40.25,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "شركة جوري الربيع للتجارة - 40.25 ريال.pdf",
+                "name": "شركة جوري الربيع للتجارة - 40.25 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:36:26.209Z",
+            "claimId": "1781206586209689"
+        },
+        {
+            "desc": "فاتورة عالم التوفير ",
+            "amount": 65,
+            "total": 74.75,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "فاتورة عالم التوفير - 74.75 ريال.jpeg",
+                "name": "فاتورة عالم التوفير - 74.75 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:37:07.867Z",
+            "claimId": "1781206627867211"
+        },
+        {
+            "desc": "مؤسسة اطياف الهدية للتجارة",
+            "amount": 120,
+            "total": 138,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "مؤسسة اطياف الهدية للتجارة - 138 ريال.jpeg",
+                "name": "مؤسسة اطياف الهدية للتجارة - 138 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:37:35.940Z",
+            "claimId": "1781206655940316"
+        },
+        {
+            "desc": "مكتبة الفانوس",
+            "amount": 60,
+            "total": 69,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "مكتبة الفانوس - 69 ريال.jpeg",
+                "name": "مكتبة الفانوس - 69 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:38:05.111Z",
+            "claimId": "1781206685111997"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 500,
+            "method": "transfer",
+            "fileLink": "عربون - 500 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 500 ريال تحويل.pdf",
+                "name": "عربون - 500 ريال تحويل.pdf",
+                "link": "عربون - 500 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:38:34.935Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 2200,
+        "deductedInsurance": 0,
+        "received": 500,
+        "extDelivery": 173.91,
+        "whDelivery": 0,
+        "otherExpenses": 854,
+        "totalExpenses": 1027.91,
+        "revenue": 2200,
+        "remaining": 1700,
+        "netProfit": 1172.09,
+        "includeTax": true,
+        "operatingShare": 117.21,
+        "distributableProfit": 1054.88,
+        "fuel": 0
+    }
+}

@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويل الكاش للمؤسسة - نظام صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f1f5f9; }
+    </style>
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="pb-20">
+
+    <!-- Header -->
+    <div class="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center gap-2 text-slate-500 hover:text-green-600 transition group">
+                <div class="bg-slate-50 p-2 rounded-lg group-hover:bg-green-50 transition"><i class="fa-solid fa-arrow-right"></i></div>
+                <span class="font-bold text-sm hidden sm:inline">عودة للرئيسية</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <div class="bg-green-50 text-green-600 p-2 rounded-lg"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                <h1 class="font-black text-lg text-slate-800">تحويل الكاش للمؤسسة</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center shadow-sm">
+                <p class="text-xs text-slate-400 font-bold mb-1">💵 كاش بذمتك</p>
+                <p id="stat-total-cash" class="text-2xl font-black text-green-600">0 ر.س</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center shadow-sm">
+                <p class="text-xs text-slate-400 font-bold mb-1">عدد الدفعات</p>
+                <p id="stat-count" class="text-2xl font-black text-slate-700">0</p>
+            </div>
+            <div class="bg-green-600 rounded-2xl p-5 text-center shadow-sm">
+                <p class="text-xs text-green-100 font-bold mb-1">المحدد للتحويل</p>
+                <p id="stat-selected" class="text-2xl font-black text-white">0 ر.س</p>
+            </div>
+        </div>
+
+        <!-- Cash list -->
+        <div class="bg-slate-100 rounded-2xl p-1">
+            <div class="flex items-center justify-between px-4 py-3">
+                <h2 class="font-black text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-dollar text-green-500"></i> الكاش المُحصّل (غير المُحوّل)
+                </h2>
+                <button onclick="selectAll()" class="text-xs font-bold text-green-600 hover:text-green-700 bg-white px-3 py-1.5 rounded-lg border border-green-200 transition">
+                    تحديد / إلغاء الكل
+                </button>
+            </div>
+            <div id="cash-list" class="space-y-2 px-2 pb-2 max-h-[45vh] overflow-y-auto"></div>
+        </div>
+
+        <!-- Confirm panel -->
+        <div class="bg-white rounded-2xl border-2 border-green-200 p-5 shadow-sm space-y-4">
+            <h3 class="font-black text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-receipt text-green-500"></i> تأكيد التحويل للمؤسسة
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500">إيصال التحويل البنكي (إجباري)</label>
+                    <input type="file" id="remit-receipt" accept="image/*,.pdf"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-2 text-sm file:ml-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 cursor-pointer">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500">ملاحظة (اختياري)</label>
+                    <input type="text" id="remit-note" placeholder="مثال: تحويل دفعة نهاية الأسبوع"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-green-400 focus:outline-none">
+                </div>
+            </div>
+            <button id="confirm-btn" onclick="window.CashRemittanceActions.confirmRemittance()" disabled
+                class="w-full bg-green-600 text-white py-3.5 rounded-xl font-black hover:bg-green-700 transition shadow-lg shadow-green-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <i class="fa-solid fa-check-double"></i> تأكيد تحويل المبالغ المحددة للمؤسسة
+            </button>
+        </div>
+
+        <!-- History -->
+        <div>
+            <h2 class="font-black text-slate-600 mb-3 flex items-center gap-2 text-sm">
+                <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> سجل التحويلات السابقة
+            </h2>
+            <div id="history-list" class="space-y-2"></div>
+        </div>
+
+    </div>
+
+    
+    <script src="../../../core/auth-checker.js"></script>
+    <script src="../../../core/fs-helpers-save_v2.js"></script>
+    <script src="../../../core/image-compressor.js"></script>
+    <script src="cash_remittance_actions_module.js"></script>
+    <script src="cash_remittance.js"></script>
+    <script src="../../../core/db.js"></script>
+
+    <script>
+        
+        // Data will be rendered by cash_remittance.js
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+        });
+
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+
+
+
+
+

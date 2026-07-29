@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام صده - لوحة التحكم</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <link rel="stylesheet" href="../../../assets/css/index.css">
+    <style>
+        /* ════════ لوحة الجرد: تخطيط منظّم — طلبات + مطالبات + خيوط رابطة ════════ */
+        .audit-grid { position: relative; display: grid; grid-template-columns: 1fr; gap: 18px; }
+        .audit-orders-col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; }
+        .audit-claims-col { position: relative; z-index: 1; }
+        .audit-connectors { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; display: none; }
+        @media (min-width: 1024px) {
+            .audit-grid { grid-template-columns: minmax(0, 1fr) 312px; gap: 0 56px; }
+            .audit-connectors { display: block; }
+        }
+        .audit-connectors path { transition: stroke-width .15s ease, opacity .15s ease; }
+
+        /* ─── بطاقة الطلب ─── */
+        .aud-order { background:#fff; border:1px solid #e6e9ef; border-radius:16px; box-shadow:0 1px 2px rgba(16,24,40,.04); overflow:hidden; }
+        .aud-order-head { display:flex; align-items:center; gap:12px 14px; flex-wrap:wrap; padding:13px 16px; cursor:pointer; transition:background .15s; }
+        .aud-order-head:hover { background:#faf9fc; }
+        .aud-order-ident { display:flex; align-items:center; gap:10px; min-width:0; flex:1 1 auto; }
+        .aud-order-ico { width:36px; height:36px; border-radius:10px; background:#f3e8ff; color:#9333ea; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+        .aud-order-name { font-weight:800; color:#1e293b; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .aud-order-meta { font-size:10px; color:#94a3b8; font-weight:700; margin-top:2px; display:flex; align-items:center; gap:7px; }
+        .aud-order-meta i { color:#cbd5e1; }
+        .aud-status { font-size:9px; font-weight:800; padding:2px 9px; border-radius:20px; flex-shrink:0; }
+        .aud-stat-strip { display:flex; align-items:center; flex-shrink:0; }
+        .aud-stat { padding:0 14px; text-align:center; }
+        .aud-stat + .aud-stat { border-inline-start:1px solid #eef1f6; }
+        .aud-stat .lbl { font-size:9px; color:#94a3b8; font-weight:700; white-space:nowrap; }
+        .aud-stat .val { font-size:13px; font-weight:800; font-family:'Inter',sans-serif; line-height:1.4; }
+        .aud-chev { width:30px; height:30px; border-radius:9px; background:#f8fafc; border:1px solid #eef1f6; color:#94a3b8; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; transition:all .15s; }
+        .aud-order-head:hover .aud-chev { background:#f3e8ff; color:#9333ea; border-color:#e9d5ff; }
+        .aud-order-body { padding:14px 16px 16px; border-top:1px solid #f1f5f9; display:flex; flex-direction:column; gap:12px; }
+
+        /* ─── قسم (دفعات/مصروفات/مرتجعات) كبطاقة واضحة ─── */
+        .aud-section { border:1px solid #eef1f6; border-radius:12px; overflow:hidden; }
+        .aud-section-head { display:flex; align-items:center; gap:7px; padding:8px 12px; font-size:11px; font-weight:800; }
+        .aud-section-head .cnt { margin-inline-start:auto; font-size:9px; font-weight:800; padding:1px 8px; border-radius:20px; background:rgba(255,255,255,.65); }
+        .aud-section-body { background:#fff; }
+
+        /* ─── صف حركة كقائمة مرتبة بفواصل ─── */
+        .aud-row { display:flex; align-items:center; gap:11px; padding:9px 12px; border-top:1px solid #f4f6f9; transition:background .12s; }
+        .aud-section-body > .aud-row:first-child { border-top:none; }
+        .aud-row:hover { background:#fafbfc; }
+        .aud-row.has-claim { background:#faf7ff; }
+        .aud-row.has-claim:hover { background:#f6efff; }
+        .aud-row .idx { font-size:10px; color:#cbd5e1; font-weight:800; width:16px; text-align:center; flex-shrink:0; font-family:'Inter',sans-serif; }
+        .aud-row .body { flex:1; min-width:0; }
+        .aud-row .title { font-size:12.5px; font-weight:700; color:#334155; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:6px; }
+        .aud-row .meta { font-size:10px; color:#94a3b8; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .aud-row .amt { font-family:'Inter',sans-serif; font-weight:800; font-size:13px; flex-shrink:0; white-space:nowrap; min-width:78px; text-align:left; }
+        .claim-dot { width:18px; height:18px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#fff; flex-shrink:0; font-family:'Inter',sans-serif; line-height:1; }
+
+        /* ─── زر المرفق ─── */
+        .aud-attach { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:4px 9px; border-radius:7px; border:1px solid #e6e9ef; background:#fff; color:#64748b; cursor:pointer; flex-shrink:0; white-space:nowrap; transition:all .12s; }
+        .aud-attach:hover { background:#f4f6f9; border-color:#cbd5e1; color:#334155; }
+
+        /* ─── ألوان الأقسام ─── */
+        .tint-green { background:#ecfdf5; color:#047857; }
+        .tint-red { background:#fef2f2; color:#b91c1c; }
+        .tint-amber { background:#fffbeb; color:#b45309; }
+
+        /* ─── لوحة المطالبات ─── */
+        .aud-claims { background:#fff; border:1px solid #e9d5ff; border-radius:16px; overflow:hidden; box-shadow:0 1px 2px rgba(16,24,40,.04); }
+        .aud-claims-head { display:flex; align-items:center; gap:7px; padding:12px 14px; font-size:12.5px; font-weight:800; color:#7e22ce; background:#faf5ff; border-bottom:1px solid #f0e6fb; }
+        .aud-claims-head .cnt { margin-inline-start:auto; background:#e9d5ff; color:#6b21a8; font-size:10px; padding:1px 9px; border-radius:20px; font-weight:800; }
+        .aud-claims-body { padding:12px; display:flex; flex-direction:column; gap:10px; }
+        .aud-claim { background:#fff; border:1px solid #eef1f6; border-radius:12px; padding:11px 12px; transition:box-shadow .15s ease, transform .15s ease; }
+        .aud-claim-top { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+        .aud-claim-num { width:21px; height:21px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#fff; font-family:'Inter',sans-serif; flex-shrink:0; }
+        .aud-claim-emp { font-size:11.5px; font-weight:800; color:#334155; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .aud-claim-title { font-size:12.5px; font-weight:700; color:#1e293b; line-height:1.45; }
+        .aud-claim-link { font-size:10px; color:#9333ea; font-weight:700; margin-top:4px; display:flex; align-items:center; gap:4px; }
+        .aud-claim-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:9px; padding-top:9px; border-top:1px solid #f4f6f9; }
+        .aud-claim-amt { font-size:14px; font-weight:800; font-family:'Inter',sans-serif; }
+        .aud-cstatus { font-size:9px; font-weight:800; padding:2px 8px; border-radius:6px; flex-shrink:0; }
+        .aud-cstatus.pending { background:#fef3c7; color:#92400e; }
+        .aud-cstatus.settled { background:#d1fae5; color:#065f46; }
+        .aud-claims-total { display:flex; align-items:center; justify-content:space-between; padding:11px 14px; border-top:1px solid #f0e6fb; background:#faf5ff; }
+        .aud-claims-empty { text-align:center; color:#a78bfa; font-size:11px; padding:22px 8px; }
+
+        /* الجوال: الإحصائيات تنزل سطراً مستقلاً موزّعاً بالتساوي تحت اسم الطلب */
+        @media (max-width: 640px) {
+            .aud-order-ident { order:1; }
+            .aud-chev { order:2; }
+            .aud-stat-strip { order:3; flex:1 1 100%; justify-content:space-between; margin-top:2px; padding-top:11px; border-top:1px solid #f4f6f9; }
+            .aud-stat { flex:1; padding:0 4px; }
+            .aud-stat + .aud-stat { border-inline-start:1px solid #eef1f6; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20">
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 shrink-0">
+                <img src="../../../assets/images/logo.png" alt="صده" class="h-10 w-10 object-contain rounded-xl bg-white border border-slate-100 p-1 shadow-sm">
+                <div class="leading-tight">
+                    <div class="font-black text-slate-800 text-lg">نظام صده</div>
+                    <div class="text-[10px] font-bold tracking-[0.2em] text-brand-600 font-inter uppercase">Saddah ERP</div>
+                </div>
+            </div>
+
+            <!-- مؤشرات حيّة في الهيدر (تظهر على الشاشات الكبيرة) -->
+            <div class="hidden lg:flex items-center gap-5">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm shrink-0"><i class="fa-solid fa-receipt"></i></span>
+                    <div class="leading-tight">
+                        <div class="text-base font-black font-inter text-slate-800" id="kpi-orders">—</div>
+                        <div class="text-[10px] font-bold text-slate-400 -mt-0.5">إجمالي الطلبات</div>
+                    </div>
+                </div>
+                <div class="w-px h-8 bg-slate-200"></div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shrink-0"><i class="fa-solid fa-sack-dollar"></i></span>
+                    <div class="leading-tight">
+                        <div class="text-base font-black font-inter text-slate-800"><span id="kpi-revenue">—</span> <span class="text-[10px] font-bold text-slate-400">ر.س</span></div>
+                        <div class="text-[10px] font-bold text-slate-400 -mt-0.5">إجمالي الإيرادات</div>
+                    </div>
+                </div>
+                <div class="w-px h-8 bg-slate-200"></div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center text-sm shrink-0"><i class="fa-solid fa-arrow-trend-up"></i></span>
+                    <div class="leading-tight">
+                        <div class="text-base font-black font-inter text-slate-800"><span id="kpi-profit">—</span> <span class="text-[10px] font-bold text-slate-400">ر.س</span></div>
+                        <div class="text-[10px] font-bold text-slate-400 -mt-0.5">صافي الأرباح</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+                <span id="server-status" class="hidden sm:inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 transition-colors">
+                    <span id="status-dot" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                    <span id="status-text">جارٍ الاتصال…</span>
+                </span>
+                <div id="user-chip" class="hidden items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm">
+                    <i class="fa-solid fa-circle-user text-indigo-500"></i>
+                    <span id="user-name">—</span>
+                    <button onclick="saddahLogout()" title="تسجيل الخروج" class="text-slate-400 hover:text-red-500 ms-1"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+                <div class="relative">
+                    <button onclick="toggleSettings(event)" title="إعدادات النظام"
+                        class="w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center transition shadow-sm">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                    <div id="settings-menu" onclick="event.stopPropagation()"
+                        class="hidden absolute end-0 mt-2 w-64 bg-white border border-slate-200 rounded-xl shadow-xl p-2 z-50">
+                        <p class="text-[11px] font-bold text-slate-400 px-3 pt-1 pb-2">إعدادات النظام والسيرفر</p>
+                        <button onclick="exportSaddahData()"
+                            class="w-full text-right flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 text-sm font-bold text-slate-700 transition">
+                            <i class="fa-solid fa-download text-slate-500 w-5 text-center"></i> تصدير البيانات
+                        </button>
+                        <label class="w-full text-right flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 text-sm font-bold text-slate-700 transition cursor-pointer">
+                            <i class="fa-solid fa-upload text-emerald-500 w-5 text-center"></i> استيراد البيانات
+                            <input type="file" class="hidden" accept=".json" onchange="importSaddahData(event)">
+                        </label>
+                        <p class="text-[10px] text-slate-400 px-3 pt-2 pb-1 leading-relaxed border-t border-slate-100 mt-1">اربط المجلد مرة واحدة. استخدم التصدير/الاستيراد لترحيل البيانات.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <section class="flex items-center justify-between gap-3 mb-8">
+            <div>
+                <h1 class="text-2xl font-black text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-brand-600"></i> لوحة الجرد والمراجعة
+                </h1>
+                <p class="text-slate-500 text-sm mt-1 font-bold">تتبع كافة الطلبات، الدفعات، المصروفات، والملفات بشكل مركزي</p>
+            </div>
+            <a href="../../index.html" class="bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-xl font-bold hover:bg-slate-50 transition shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-arrow-right"></i> عودة للرئيسية
+            </a>
+        </section>
+
+        <!-- Loader -->
+        <div id="loader" class="flex justify-center py-20">
+            <i class="fa-solid fa-spinner fa-spin text-4xl text-brand-500"></i>
+        </div>
+
+        <!-- Content -->
+        <div id="audit-container" class="space-y-6 hidden">
+            <!-- Months will be injected here -->
+        </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="file-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-slate-900/80 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden transform scale-95 transition-transform" id="file-modal-content">
+            <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
+                <h3 id="file-modal-title" class="font-black text-slate-700">عرض الملف</h3>
+                <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-200 text-slate-600 hover:bg-red-100 hover:text-red-600 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="flex-1 bg-slate-100 p-4 overflow-auto flex items-center justify-center" id="file-modal-body">
+                <!-- Iframe or Image will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../core/auth-checker.js"></script>
+    <script src="../../../core/db.js"></script>
+    <script src="audit.js"></script>
+</body>
+</html>
+
+
+
+

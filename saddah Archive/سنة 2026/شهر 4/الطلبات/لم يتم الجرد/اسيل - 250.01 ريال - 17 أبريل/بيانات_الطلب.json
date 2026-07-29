@@ -1,0 +1,80 @@
+{
+    "id": 1778342248012,
+    "date": "٩‏/٥‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "اسيل",
+        "id": "",
+        "phone": "",
+        "address": "استلام من المستودع ",
+        "deliveryDate": "2026-04-17",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-04-18",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "217.40",
+        "total": "250.01 ريال",
+        "delivery": "0",
+        "deposit": "0",
+        "securityDeposit": "70",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولات كوكتيل",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 5,
+            "chairsCount": 0,
+            "total": "217.40",
+            "totalOriginal": "217.40",
+            "unitPrice": 43.48,
+            "originalPrice": 43.48
+        }
+    ],
+    "expenses": [],
+    "paymentProofs": [
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 320,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 320 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 320 ريال تحويل.pdf",
+                "name": "باقي المبلغ + تأمين - 320 ريال تحويل.pdf",
+                "link": "باقي المبلغ + تأمين - 320 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T12:36:53.817Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 250.01,
+        "deductedInsurance": 0,
+        "received": 320,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 0,
+        "totalExpenses": 0,
+        "revenue": 250.01,
+        "remaining": -69.99,
+        "netProfit": 250.01,
+        "includeTax": true,
+        "operatingShare": 25,
+        "distributableProfit": 225.01,
+        "fuel": 0
+    },
+    "returns": []
+}

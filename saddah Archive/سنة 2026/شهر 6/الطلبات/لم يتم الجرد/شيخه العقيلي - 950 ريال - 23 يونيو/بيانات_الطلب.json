@@ -1,0 +1,93 @@
+{
+  "id": 1781991791061,
+  "date": "٢١‏/٦‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "شيخه العقيلي",
+    "id": "1126526521",
+    "phone": "502332299",
+    "address": "حي الشاطئ (الدور الارضي)",
+    "deliveryDate": "2026-06-23",
+    "deliveryTime": "16:00",
+    "pickupDate": "2026-06-25",
+    "pickupTime": "16:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "950.00",
+    "total": "950.00 ريال",
+    "delivery": "0",
+    "deposit": "200",
+    "securityDeposit": "300",
+    "vatRate": "0",
+    "includeTaxInProfit": true
+  },
+  "paymentStatus": [],
+  "isConfirmed": true,
+  "computed": {
+    "total": 950,
+    "deductedInsurance": 0,
+    "received": 1250,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 950,
+    "remaining": -300,
+    "netProfit": 950,
+    "includeTax": true,
+    "operatingShare": 285,
+    "distributableProfit": 665,
+    "fuel": 0
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولات خشب مع كراسي ديور",
+      "desc": "طاولات خشب , كراسي ديور , غطاء ابيض",
+      "decorDetails": "",
+      "qty": 4,
+      "chairsCount": 16,
+      "total": "950.00",
+      "totalOriginal": "950.00",
+      "unitPrice": 237.5,
+      "originalPrice": 237.5
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 200 ريال تحويل.pdf",
+        "name": "عربون - 200 ريال تحويل.pdf",
+        "link": "عربون - 200 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-27T19:30:09.981Z"
+    },
+    {
+      "desc": "باقي المبلغ + تأمين",
+      "amount": 1050,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ + تأمين - 1050 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ + تأمين - 1050 ريال تحويل.pdf",
+        "name": "باقي المبلغ + تأمين - 1050 ريال تحويل.pdf",
+        "link": "باقي المبلغ + تأمين - 1050 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-27T19:31:19.357Z"
+    }
+  ],
+  "returns": []
+}

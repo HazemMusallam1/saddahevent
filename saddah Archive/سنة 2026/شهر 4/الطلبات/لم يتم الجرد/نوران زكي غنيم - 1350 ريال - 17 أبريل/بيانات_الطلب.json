@@ -1,0 +1,193 @@
+{
+    "id": 1776356551956,
+    "date": "١٦‏/٤‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "نوران زكي غنيم",
+        "id": "1105995136",
+        "phone": "556858416",
+        "address": "حي الروضة , شارع صاري",
+        "deliveryDate": "2026-04-17",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-04-18",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "1173.91",
+        "total": "1350.00 ريال",
+        "delivery": 0,
+        "deposit": "450",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 0,
+        "fuel": 30
+    },
+    "items": [
+        {
+            "name": "طاولتين وكراسي مع تنسيق",
+            "desc": "طاولة بقواعد ذهبية و سطح زجاجي , كراسي ديور , تنسيق ابيض",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 15,
+            "total": "1173.91",
+            "totalOriginal": "1467.39",
+            "unitPrice": 1173.91,
+            "originalPrice": 1467.39
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "الدانوب",
+            "amount": 10,
+            "total": 10,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الدانوب - 10 ريال.jpeg",
+                "name": "الدانوب - 10 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-10T12:50:51.044Z",
+            "claimId": "1781095851044630"
+        },
+        {
+            "desc": "مؤسسىة انجاز لنسخ و التصوير",
+            "amount": 35,
+            "total": 35,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "مؤسسىة انجاز لنسخ و التصوير - 35 ريال.pdf",
+                "name": "مؤسسىة انجاز لنسخ و التصوير - 35 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-10T12:51:20.743Z",
+            "claimId": "1781095880743949"
+        },
+        {
+            "desc": "نقل افاق",
+            "amount": 50,
+            "total": 50,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "نقل افاق - 50 ريال",
+                "name": "نقل افاق - 50 ريال",
+                "link": ""
+            },
+            "date": "2026-06-10T13:22:36.869Z"
+        },
+        {
+            "desc": "تعويض بسبب خطأ في الطلب",
+            "amount": 100,
+            "total": 100,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "تعويض بسبب خطأ في الطلب - 100 ريال",
+                "name": "تعويض بسبب خطأ في الطلب - 100 ريال",
+                "link": ""
+            },
+            "date": "2026-06-10T13:44:37.511Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "تأمين",
+            "amount": 300,
+            "method": "cash",
+            "fileLink": "تأمين - 300 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "تأمين - 300 ريال كاش",
+                "name": "تأمين - 300 ريال كاش",
+                "link": "تأمين - 300 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-10T13:11:50.292Z"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 900,
+            "method": "cash",
+            "fileLink": "باقي المبلغ - 900 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "باقي المبلغ - 900 ريال كاش",
+                "name": "باقي المبلغ - 900 ريال كاش",
+                "link": "باقي المبلغ - 900 ريال كاش"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T13:17:14.478Z",
+            "settlementId": 1781097839484,
+            "settlementDate": "2026-06-10T13:23:59.484Z",
+            "settlementReceipt": "حوالة مبلغ الكاش من عبدالرزاق 770 ريال مخصوم مبلغ نقل 50 ريال.pdf",
+            "settlementNote": "حوالة 770 , مخصوم 100 ريال تعويض للعميلة , مخصوم 50 ريال لافاق , من قيمة الطلب"
+        },
+        {
+            "desc": "عربون",
+            "amount": 450,
+            "method": "transfer",
+            "fileLink": "عربون - 450 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 450 ريال تحويل.pdf",
+                "name": "عربون - 450 ريال تحويل.pdf",
+                "link": "عربون - 450 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T13:18:26.074Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": false,
+    "status": "تم الجرد",
+    "computed": {
+        "total": 1350,
+        "deductedInsurance": 0,
+        "received": 1650,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 195,
+        "totalExpenses": 195,
+        "revenue": 1350,
+        "remaining": 0,
+        "netProfit": 1155,
+        "includeTax": true,
+        "operatingShare": 115.5,
+        "distributableProfit": 1039.5,
+        "fuel": 30
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 300,
+            "deducted": 0,
+            "method": "cash",
+            "fileLink": "إرجاع التأمين - 300 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "إرجاع التأمين - 300 ريال كاش",
+                "name": "إرجاع التأمين - 300 ريال كاش",
+                "link": "إرجاع التأمين - 300 ريال كاش"
+            },
+            "date": "2026-06-10T13:12:01.174Z"
+        }
+    ],
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 30
+    }
+}

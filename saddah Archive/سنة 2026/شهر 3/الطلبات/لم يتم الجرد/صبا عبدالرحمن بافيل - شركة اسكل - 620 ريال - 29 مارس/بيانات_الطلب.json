@@ -1,0 +1,172 @@
+{
+    "id": 1774708868363,
+    "date": "٢٨‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "صبا عبدالرحمن بافيل - شركة اسكل",
+        "id": "7002781099",
+        "phone": "0506632093",
+        "address": "الروضة",
+        "deliveryDate": "2026-03-29",
+        "deliveryTime": "13:00",
+        "pickupDate": "2026-03-30",
+        "pickupTime": "13:00"
+    },
+    "financials": {
+        "subTotal": "539.13",
+        "total": "620.00 ريال",
+        "delivery": 0,
+        "deposit": "200",
+        "securityDeposit": "200",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 0,
+        "fuel": 30
+    },
+    "items": [
+        {
+            "name": "تنسيق طاولة ل10 اشخاص",
+            "desc": "تنسيق الربيع ",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "478.26",
+            "totalOriginal": "478.26",
+            "unitPrice": 478.26,
+            "originalPrice": 478.26
+        },
+        {
+            "name": "طاولة بوفيه من تنسيق خفيف",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "60.87",
+            "totalOriginal": "60.87",
+            "unitPrice": 60.87,
+            "originalPrice": 60.87
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "مفهوم الضيافة",
+            "amount": 40,
+            "total": 40,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "مفهوم الضيافة - 40 ريال.jpeg",
+                "name": "مفهوم الضيافة - 40 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:42:24.242Z",
+            "claimId": "1781206944242988"
+        },
+        {
+            "desc": "فاتورة مطابع انجاز للنسخ و التصوير ",
+            "amount": 20,
+            "total": 20,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "فاتورة مطابع انجاز للنسخ و التصوير - 20 ريال.pdf",
+                "name": "فاتورة مطابع انجاز للنسخ و التصوير - 20 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:43:12.417Z",
+            "claimId": "1781206992417207"
+        },
+        {
+            "desc": "غسيل قماش ",
+            "amount": 20,
+            "total": 20,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "غسيل قماش - 20 ريال",
+                "name": "غسيل قماش - 20 ريال",
+                "link": ""
+            },
+            "date": "2026-06-17T13:35:32.133Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون + باقي المبلغ",
+            "amount": 620,
+            "method": "transfer",
+            "fileLink": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+                "name": "عربون + باقي المبلغ - 620 ريال تحويل.pdf",
+                "link": "عربون + باقي المبلغ - 620 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:40:23.660Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 200,
+            "method": "cash",
+            "fileLink": "تأمين - 200 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "تأمين - 200 ريال كاش",
+                "name": "تأمين - 200 ريال كاش",
+                "link": "تأمين - 200 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-11T19:40:51.438Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 620,
+        "deductedInsurance": 0,
+        "received": 820,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 80,
+        "totalExpenses": 80,
+        "revenue": 620,
+        "remaining": 0,
+        "netProfit": 540,
+        "includeTax": true,
+        "operatingShare": 54,
+        "distributableProfit": 486,
+        "fuel": 30
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 200,
+            "deducted": 0,
+            "method": "cash",
+            "fileLink": "إرجاع التأمين - 200 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "إرجاع التأمين - 200 ريال كاش",
+                "name": "إرجاع التأمين - 200 ريال كاش",
+                "link": "إرجاع التأمين - 200 ريال كاش"
+            },
+            "date": "2026-06-11T19:41:00.826Z"
+        }
+    ],
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 30
+    }
+}

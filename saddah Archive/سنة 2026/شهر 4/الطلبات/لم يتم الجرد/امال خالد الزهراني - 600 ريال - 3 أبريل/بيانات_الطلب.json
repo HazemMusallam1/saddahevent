@@ -1,0 +1,161 @@
+{
+    "id": 1775068504606,
+    "date": "١‏/٤‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "امال خالد الزهراني",
+        "id": "1089815490",
+        "phone": "",
+        "address": "حي النسيم",
+        "deliveryDate": "2026-04-03",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-04-04",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "521.74",
+        "total": "600.00 ريال",
+        "delivery": 0,
+        "deposit": "100",
+        "securityDeposit": "100",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 0,
+        "fuel": 30
+    },
+    "items": [
+        {
+            "name": "طاولة لعشر اشخاص مع تنسيق ",
+            "desc": "طاولة مع 10 كراسي شامل التنسيق الوردي",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "521.74",
+            "totalOriginal": "521.74",
+            "unitPrice": 521.74,
+            "originalPrice": 521.74
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "مفهوم الضيافة",
+            "amount": 60,
+            "total": 60,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "مفهوم الضيافة - 60 ريال.jpeg",
+                "name": "مفهوم الضيافة - 60 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-10T12:44:44.468Z",
+            "claimId": "1781095484468972"
+        },
+        {
+            "desc": "الدانوب",
+            "amount": 16,
+            "total": 16,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الدانوب - 16 ريال.jpeg",
+                "name": "الدانوب - 16 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-10T12:45:48.465Z",
+            "claimId": "1781095548465963"
+        },
+        {
+            "desc": "توصيل افاق",
+            "amount": 50,
+            "total": 50,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "توصيل افاق - 50 ريال",
+                "name": "توصيل افاق - 50 ريال",
+                "link": ""
+            },
+            "date": "2026-06-10T12:46:54.369Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 100,
+            "method": "transfer",
+            "fileLink": "عربون - 100 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 100 ريال تحويل.pdf",
+                "name": "عربون - 100 ريال تحويل.pdf",
+                "link": "عربون - 100 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T12:42:42.140Z"
+        },
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 600,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 600 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 600 ريال تحويل.pdf",
+                "name": "باقي المبلغ + تأمين - 600 ريال تحويل.pdf",
+                "link": "باقي المبلغ + تأمين - 600 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-10T12:43:21.171Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 600,
+        "deductedInsurance": 0,
+        "received": 700,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 126,
+        "totalExpenses": 126,
+        "revenue": 600,
+        "remaining": 0,
+        "netProfit": 474,
+        "includeTax": true,
+        "operatingShare": 47.4,
+        "distributableProfit": 426.6,
+        "fuel": 30
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 100,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 100 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 100 ريال تحويل.pdf",
+                "name": "إرجاع التأمين - 100 ريال تحويل.pdf",
+                "link": "إرجاع التأمين - 100 ريال تحويل.pdf"
+            },
+            "date": "2026-06-10T12:43:45.681Z"
+        }
+    ],
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 30
+    }
+}

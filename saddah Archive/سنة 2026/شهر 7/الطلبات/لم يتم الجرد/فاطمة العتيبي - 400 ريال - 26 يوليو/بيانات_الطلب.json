@@ -1,0 +1,69 @@
+{
+  "id": 1785064060745,
+  "date": "٢٦‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "فاطمة العتيبي",
+    "id": "-",
+    "phone": "506554448",
+    "address": "حي المنارات ابحر",
+    "deliveryDate": "2026-07-26",
+    "deliveryTime": "13:00",
+    "pickupDate": "2026-07-27",
+    "pickupTime": "14:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "400.00",
+    "total": "400.00 ريال",
+    "delivery": "0",
+    "deposit": "100",
+    "securityDeposit": "100",
+    "vatRate": "0"
+  },
+  "items": [
+    {
+      "name": "كراسي ديور ",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 16,
+      "chairsCount": 0,
+      "total": "320.00",
+      "totalOriginal": "320.00",
+      "unitPrice": 20,
+      "originalPrice": 20
+    },
+    {
+      "name": "طاولة فايبر 180سم + مفرش",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 2,
+      "chairsCount": 0,
+      "total": "80.00",
+      "totalOriginal": "80.00",
+      "unitPrice": 40,
+      "originalPrice": 40
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [],
+  "paymentStatus": {},
+  "isConfirmed": false,
+  "computed": {
+    "total": 400,
+    "deductedInsurance": 0,
+    "received": 0,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 400,
+    "remaining": 400,
+    "netProfit": 400,
+    "includeTax": false,
+    "operatingShare": 40,
+    "distributableProfit": 360,
+    "fuel": 0
+  }
+}

@@ -1,0 +1,176 @@
+{
+    "id": 1765816587987,
+    "date": "١٥‏/١٢‏/٢٠٢٥",
+    "client": {
+        "name": "روان مبرك الروقي",
+        "id": "1115033332",
+        "address": "حي التيسير",
+        "deliveryDate": "2026-01-01",
+        "deliveryTime": "17:00",
+        "pickupDate": "2026-01-02",
+        "pickupTime": "07:00",
+        "deliveryPerson": "",
+        "returnPerson": ""
+    },
+    "financials": {
+        "subTotal": "826.09",
+        "total": "950.00 ريال",
+        "delivery": 0,
+        "deposit": "300",
+        "securityDeposit": "400",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "returnDelivery": 150,
+        "fuel": 0
+    },
+    "items": [
+        {
+            "name": "طاولة",
+            "desc": "شامل تنسيق",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "826.09"
+        }
+    ],
+    "status": "تم الجرد",
+    "isConfirmed": true,
+    "paymentStatus": {
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true,
+        "securityReturned": true
+    },
+    "expenses": [
+        {
+            "desc": "شركة مخازن التغليف",
+            "amount": 4.35,
+            "total": 5,
+            "paid": 5,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "شركة مخازن التغليف - 5 ريال.jpg",
+                "name": "شركة مخازن التغليف - 5 ريال.jpg",
+                "link": ""
+            },
+            "date": "2026-06-09T17:12:11.646Z",
+            "claimId": "1781026187076767"
+        },
+        {
+            "desc": "شركة تولا الحديثة",
+            "amount": 222.3,
+            "total": 255.65,
+            "paid": 255.65,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "شركة تولا الحديثة - 255.65 ريال.jpg",
+                "name": "شركة تولا الحديثة - 255.65 ريال.jpg",
+                "link": ""
+            },
+            "date": "2026-06-09T17:13:08.524Z",
+            "claimId": "1781026224792680"
+        },
+        {
+            "desc": "شركة التوفير الحديث",
+            "amount": 10,
+            "total": 11.5,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "شركة التوفير الحديث - 11.5 ريال.jpg",
+                "name": "شركة التوفير الحديث - 11.5 ريال.jpg",
+                "link": ""
+            },
+            "date": "2026-06-09T17:31:34.348Z",
+            "claimId": "1781026294348808"
+        },
+        {
+            "desc": "شركة البازار العالمية",
+            "amount": 143.48,
+            "total": 165,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "شركة البازار العالمية - 165 ريال.pdf",
+                "name": "شركة البازار العالمية - 165 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-09T17:32:19.499Z",
+            "claimId": "1781026339499637"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "باقي المبلغ",
+            "amount": 650,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ - 650 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ - 650 ريال.pdf",
+                "name": "باقي المبلغ - 650 ريال.pdf",
+                "link": "باقي المبلغ - 650 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T17:09:54.335Z"
+        },
+        {
+            "desc": "عربون",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "عربون - 300 ريال.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 300 ريال.pdf",
+                "name": "عربون - 300 ريال.pdf",
+                "link": "عربون - 300 ريال.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T17:11:19.196Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 400,
+            "method": "cash",
+            "fileLink": "تأمين - 400 ريال كاش",
+            "attachment": {
+                "type": "folder",
+                "data": "تأمين - 400 ريال كاش",
+                "name": "تأمين - 400 ريال كاش",
+                "link": "تأمين - 400 ريال كاش"
+            },
+            "settledToInstitution": false,
+            "date": "2026-06-14T15:08:38.889Z"
+        }
+    ],
+    "isSettled": true,
+    "contractUrl": "https://drive.google.com/drive/folders/1-lGMmCnf4f8SNBWYnHwuZLDEMN5-qEOP?usp=drive_link",
+    "returns": [],
+    "computed": {
+        "total": 950,
+        "deductedInsurance": 0,
+        "received": 1350,
+        "extDelivery": 0,
+        "whDelivery": 150,
+        "otherExpenses": 437.15,
+        "totalExpenses": 587.15,
+        "revenue": 950,
+        "remaining": -400,
+        "netProfit": 362.85,
+        "includeTax": true,
+        "operatingShare": 36.29,
+        "distributableProfit": 326.57,
+        "fuel": 0
+    },
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 150,
+        "abdulrazzaqFuel": 0,
+        "warehouseDeliveryReceipt": "إرجاع مستودع - 150 ريال.pdf"
+    }
+}

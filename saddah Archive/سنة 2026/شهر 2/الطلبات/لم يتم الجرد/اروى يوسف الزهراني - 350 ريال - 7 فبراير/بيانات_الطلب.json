@@ -1,0 +1,94 @@
+{
+    "id": 1771227091126,
+    "date": "١٦‏/٢‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "اروى يوسف الزهراني",
+        "id": "1115774505 ",
+        "phone": "",
+        "address": "حي الفلاح ",
+        "deliveryDate": "2026-02-07",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-02-08",
+        "pickupTime": "09:00",
+        "deliveryPerson": "",
+        "returnPerson": ""
+    },
+    "financials": {
+        "subTotal": "304.35",
+        "total": "350.00 ريال",
+        "delivery": "0",
+        "deposit": "0",
+        "securityDeposit": "0",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "تنسيق10 اشخاص",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "304.35",
+            "totalOriginal": "304.35",
+            "unitPrice": 304.35,
+            "originalPrice": 304.35
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "مناديل",
+            "amount": 8,
+            "total": 8,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "folder",
+                "data": "مناديل - 8 ريال",
+                "name": "مناديل - 8 ريال",
+                "link": ""
+            },
+            "date": "2026-06-17T14:51:15.281Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون + باقي المبلغ",
+            "amount": 350,
+            "method": "transfer",
+            "fileLink": "عربون + باقي المبلغ - 350 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون + باقي المبلغ - 350 ريال تحويل.pdf",
+                "name": "عربون + باقي المبلغ - 350 ريال تحويل.pdf",
+                "link": "عربون + باقي المبلغ - 350 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-17T14:49:27.277Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": false,
+        "deposit": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "computed": {
+        "total": 350,
+        "deductedInsurance": 0,
+        "received": 350,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 8,
+        "totalExpenses": 8,
+        "revenue": 350,
+        "remaining": 0,
+        "netProfit": 342,
+        "includeTax": true,
+        "operatingShare": 34.2,
+        "distributableProfit": 307.8,
+        "fuel": 0
+    }
+}

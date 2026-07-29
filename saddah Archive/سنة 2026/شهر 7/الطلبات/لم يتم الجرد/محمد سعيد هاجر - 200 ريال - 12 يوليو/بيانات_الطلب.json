@@ -1,0 +1,106 @@
+{
+  "id": 1783797592779,
+  "date": "١١‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "محمد سعيد هاجر",
+    "id": "1020870943",
+    "phone": "554655811",
+    "address": "حي الريان",
+    "deliveryDate": "2026-07-12",
+    "deliveryTime": "12:00",
+    "pickupDate": "2026-07-13",
+    "pickupTime": "12:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "200.00",
+    "total": "200.00 ريال",
+    "delivery": "0",
+    "deposit": "50",
+    "securityDeposit": "50",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 200,
+    "deductedInsurance": 0,
+    "received": 250,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 0,
+    "totalExpenses": 0,
+    "revenue": 200,
+    "remaining": -50,
+    "netProfit": 200,
+    "includeTax": false,
+    "operatingShare": 20,
+    "distributableProfit": 180,
+    "fuel": 0
+  },
+  "items": [
+    {
+      "name": "كراسي ديور راتان",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 8,
+      "chairsCount": 0,
+      "total": "200.00",
+      "totalOriginal": "200.00",
+      "unitPrice": 25,
+      "originalPrice": 25
+    }
+  ],
+  "expenses": [],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 50,
+      "method": "transfer",
+      "fileLink": "عربون - 50 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 50 ريال تحويل.pdf",
+        "name": "عربون - 50 ريال تحويل.pdf",
+        "link": "عربون - 50 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:29:41.193Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 150,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 150 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ - 150 ريال تحويل.pdf",
+        "name": "باقي المبلغ - 150 ريال تحويل.pdf",
+        "link": "باقي المبلغ - 150 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-18T21:30:25.307Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 50,
+      "method": "cash",
+      "fileLink": "تأمين - 50 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 50 ريال كاش",
+        "name": "تأمين - 50 ريال كاش",
+        "link": "تأمين - 50 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-07-18T21:30:41.412Z"
+    }
+  ],
+  "returns": [],
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  }
+}

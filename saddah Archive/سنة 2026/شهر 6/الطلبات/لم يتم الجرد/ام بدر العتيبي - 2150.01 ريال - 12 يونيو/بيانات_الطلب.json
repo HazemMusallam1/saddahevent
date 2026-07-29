@@ -1,0 +1,241 @@
+{
+  "id": 1780233272379,
+  "date": "٣١‏/��‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "ام بدر العتيبي",
+    "id": "",
+    "phone": "505582581",
+    "address": "مخطط ا��رياض , حي الصفوة",
+    "deliveryDate": "2026-06-12",
+    "deliveryTime": "15:00",
+    "pickupDate": "2026-05-13",
+    "pickupTime": "15:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "1869.57",
+    "total": "2150.01 ريال",
+    "delivery": 0,
+    "deposit": "200",
+    "securityDeposit": "300",
+    "vatRate": "15",
+    "includeTaxInProfit": true,
+    "returnDelivery": 0,
+    "fuel": 30
+  },
+  "paymentStatus": {
+    "securityReturned": true,
+    "deposit": true,
+    "completed": true,
+    "remaining": true,
+    "security": true
+  },
+  "isConfirmed": true,
+  "computed": {
+    "total": 2150.01,
+    "deductedInsurance": 0,
+    "received": 2450,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 418.59,
+    "totalExpenses": 418.59,
+    "revenue": 2150.01,
+    "remaining": 0.01,
+    "netProfit": 1731.42,
+    "includeTax": true,
+    "operatingShare": 173.14,
+    "distributableProfit": 1558.28,
+    "fuel": 30
+  },
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 30
+  },
+  "status": "تم الجرد",
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولتين زجاج - 20 كرسي - تنسيق موف",
+      "desc": "طا��لتين سطح زجاجي و قواعد ذهبية  - 20 ك������سي ديور  - تنسيق موف",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 20,
+      "total": "1565.22",
+      "totalOriginal": "1565.22",
+      "unitPrice": 1565.22,
+      "originalPrice": 1565.22
+    },
+    {
+      "name": "تنسيق طاولة ل12 شخص  ",
+      "desc": "اللون : موف ",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 0,
+      "total": "304.35",
+      "totalOriginal": "304.35",
+      "unitPrice": 304.35,
+      "originalPrice": 304.35
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "عامل تنزيل (عند التوصيل) كاش",
+      "amount": 25,
+      "total": 25,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "folder",
+        "data": "عامل تنزيل (عند التوصيل) كاش - 25 ريال",
+        "name": "عامل تنزيل (عند التوصيل) ك��ش - 25 �����يال",
+        "link": ""
+      },
+      "date": "2026-06-14T14:17:43.116Z",
+      "claimId": "178144666311648"
+    },
+    {
+      "desc": "اسرار الورد",
+      "amount": 65.22,
+      "total": 75,
+      "paid": 75,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "اسرار الورد - 75 ريال.pdf",
+        "link": "saddah://1780233272379/المصروفات/اسرار الورد - 75 ريال.pdf"
+      },
+      "date": "2026-06-14T14:25:33.895Z"
+    },
+    {
+      "desc": "اكليل الورد",
+      "amount": 143.47,
+      "total": 164.99,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "اكليل الورد - 164.99 ريال.jpeg",
+        "link": "saddah://1780233272379/المصروفات/اكليل الورد - 164.99 ريال.jpeg"
+      },
+      "date": "2026-06-14T14:27:46.670Z"
+    },
+    {
+      "desc": "عجائب الورد",
+      "amount": 41.74,
+      "total": 48,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "عجائب الورد - 48 ريال.pdf",
+        "link": "saddah://1780233272379/المصروفات/عجائب الورد - 48 ريال.pdf"
+      },
+      "date": "2026-06-14T14:28:28.132Z"
+    },
+    {
+      "desc": "مؤسسة باعبدالرحمن التجارية",
+      "amount": 31.3,
+      "total": 36,
+      "paid": 36,
+      "discount": 0,
+      "attachment": {
+        "type": "application/pdf",
+        "data": "مؤسسة باعبدالرحمن التجارية - 36 ريال.pdf",
+        "name": "مؤسسة باعبدالرحمن التجارية - 36 ريال.pdf",
+        "link": ""
+      },
+      "date": "2026-06-14T14:29:30.461Z"
+    },
+    {
+      "desc": "ورد توليب",
+      "amount": 30.52,
+      "total": 35.1,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "ورد توليب - 35.1 ريال.jpeg",
+        "link": "saddah://1780233272379/المصروفات/ورد توليب - 35.1 ريال.jpeg"
+      },
+      "date": "2026-06-14T14:30:17.708Z"
+    },
+    {
+      "desc": "عالم التوفير ",
+      "amount": 30,
+      "total": 34.5,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "عالم التوفير - 34.5 ريال.jpeg",
+        "link": "saddah://1780233272379/المصروفات/عالم التوفير - 34.5 ريال.jpeg"
+      },
+      "date": "2026-06-16T12:31:23.804Z",
+      "claimId": "1781613083804660"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "��اقي المبلغ",
+      "amount": 1950,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 1950 ريال تحويل.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "باقي المبلغ - 1950 ريال تحويل.pdf",
+        "link": "saddah://1780233272379/الدفعات/باقي المبلغ - 1950 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-14T14:32:02.858Z"
+    },
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال تحويل.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "عربون - 200 ريال تحويل.pdf",
+        "link": "saddah://1780233272379/الدفعات/عربون - 200 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-14T14:33:11.978Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 300,
+      "method": "cash",
+      "fileLink": "تأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 300 ريال كاش",
+        "name": "تأمين - 300 ريال كاش",
+        "link": "تأمين - 300 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-14T14:33:37.633Z"
+    }
+  ],
+  "returns": [
+    {
+      "desc": "إرجاع التأمين",
+      "refund": 300,
+      "deducted": 0,
+      "method": "cash",
+      "fileLink": "إرجاع التأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "إرجاع التأمين - 300 ريال كاش",
+        "name": "إرجاع التأمين - 300 ريال كاش",
+        "link": "إرجاع التأمين - 300 ريال كاش"
+      },
+      "date": "2026-06-14T14:33:48.516Z"
+    }
+  ]
+}

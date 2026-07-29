@@ -1,0 +1,74 @@
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f3f4f6;
+}
+
+/* Custom Input Styles */
+.input-std {
+    border: 1px solid #d1d5db;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.input-std:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.input-error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+/* Filter Buttons */
+.filter-btn {
+    @apply px-3 py-1.5 rounded-full text-xs font-bold transition border select-none;
+}
+
+.filter-btn.active {
+    @apply bg-emerald-600 text-white border-emerald-600 shadow-sm;
+}
+
+.filter-btn.inactive {
+    @apply bg-white text-gray-500 border-gray-200 hover:bg-gray-50;
+}
+
+/* Modal & Toast Animations */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.fade-in {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

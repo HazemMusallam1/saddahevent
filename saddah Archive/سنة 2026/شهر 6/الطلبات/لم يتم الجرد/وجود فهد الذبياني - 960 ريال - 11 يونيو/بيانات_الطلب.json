@@ -1,0 +1,180 @@
+{
+  "id": 1780148428798,
+  "date": "٣٠‏/٥‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "وجود فهد الذبياني ",
+    "id": "1119569984",
+    "phone": "543886376",
+    "address": "ابرق رغامه",
+    "deliveryDate": "2026-06-11",
+    "deliveryTime": "09:00",
+    "pickupDate": "2026-06-12",
+    "pickupTime": "09:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "834.78",
+    "total": "960.00 ريال",
+    "delivery": 0,
+    "deposit": "200",
+    "securityDeposit": 300,
+    "vatRate": "15",
+    "includeTaxInProfit": true,
+    "returnDelivery": 0,
+    "fuel": 30
+  },
+  "paymentStatus": {
+    "securityReturned": true,
+    "deposit": true,
+    "completed": true,
+    "remaining": true,
+    "security": true
+  },
+  "isConfirmed": true,
+  "status": "تم الجرد",
+  "computed": {
+    "total": 960,
+    "deductedInsurance": 0,
+    "received": 1260,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 88,
+    "totalExpenses": 88,
+    "revenue": 960,
+    "remaining": 0,
+    "netProfit": 872,
+    "includeTax": true,
+    "operatingShare": 87.2,
+    "distributableProfit": 784.8,
+    "fuel": 30
+  },
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 30
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولة زجاج مع تنسيق ",
+      "desc": "قواعد ذهبية و سطح زجاجي , تنسيق زهري ",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 10,
+      "total": "834.78",
+      "totalOriginal": "834.78",
+      "unitPrice": 834.78,
+      "originalPrice": 834.78
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "الدانوب",
+      "amount": 3,
+      "total": 3,
+      "paid": 3,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "الدانوب - 3 ريال.jpg",
+        "name": "الدانوب - 3 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-06-11T19:05:26.838Z",
+      "claimId": "1781204726838240"
+    },
+    {
+      "desc": "مؤسسة انجاز للطباعة ",
+      "amount": 35,
+      "total": 35,
+      "paid": 35,
+      "discount": 0,
+      "attachment": {
+        "type": "application/pdf",
+        "data": "مؤسسة انجاز للطباعة - 35 ريال.pdf",
+        "name": "مؤسسة انجاز للطباعة - 35 ريال.pdf",
+        "link": ""
+      },
+      "date": "2026-06-11T19:05:56.260Z",
+      "claimId": "1782517122371342"
+    },
+    {
+      "desc": "عامل للتوصيل طلب وجود",
+      "amount": 50,
+      "total": 50,
+      "paid": 50,
+      "discount": 0,
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عامل للتوصيل طلب وجود - 50 ريال.pdf",
+        "name": "عامل للتوصيل طلب وجود - 50 ريال.pdf",
+        "link": ""
+      },
+      "date": "2026-06-11T19:06:20.963Z"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال تحويل.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "عربون - 200 ريال تحويل.pdf",
+        "link": "saddah://1780148428798/الدفعات/عربون - 200 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-11T19:10:21.934Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 300,
+      "method": "cash",
+      "fileLink": "تأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 300 ريال كاش",
+        "name": "تأمين - 300 ريال كاش",
+        "link": "تأمين - 300 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-11T19:10:30.413Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 760,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 760 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ - 760 ريال تحويل.pdf",
+        "name": "باقي المبلغ - 760 ريال تحويل.pdf",
+        "link": "باقي المبلغ - 760 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-26T14:29:12.651Z"
+    }
+  ],
+  "returns": [
+    {
+      "desc": "إرجاع التأمين",
+      "refund": 300,
+      "deducted": 0,
+      "method": "cash",
+      "fileLink": "إرجاع التأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "إرجاع التأمين - 300 ريال كاش",
+        "name": "إرجاع التأمين - 300 ريال كاش",
+        "link": "إرجاع التأمين - 300 ريال كاش"
+      },
+      "date": "2026-06-14T14:36:39.705Z"
+    }
+  ]
+}

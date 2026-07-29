@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتبع الطلبات - صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Scrollbar styles */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        /* أزرار الحالة السريعة */
+        .quick-status-btn {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            color: #94a3b8;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+        .quick-status-btn:hover { background: #f8fafc; }
+        .quick-status-btn.active {
+            background: #d1fae5;
+            color: #047857;
+            border-color: #6ee7b7;
+        }
+        /* نظام التلميحات (Tooltips) */
+        #app-tooltip {
+            position: fixed;
+            z-index: 9999;
+            background: #1f2937;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.5;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 280px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.12s, transform 0.12s;
+            text-align: right;
+        }
+        #app-tooltip.show { opacity: 1; transform: translateY(0); }
+        #app-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 16px;
+            width: 10px; height: 10px;
+            background: #1f2937;
+            transform: rotate(45deg);
+        }
+        [data-tip] { cursor: help; }
+    </style>
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+</head>
+
+<body class="text-slate-800 pb-24">
+
+    <!-- نظام التلميحات: عنصر واحد على body لا يتقصّ داخل النوافذ -->
+    <div id="app-tooltip"></div>
+    <script>
+        (function () {
+            const tip = document.getElementById('app-tooltip');
+            function show(el) {
+                const text = el.getAttribute('data-tip');
+                if (!text) return;
+                tip.textContent = text;
+                const r = el.getBoundingClientRect();
+                tip.classList.add('show');
+                // الموضع: فوق العنصر، محاذاة لليمين (RTL)
+                let top = r.top - tip.offsetHeight - 10;
+                if (top < 8) top = r.bottom + 10; // لو ما فيه مكان فوق، انزل تحت
+                let right = window.innerWidth - r.right;
+                if (right < 8) right = 8;
+                tip.style.top = top + 'px';
+                tip.style.right = right + 'px';
+                tip.style.left = 'auto';
+            }
+            function hide() { tip.classList.remove('show'); }
+            document.addEventListener('mouseover', e => {
+                const el = e.target.closest('[data-tip]');
+                if (el) show(el);
+            });
+            document.addEventListener('mouseout', e => {
+                if (e.target.closest('[data-tip]')) hide();
+            });
+            // إخفاء عند التمرير لتفادي بقاء التلميح في مكان خاطئ
+            document.addEventListener('scroll', hide, true);
+        })();
+    </script>
+
+    <!-- Header -->
+    <div class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition group">
+                <div class="bg-slate-50 p-2 rounded-lg group-hover:bg-emerald-50 transition"><i class="fa-solid fa-arrow-right"></i></div>
+                <span class="font-bold text-sm hidden sm:inline">عودة للرئيسية</span>
+            </a>
+                <div class="flex items-center gap-3">
+                    <div class="bg-orange-50 p-3 rounded-xl text-orange-600 border border-orange-100 shadow-sm">
+                        <i class="fa-solid fa-satellite-dish text-xl"></i>
+                    </div>
+                    <div class="text-right">
+                        <h1 class="font-black text-xl text-slate-800">تتبع الطلبات</h1>
+                        <p class="text-xs text-slate-400 font-bold">إدارة ومراقبة مواعيد التجهيز</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+
+        <!-- أقرب طلب (Hero Section) -->
+        <div id="closest-order-section" class="hidden fade-in">
+            <h2 class="text-slate-500 font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-bolt text-yellow-400"></i> الطلب الأقرب (عاجل)</h2>
+            <div id="closest-order-card" class="hero-gradient rounded-3xl p-1 shadow-xl shadow-emerald-200/50">
+                <div class="bg-white/95 backdrop-blur-xl rounded-[22px] p-6 sm:p-8 relative overflow-hidden">
+                    <!-- Background Decoration -->
+                    <i class="fa-solid fa-stopwatch absolute -left-10 -bottom-10 text-9xl text-slate-50 opacity-50 transform -rotate-12"></i>
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row gap-6 items-center justify-between">
+                        <div class="flex-1 space-y-4 text-center md:text-right">
+                            <div id="hero-status-badge" class="inline-flex items-center gap-2 bg-red-50 text-red-600 px-3 py-1 rounded-full text-xs font-black border border-red-100">
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                                </span>
+                                قيد الانتظار
+                            </div>
+                            <h3 id="hero-client" class="text-3xl font-black text-slate-800">اسم العميل</h3>
+                            <div class="flex flex-col gap-3 justify-center md:justify-start my-3">
+                                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                                    <div class="bg-emerald-50/80 p-2 rounded-xl border border-emerald-100 flex items-center gap-3">
+                                        <div class="bg-emerald-100 p-2 rounded-lg text-emerald-600"><i class="fa-solid fa-truck-fast"></i></div>
+                                        <div class="text-right">
+                                            <div class="text-[10px] text-emerald-700 font-bold">وقت التوصيل</div>
+                                            <div class="text-xs font-black text-slate-800" id="hero-delivery">تاريخ ووقت</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-orange-50/80 p-2 rounded-xl border border-orange-100 flex items-center gap-3">
+                                        <div class="bg-orange-100 p-2 rounded-lg text-orange-600"><i class="fa-solid fa-box-open"></i></div>
+                                        <div class="text-right">
+                                            <div class="text-[10px] text-orange-700 font-bold">وقت الإرجاع</div>
+                                            <div class="text-xs font-black text-slate-800" id="hero-return">تاريخ ووقت</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="hero-financials">
+                                    <!-- سيتم تعبئتها عبر الجافاسكريبت -->
+                                </div>
+                            </div>
+                            <p id="hero-desc" class="text-slate-600 text-sm leading-relaxed max-w-2xl bg-slate-50 p-3 rounded-lg border border-slate-100"></p>
+                        </div>
+                        
+                        <div class="text-center md:text-left bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl border border-slate-200 shadow-inner w-full md:w-auto min-w-[200px]">
+                            <div class="text-xs font-bold text-slate-400 mb-1">متبقي على التجهيز</div>
+                            <div id="hero-days" class="text-5xl font-black text-emerald-600 mb-2 hero-gradient text-gradient">اليوم</div>
+                            <button id="hero-details-btn" class="w-full bg-slate-800 text-white text-sm font-bold py-2 rounded-lg hover:bg-slate-700 transition shadow-md">
+                                <i class="fa-solid fa-box-open"></i> تفاصيل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الطلبات القادمة -->
+        <div id="upcoming-section" class="hidden fade-in" style="animation-delay: 0.1s;">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-200 pb-2">
+                <h2 class="text-lg font-black text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-days text-blue-500"></i> الطلبات المجدولة
+                </h2>
+                <span id="upcoming-count" class="bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-xs font-bold border border-blue-100">0 طلبات</span>
+            </div>
+            
+            <div id="upcoming-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- سيتم تعبئة الكروت هنا -->
+            </div>
+        </div>
+
+        <!-- الطلبات السابقة -->
+        <div id="past-section" class="hidden fade-in opacity-70 hover:opacity-100 transition-opacity duration-300" style="animation-delay: 0.2s;">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-200 pb-2">
+                <h2 class="text-lg font-black text-slate-500 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> الطلبات السابقة
+                </h2>
+                <span id="past-count" class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold border border-slate-200">0 طلبات</span>
+            </div>
+            
+            <div id="past-grid" class="space-y-6">
+                <!-- سيتم تعبئة الكروت هنا مجمّعة حسب الشهر -->
+            </div>
+        </div>
+
+        <!-- رسالة فارغة -->
+        <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20 text-center fade-in">
+            <div class="bg-white w-24 h-24 rounded-full shadow-sm flex items-center justify-center mb-4 border border-slate-100">
+                <i class="fa-solid fa-mug-hot text-4xl text-emerald-300"></i>
+            </div>
+            <h2 class="text-xl font-black text-slate-700 mb-2">لا توجد أي طلبات حالياً!</h2>
+            <p class="text-slate-400 text-sm max-w-md">الجدول فارغ تماماً. يمكنك الذهاب للرئيسية وإنشاء طلبات جديدة لتبدأ بالظهور هنا.</p>
+            <a href="../../index.html" class="mt-6 bg-emerald-50 text-emerald-600 border border-emerald-200 px-6 py-2 rounded-lg font-bold hover:bg-emerald-100 transition">الذهاب للحاسبة</a>
+        </div>
+
+    </div>
+
+    <!-- نافذة تفاصيل الطلب (Details Modal) -->
+    <div id="details-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full sm:w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] transform translate-y-full sm:translate-y-10 transition-transform duration-300 border border-slate-200" id="details-modal-content">
+            
+            <!-- رأس النافذة -->
+            <div class="bg-slate-50 border-b border-slate-200 p-5 flex justify-between items-start relative">
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-slate-200 rounded-full sm:hidden"></div>
+                <div>
+                    <h3 class="text-xl font-black text-slate-800" id="modal-client-name">اسم العميل</h3>
+                    <p class="text-xs font-bold text-slate-500 mt-1 flex items-center gap-2">
+                        <i class="fa-regular fa-calendar"></i> <span id="modal-date">التاريخ</span>
+                    </p>
+                    <!-- ملخّص مبالغ الطلب: الإجمالي + العربون + التأمين -->
+                    <div class="flex flex-wrap items-center gap-2 mt-2">
+                        <span class="text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-1 rounded-lg inline-flex items-center gap-1">
+                            <i class="fa-solid fa-sack-dollar"></i> الإجمالي: <span id="modal-total">0 ريال</span>
+                        </span>
+                        <span class="text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-100 px-2 py-1 rounded-lg inline-flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> العربون: <span id="modal-deposit">0 ريال</span>
+                        </span>
+                        <span class="text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100 px-2 py-1 rounded-lg inline-flex items-center gap-1">
+                            <i class="fa-solid fa-shield-halved"></i> التأمين: <span id="modal-security">0 ريال</span>
+                        </span>
+                    </div>
+                    <div id="modal-status-badge" class="mt-2"></div>
+                </div>
+                <button onclick="closeDetailsModal()" class="bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-slate-200 shadow-sm mt-2 sm:mt-0">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <!-- المنطقة القابلة للتمرير (تتقلّص داخل ارتفاع النافذة المحدود) -->
+            <div class="flex-1 overflow-y-auto min-h-0 bg-white">
+
+                <!-- تعيين المناديب -->
+                <div class="px-4 pt-3">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 grid grid-cols-2 gap-3">
+                        <div data-tip="الشخص المسؤول عن توصيل الطلب للعميل يوم المناسبة. يُحفظ تلقائياً ويظهر في تقارير التجهيز.">
+                            <label class="text-[10px] font-bold text-slate-500 mb-1 block"><i class="fa-solid fa-truck text-emerald-500"></i> مندوب التوصيل</label>
+                            <input type="text" id="modal-delivery-person" class="w-full text-xs font-bold text-slate-700 p-2 border border-slate-300 rounded-lg focus:border-emerald-500 outline-none transition" placeholder="اسم المندوب" oninput="updatePersonnel()">
+                        </div>
+                        <div data-tip="الشخص المسؤول عن استرجاع الأثاث من العميل بعد انتهاء المناسبة.">
+                            <label class="text-[10px] font-bold text-slate-500 mb-1 block"><i class="fa-solid fa-people-carry-box text-orange-500"></i> مندوب الاسترجاع</label>
+                            <input type="text" id="modal-pickup-person" class="w-full text-xs font-bold text-slate-700 p-2 border border-slate-300 rounded-lg focus:border-orange-500 outline-none transition" placeholder="اسم المندوب" oninput="updatePersonnel()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إجراءات الطلب: شبكة أيقونات مدمجة -->
+                <div class="p-4 space-y-2">
+                    <p class="text-[10px] font-bold text-slate-400 px-1">إجراءات الطلب</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="OrderActions.Expenses.openModal()" data-tip="مصروفات تشغيل الطلب (فواتير العمال، الورد، المناديل، الخياطة...). تُخصم من ربح الطلب وتُحسب في الجرد المالي." class="flex flex-col items-center justify-center gap-1.5 p-3 bg-red-50 hover:bg-red-100 text-red-700 border border-red-100 rounded-xl transition text-center">
+                            <i class="fa-solid fa-receipt text-xl"></i>
+                            <span class="font-bold text-xs leading-tight">مصروفات تشغيلية</span>
+                        </button>
+                        <button onclick="actionAddExtra()" data-tip="تكاليف توصيل الطلب وبنزين عبدالرزاق. التوصيل يُخصم من إيراد الطلب، والبنزين يُخصم من نسبة التشغيل 10%." class="flex flex-col items-center justify-center gap-1.5 p-3 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-100 rounded-xl transition text-center">
+                            <i class="fa-solid fa-gas-pump text-xl"></i>
+                            <span class="font-bold text-xs leading-tight">تكاليف إضافية</span>
+                        </button>
+                        <button onclick="actionAddPayment()" data-tip="تسجيل دفعة استلمتها من العميل (عربون / باقي المبلغ / تأمين). تختار كاش أو تحويل، وترفع إيصال إن وُجد." class="flex flex-col items-center justify-center gap-1.5 p-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-100 rounded-xl transition text-center">
+                            <i class="fa-solid fa-money-bill-transfer text-xl"></i>
+                            <span class="font-bold text-xs leading-tight">إثبات دفع</span>
+                        </button>
+                        <button onclick="actionAddReturns()" data-tip="تسجيل ما يُرجَع للعميل (التأمين) أو ما يُخصم منه عند الإرجاع. ومن هنا أيضاً تعدّل مبلغ التأمين في العقد." class="flex flex-col items-center justify-center gap-1.5 p-3 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-100 rounded-xl transition text-center">
+                            <i class="fa-solid fa-box-open text-xl"></i>
+                            <span class="font-bold text-xs leading-tight">مرتجعات</span>
+                        </button>
+                    </div>
+                    <button onclick="actionReportDetails()" data-tip="كتابة ملاحظات خاصة بهذا الطلب (تفاصيل تظهر في التقرير لاحقاً). لا تؤثر على الحسابات المالية." class="w-full flex items-center justify-center gap-2 p-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-100 rounded-xl transition font-bold text-xs">
+                        <i class="fa-solid fa-file-signature"></i> كتابة تفاصيل للتقرير
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                    <button onclick="viewOrderInvoice()" data-tip="عرض الفاتورة" class="flex items-center justify-center gap-2 p-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-sm transition shadow">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> عرض الفاتورة
+                    </button>
+                    <button onclick="viewOrderFolder()" data-tip="استعراض مجلد الطلب" class="flex items-center justify-center gap-2 p-3 bg-slate-700 hover:bg-slate-800 text-white rounded-xl font-bold text-sm transition shadow">
+                        <i class="fa-solid fa-folder-open"></i> مجلد الطلب
+                    </button>
+                </div>
+            </div>
+
+            <!-- تذييل ثابت: الإجراءات النهائية -->
+            <div class="p-4 bg-slate-50 border-t border-slate-100 space-y-2 shrink-0">
+                <button id="modal-audit-btn" onclick="confirmAudit()" data-tip="تعليم الطلب كـ(تم الجرد) ونقل مجلده إلى مجلد &quot;تم الجرد&quot; على الجهاز. الطلب يبقى محفوظاً في النظام ويظهر في الأرشيف — لا يُحذف." class="w-full flex items-center justify-center gap-2 p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl transition shadow-md font-bold text-sm">
+                    <i class="fa-solid fa-check-double text-lg"></i> <span>تأكيد الجرد (نقل لمجلد تم الجرد)</span>
+                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="viewOrderContract()" data-tip="عرض العقد/الوصل الذي يوقعه من يستلم الاغراض - للتأكد منه ومراجعته أو طباعته إلى PDF." class="flex items-center justify-center gap-2 p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-sm transition shadow">
+                        <i class="fa-solid fa-file-contract"></i> عرض العقد
+                    </button>
+                    <button id="modal-cancel-btn" onclick="cancelOrderFromTracking()" data-tip="إلغاء الطلب نهائياً واعتبار المدفوعات كإجمالي للطلب. خطوة نهائية." class="flex items-center justify-center gap-2 p-3 bg-white border border-red-200 text-red-600 hover:bg-red-50 rounded-xl font-bold text-sm transition">
+                        <i class="fa-solid fa-ban"></i> إلغاء الطلب
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة المصروفات (Expenses Modal) -->
+    <div id="expenses-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="expenses-modal-content">
+            <!-- Header -->
+            <div class="bg-red-50 border-b border-red-100 p-5 flex justify-between items-center">
+                <h3 class="text-xl font-black text-red-800 flex items-center gap-2">
+                    <i class="fa-solid fa-receipt text-red-500"></i> إدارة المصروفات
+                </h3>
+                <button onclick="OrderActions.Expenses.closeModal()" class="bg-white hover:bg-red-100 text-red-400 hover:text-red-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-red-200">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 overflow-y-auto max-h-[70vh] bg-slate-50 space-y-6">
+                
+                <!-- Form -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-bold text-slate-700 border-b border-slate-100 pb-2">إضاï¿½ ة مصروï¿½  جديد</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1" data-tip="اسم المورد أو وصï¿½  المصروï¿½ . مثال: عمال، ورد، خياطة، مناديل.">
+                            <label class="text-xs font-bold text-slate-500">المورد / الوصï¿½ </label>
+                            <input type="text" id="exp-supplier" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-red-400 focus:outline-none" placeholder="اسم المورد">
+                        </div>
+                        <div class="space-y-1" data-tip="صورة أو PDF لï¿½ اتورة المصروï¿½  للأرشï¿½ ة. اختياري.">
+                            <label class="text-xs font-bold text-slate-500">الï¿½ اتورة (إرï¿½ اق أو تصوير)</label>
+                            <div class="flex gap-2 mt-1">
+                                <button type="button" onclick="triggerExpFile(false)" class="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-lg py-2 text-xs font-bold transition flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-folder-open text-indigo-500"></i> ملف من الجهاز
+                                </button>
+                                <button type="button" onclick="triggerExpFile(true)" class="flex-1 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg py-2 text-xs font-bold transition flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-camera text-red-500"></i> تصوير فوري
+                                </button>
+                            </div>
+                            <!-- مخفي ويتم تفعيله من الأزرار بالأعلى -->
+                            <input type="file" id="exp-file" accept="image/*,.pdf" class="hidden" onchange="updateExpFileDisplay(this)">
+                            <div id="exp-file-display" class="text-[10px] text-slate-500 truncate mt-1"></div>
+                            
+                            <script>
+                                function triggerExpFile(useCamera) {
+                                    const input = document.getElementById('exp-file');
+                                    if (useCamera) {
+                                        input.setAttribute('capture', 'environment');
+                                        input.setAttribute('accept', 'image/*');
+                                    } else {
+                                        input.removeAttribute('capture');
+                                        input.setAttribute('accept', 'image/*,.pdf');
+                                    }
+                                    input.click();
+                                }
+                                function updateExpFileDisplay(input) {
+                                    const display = document.getElementById('exp-file-display');
+                                    if (input.files && input.files.length > 0) {
+                                        display.innerHTML = `<span class="text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> تم الإرفاق: ${input.files[0].name}</span>`;
+                                    } else {
+                                        display.innerHTML = '';
+                                    }
+                                }
+                                // مسح اسم الملف عند إغلاق النافذة (تم نقله إلى JS)
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="space-y-1" data-tip="قيمة المصروف قبل أي خصم أو ضريبة.">
+                            <label class="text-xs font-bold text-slate-500">المبلغ الأساسي</label>
+                            <input type="number" id="exp-amount" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-red-400 focus:outline-none text-center" value="0" oninput="OrderActions.Expenses.calc()">
+                        </div>
+                        <div class="space-y-1" data-tip="أي خصم حصلت عليه من المورد (يُطرح من المبلغ الأساسي).">
+                            <label class="text-xs font-bold text-slate-500">الخصم</label>
+                            <input type="number" id="exp-discount" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-red-400 focus:outline-none text-center" value="0" oninput="OrderActions.Expenses.calc()">
+                        </div>
+                        <div class="space-y-1" data-tip="يُحسب تلقائياً = المبلغ الأساسي − الخصم.">
+                            <label class="text-xs font-bold text-slate-500">بعد الخصم</label>
+                            <input type="number" id="exp-after-discount" class="w-full bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-center text-slate-500" value="0" readonly>
+                        </div>
+                        <div class="space-y-1" data-tip="ضريبة القيمة المضافة. فعّل (تلقائي 15%) لحسابها تلقائياً، أو ألغِه لإدخالها يدوياً.">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-bold text-slate-500">الضريبة</label>
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <input type="checkbox" id="exp-tax-auto" class="w-3 h-3 text-red-600 rounded" checked onchange="OrderActions.Expenses.toggleTaxMode()">
+                                    <span class="text-[10px] text-slate-400 font-bold">تلقائي (15%)</span>
+                                </label>
+                            </div>
+                            <input type="number" id="exp-tax" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-center font-bold text-slate-500" value="0" readonly oninput="OrderActions.Expenses.calc()">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 bg-red-50 p-3 rounded-xl border border-red-100 mt-2">
+                        <div class="space-y-1" data-tip="إجمالي المصروف = بعد الخصم + الضريبة. يُحسب تلقائياً وهو ما يُخصم من ربح الطلب.">
+                            <label class="text-xs font-black text-red-800">المجموع الكلي</label>
+                            <input type="number" id="exp-total" class="w-full bg-white border border-red-200 rounded-lg px-3 py-2 text-base font-black text-center text-red-600" value="0" readonly>
+                        </div>
+                        <div class="space-y-1" data-tip="كم دفعت فعلياً من هذا المصروف للمورد (قد يكون أقل من الإجمالي إن كان جزء آجل).">
+                            <label class="text-xs font-black text-emerald-800">المدفوع</label>
+                            <input type="number" id="exp-paid" class="w-full bg-white border border-emerald-200 rounded-lg px-3 py-2 text-base font-black text-center text-emerald-600 focus:border-emerald-400 focus:outline-none" value="0">
+                        </div>
+                    </div>
+
+                    <!-- طريقة الدفع (كاش / تحويل) -->
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <div class="space-y-1" data-tip="كم دُفع من هذا المصروف نقداً (كاش). للتوثيق فقط — توضّح أن جزءاً دُفع كاش. اختياري.">
+                            <label class="text-xs font-bold text-green-700">💵 مدفوع كاش (اختياري)</label>
+                            <input type="number" id="exp-cash" min="0" class="w-full bg-white border border-green-200 rounded-lg px-3 py-2 text-sm text-center focus:border-green-400 focus:outline-none" placeholder="0">
+                        </div>
+                        <div class="space-y-1" data-tip="كم دُفع من هذا المصروف عن طريق تحويل بنكي. للتوثيق فقط. اختياري.">
+                            <label class="text-xs font-bold text-blue-700">🏦 مدفوع تحويل (اختياري)</label>
+                            <input type="number" id="exp-transfer" min="0" class="w-full bg-white border border-blue-200 rounded-lg px-3 py-2 text-sm text-center focus:border-blue-400 focus:outline-none" placeholder="0">
+                        </div>
+                    </div>
+
+                    <!-- Claim / Reimbursement Option -->
+                    <div class="border border-orange-200 bg-orange-50 p-3 rounded-xl mt-2" data-tip="إذا دفع موظف هذه الفاتورة من جيبه، فعّل الخيار واكتب اسمه — لتسجّل أن المؤسسة مدينة له بهذا المبلغ.">
+                        <label class="flex items-center gap-2 cursor-pointer text-orange-800 font-bold text-sm mb-2">
+                            <input type="checkbox" id="track-expense-is-claim" onchange="document.getElementById('track-expense-employee-container').classList.toggle('hidden', !this.checked)" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
+                            إضافة هذه الفاتورة كمطالبة للموظف (تسديد)
+                        </label>
+                        <div id="track-expense-employee-container" class="hidden">
+                            <label class="block text-xs font-bold text-orange-700 mb-1">اسم الموظف الذي دفع الفاتورة:</label>
+                            <input type="text" id="track-expense-employee-name" placeholder="مثال: علي، محمد..."
+                                class="w-full bg-white border border-orange-300 rounded-lg px-3 py-2 text-sm focus:border-orange-500 focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <button onclick="OrderActions.Expenses.save(this)" class="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition shadow-lg shadow-red-200 mt-2">
+                        <i class="fa-solid fa-plus"></i> إضافة المصروف للطلب
+                    </button>
+                </div>
+
+                <!-- List -->
+                <div>
+                    <h4 class="text-sm font-bold text-slate-700 mb-3 flex items-center justify-between">
+                        <span>المصروفات المسجلة للطلب</span>
+                        <span id="exp-list-total" class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs">الإجمالي: 0 ريال</span>
+                    </h4>
+                    <div id="expenses-list" class="space-y-3">
+                        <!-- Expenses will be rendered here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إثباتات الدفع (Payments Modal) -->
+    <div id="payments-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="payments-modal-content">
+            <div class="bg-emerald-50 border-b border-emerald-100 p-5 flex justify-between items-center">
+                <h3 class="text-xl font-black text-emerald-800 flex items-center gap-2">
+                    <i class="fa-solid fa-money-bill-transfer text-emerald-500"></i> إثباتات الدفع
+                </h3>
+                <button onclick="closePaymentsModal()" class="bg-white hover:bg-emerald-100 text-emerald-400 hover:text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-emerald-200">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <!-- شريط الحالة السريع -->
+            <div class="bg-white border-b border-slate-100 px-5 py-3 flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-bold text-slate-400">حالة سريعة:</span>
+                <button id="qs-deposit" onclick="quickToggleStatus('deposit')" data-tip="تأشير سريع أن العميل دفع العربون (دفعة الحجز). يلوّن أخضر عند التفعيل. لا يضيف مبلغاً — مجرد علامة حالة." class="quick-status-btn">
+                    <i class="fa-solid fa-circle-check"></i> تم دفع عربون
+                </button>
+                <button id="qs-completed" onclick="quickToggleStatus('completed')" data-tip="تأشير أن العميل سدّد كامل المبلغ. يفعّل العربون تلقائياً. علامة حالة فقط — سجّل الدفعات الفعلية بالأسفل." class="quick-status-btn">
+                    <i class="fa-solid fa-money-bill-wave"></i> تم استلام كامل المبلغ
+                </button>
+                <button id="qs-tax" onclick="toggleOrderTax()" data-tip="عند تفعيله: تُحتسب الضريبة (15%) ضمن الربح (للحالات التي لا تُدفع فيها الضريبة للدولة). عند إيقافه: الربح بدون ضريبة. موحّد مع صفحة سجل الطلبات." class="quick-status-btn">
+                    <i class="fa-solid fa-percent"></i> شامل الضريبة
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto max-h-[70vh] bg-slate-50 space-y-6">
+                <!-- ملخّص مبالغ الطلب: العربون + المتبقي + المجموع + التأمين -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                    <div class="bg-amber-50 border border-amber-100 rounded-xl p-2.5">
+                        <div class="text-[10px] font-bold text-amber-600 mb-0.5">العربون</div>
+                        <div class="text-sm font-black text-amber-700"><span id="pay-sum-deposit">0</span> <span class="text-[10px] font-bold">ر.س</span></div>
+                    </div>
+                    <div class="bg-red-50 border border-red-100 rounded-xl p-2.5">
+                        <div class="text-[10px] font-bold text-red-600 mb-0.5">متبقي الطلب</div>
+                        <div class="text-sm font-black text-red-700"><span id="pay-sum-remaining">0</span> <span class="text-[10px] font-bold">ر.س</span></div>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-2.5">
+                        <div class="text-[10px] font-bold text-emerald-600 mb-0.5">مجموع الطلب</div>
+                        <div class="text-sm font-black text-emerald-700"><span id="pay-sum-total">0</span> <span class="text-[10px] font-bold">ر.س</span></div>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-2.5">
+                        <div class="text-[10px] font-bold text-blue-600 mb-0.5">التأمين</div>
+                        <div class="text-sm font-black text-blue-700"><span id="pay-sum-security">0</span> <span class="text-[10px] font-bold">ر.س</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-bold text-slate-700 border-b border-slate-100 pb-2">إضافة إثبات دفع جديد</h4>
+                    <div class="space-y-1 mb-4" data-tip="ماذا تمثّل هذه الدفعة؟ اختر نوعاً أو أكثر. مثال: عربون = دفعة الحجز، تأمين = مبلغ مسترجع لاحقاً.">
+                        <label class="text-xs font-bold text-slate-500 block mb-2">نوع الإثبات (يمكن اختيار أكثر من نوع)</label>
+                        <div class="flex flex-wrap gap-2" id="tracking-pay-chips">
+                            <label class="cursor-pointer" data-tip="دفعة الحجز التي تؤكد الطلب.">
+                                <input type="checkbox" value="عربون" class="peer sr-only">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 transition">عربون</div>
+                            </label>
+                            <label class="cursor-pointer" data-tip="المبلغ المتبقي من قيمة الطلب بعد العربون.">
+                                <input type="checkbox" value="باقي المبلغ" class="peer sr-only">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 transition">باقي المبلغ</div>
+                            </label>
+                            <label class="cursor-pointer" data-tip="مبلغ تأمين مسترجع — يُعاد للعميل بعد المناسبة عند سلامة الأثاث.">
+                                <input type="checkbox" value="تأمين" class="peer sr-only">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 transition">تأمين</div>
+                            </label>
+                            <label class="cursor-pointer" data-tip="نوع آخر — يظهر حقل لكتابة وصف مخصص.">
+                                <input type="checkbox" value="أخرى" class="peer sr-only" onchange="document.getElementById('pay-desc-custom').classList.toggle('hidden', !this.checked)">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-emerald-600 peer-checked:text-white peer-checked:border-emerald-600 transition">أخرى</div>
+                            </label>
+                        </div>
+                        <input type="text" id="pay-desc-custom" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-emerald-400 focus:outline-none hidden mt-2" placeholder="اكتب نوع الإثبات المخصص...">
+                    </div>
+
+                    <!-- طريقة الدفع: كاش / تحويل -->
+                    <div class="space-y-1 mb-2" data-tip="كيف استلمت هذه الدفعة؟ مهم: الكاش يبقى بذمتك ويظهر في صفحة (تحويل الكاش)، أما التحويل فيصل المؤسسة مباشرة.">
+                        <label class="text-xs font-bold text-slate-500 block mb-2">طريقة الدفع</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="cursor-pointer" data-tip="استلمت نقداً في يدك. لا يحتاج إيصال. سيُضاف لرصيد (الكاش بذمتك) لتحوّله للمؤسسة لاحقاً.">
+                                <input type="radio" name="pay-method" value="cash" class="peer sr-only" onchange="onPayMethodChange()" checked>
+                                <div class="flex items-center justify-center gap-2 px-3 py-3 rounded-xl border-2 border-slate-200 text-sm font-bold text-slate-500 peer-checked:bg-green-50 peer-checked:text-green-700 peer-checked:border-green-500 transition">
+                                    💵 كاش
+                                </div>
+                            </label>
+                            <label class="cursor-pointer" data-tip="وصل المبلغ لحساب المؤسسة مباشرة. يتطلب إرفاق إيصال التحويل (إجباري).">
+                                <input type="radio" name="pay-method" value="transfer" class="peer sr-only" onchange="onPayMethodChange()">
+                                <div class="flex items-center justify-center gap-2 px-3 py-3 rounded-xl border-2 border-slate-200 text-sm font-bold text-slate-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-checked:border-blue-500 transition">
+                                    🏦 تحويل بنكي
+                                </div>
+                            </label>
+                        </div>
+                        <p id="pay-method-hint" class="text-[11px] font-bold text-green-600 mt-1">💡 الكاش سيُضاف لرصيد النقد الواجب تحويله للمؤسسة.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1" data-tip="صورة أو ملف PDF لإيصال الدفع. إجباري للتحويل البنكي، واختياري للكاش.">
+                            <label class="text-xs font-bold text-slate-500" id="pay-file-label">إرفاق إثبات (صورة/PDF) — اختياري للكاش</label>
+                            <input type="file" id="pay-file" accept="image/*,.pdf" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-sm file:ml-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 focus:border-emerald-400 focus:outline-none cursor-pointer">
+                        </div>
+                        <div class="space-y-1" data-tip="قيمة هذه الدفعة بالريال.">
+                            <label class="text-xs font-bold text-slate-500">المبلغ المدفوع</label>
+                            <input type="number" id="pay-amount" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-base font-black text-center text-emerald-600 focus:border-emerald-400 focus:outline-none" value="0">
+                        </div>
+                    </div>
+                    <button onclick="savePaymentToOrder(this)" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 mt-2">
+                        <i class="fa-solid fa-plus"></i> إضافة إثبات الدفع للطلب
+                    </button>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-slate-700 mb-3 flex items-center justify-between">
+                        <span>المدفوعات المسجلة</span>
+                        <span id="pay-list-total" class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-xs">الإجمالي: 0 ريال</span>
+                    </h4>
+                    <div id="payments-list" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة المرتجعات (Returns Modal) -->
+    <div id="returns-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="returns-modal-content">
+            <div class="bg-orange-50 border-b border-orange-100 p-5 flex justify-between items-center">
+                <h3 class="text-xl font-black text-orange-800 flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-orange-500"></i> إدارة المرتجعات والتأمين
+                </h3>
+                <button onclick="closeReturnsModal()" class="bg-white hover:bg-orange-100 text-orange-400 hover:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-orange-200">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <!-- شريط التأمين السريع -->
+            <div class="bg-white border-b border-slate-100 px-5 py-3 flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-bold text-slate-400">إجراءات التأمين:</span>
+                <button id="qs-securityReturned" onclick="quickToggleStatus('securityReturned')" data-tip="تأشير أنك أعدت مبلغ التأمين للعميل بعد المناسبة. علامة حالة فقط." class="quick-status-btn">
+                    <i class="fa-solid fa-arrow-rotate-left"></i> تم إرجاع التأمين
+                </button>
+                <button onclick="editSecurityAmount()" data-tip="تغيير مبلغ التأمين في العقد. مثال: لو نسي العميل يدفع التأمين، اجعله صفراً ليُحذف من حسابات الطلب." class="px-3 py-1.5 rounded-lg text-[11px] font-bold border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 transition flex items-center gap-1">
+                    <i class="fa-solid fa-pen"></i> تعديل التأمين (<span id="qs-security-amt">0</span>)
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto max-h-[70vh] bg-slate-50 space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h4 class="text-sm font-bold text-slate-700 border-b border-slate-100 pb-2">تسجيل مرتجع تأمين أو معدات</h4>
+                    <div class="space-y-1 mb-4">
+                        <label class="text-xs font-bold text-slate-500 block mb-2">نوع المرتجع (يمكن اختيار أكثر من نوع)</label>
+                        <div class="flex flex-wrap gap-2" id="tracking-ret-chips">
+                            <label class="cursor-pointer">
+                                <input type="checkbox" value="إرجاع التأمين" class="peer sr-only">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-orange-600 peer-checked:text-white peer-checked:border-orange-600 transition">إرجاع التأمين للعميل</div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" value="إرجاع معدات" class="peer sr-only">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-orange-600 peer-checked:text-white peer-checked:border-orange-600 transition">إرجاع معدات</div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" value="أخرى" class="peer sr-only" onchange="document.getElementById('ret-desc-custom').classList.toggle('hidden', !this.checked)">
+                                <div class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-500 peer-checked:bg-orange-600 peer-checked:text-white peer-checked:border-orange-600 transition">أخرى</div>
+                            </label>
+                        </div>
+                        <input type="text" id="ret-desc-custom" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-orange-400 focus:outline-none hidden mt-2" placeholder="اكتب وصف المرتجع المخصص...">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1 hidden">
+                            <label class="text-xs font-bold text-slate-500">التفاصيل / الوصف</label>
+                            <input type="text" id="ret-desc" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:border-orange-400 focus:outline-none" placeholder="مرتجع تأمين...">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-slate-500">الإيصال أو الإثبات (صورة/PDF)</label>
+                            <input type="file" id="ret-file" accept="image/*,.pdf" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-sm file:ml-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 focus:border-orange-400 focus:outline-none cursor-pointer">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="space-y-1" data-tip="المبلغ الذي أعدته فعلياً للعميل من تأمينه.">
+                            <label class="text-xs font-bold text-slate-500">المبلغ المسترجع للعميل</label>
+                            <input type="number" id="ret-refund" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-base font-black text-center text-orange-600 focus:border-orange-400 focus:outline-none" value="0">
+                        </div>
+                        <div class="space-y-1" data-tip="ما خُصم من التأمين (مثل تلف أو نقص). يبقى لصالح المؤسسة ويُحسب ضمن الإيراد في الجرد.">
+                            <label class="text-xs font-bold text-slate-500">المبلغ المخصوم من التأمين</label>
+                            <input type="number" id="ret-deducted" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-base font-black text-center text-red-600 focus:border-red-400 focus:outline-none" value="0">
+                        </div>
+                    </div>
+
+                    <!-- طريقة إرجاع التأمين: كاش / تحويل -->
+                    <div class="space-y-1" data-tip="كيف أعدت المبلغ للعميل؟ كاش (نقداً في يده) أو تحويل بنكي. للتوثيق ومطابقة الكاش.">
+                        <label class="text-xs font-bold text-slate-500 block mb-1">طريقة الإرجاع</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="cursor-pointer" data-tip="أعدت المبلغ نقداً في يد العميل.">
+                                <input type="radio" name="ret-method" value="cash" class="peer sr-only" checked>
+                                <div class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border-2 border-slate-200 text-sm font-bold text-slate-500 peer-checked:bg-green-50 peer-checked:text-green-700 peer-checked:border-green-500 transition">
+                                    💵 كاش
+                                </div>
+                            </label>
+                            <label class="cursor-pointer" data-tip="أعدت المبلغ عبر تحويل بنكي (يُفضّل إرفاق إيصال).">
+                                <input type="radio" name="ret-method" value="transfer" class="peer sr-only">
+                                <div class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border-2 border-slate-200 text-sm font-bold text-slate-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 peer-checked:border-blue-500 transition">
+                                    🏦 تحويل بنكي
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onclick="saveReturnToOrder(this)" class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold hover:bg-orange-700 transition shadow-lg shadow-orange-200 mt-2">
+                        <i class="fa-solid fa-plus"></i> إضافة المرتجع للطلب
+                    </button>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-slate-700 mb-3 flex items-center justify-between">
+                        <span>المرتجعات المسجلة</span>
+                        <span id="ret-list-total" class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs">إجمالي المسترجع: 0 ريال</span>
+                    </h4>
+                    <div id="returns-list" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إرجاع جزء من مصروف (Linked Return Modal) -->
+    <div id="linked-return-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="linked-return-modal-content">
+            <div class="bg-orange-50 border-b border-orange-100 p-5 flex justify-between items-center">
+                <h3 class="text-xl font-black text-orange-800 flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left text-orange-500"></i> إرجاع جزء من مصروف
+                </h3>
+                <button onclick="closeLinkedReturnModal()" class="bg-white hover:bg-orange-100 text-orange-400 hover:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center transition border border-orange-200">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="p-5 overflow-y-auto custom-scrollbar max-h-[70vh] bg-slate-50/50 space-y-4">
+                
+                <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-1 text-sm">
+                    <div class="text-slate-500 font-bold">المصروف الأصلي:</div>
+                    <div class="font-black text-slate-800" id="lr-expense-desc">مصروف</div>
+                    <div class="text-red-600 font-bold" id="lr-expense-amount">0 ر.س</div>
+                    <div id="lr-claim-info" class="hidden text-orange-600 text-xs mt-1 font-bold">
+                        <i class="fa-solid fa-file-invoice"></i> مسجل كمطالبة لـ: <span id="lr-claim-employee"></span>
+                    </div>
+                </div>
+
+                <div id="lr-existing-returns" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-3 shadow-sm">
+                    <div class="text-amber-800 font-bold text-xs mb-2 flex items-center gap-1"><i class="fa-solid fa-clock-rotate-left"></i> المرتجعات السابقة:</div>
+                    <div id="lr-existing-returns-list" class="space-y-1 mb-2"></div>
+                    <div class="border-t border-amber-200 pt-2 mt-2 text-[11px] font-bold text-amber-900 flex justify-between">
+                        <span>المبلغ المتبقي للمصروف الأصلي:</span>
+                        <div><span id="lr-remaining-amount">0</span> ر.س</div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">وصف أو سبب الإرجاع</label>
+                        <input type="text" id="lr-desc" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition" placeholder="مثال: إرجاع خشب زائد...">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">المبلغ المسترجع</label>
+                        <div class="relative">
+                            <input type="number" id="lr-amount" class="w-full bg-white border border-slate-300 rounded-xl pl-12 pr-4 py-3 text-lg font-bold focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition text-left" placeholder="0">
+                            <span class="absolute left-4 top-3.5 text-slate-400 font-bold">ر.س</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">صورة إيصال الاسترجاع</label>
+                        <div class="relative border-2 border-dashed border-slate-300 rounded-xl p-4 hover:bg-slate-50 hover:border-orange-400 transition cursor-pointer group">
+                            <input type="file" id="lr-file" accept="image/*,.pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="document.getElementById('lr-filename').textContent = this.files[0] ? this.files[0].name : 'لم يتم اختيار ملف'; document.getElementById('lr-icon').classList.replace('fa-cloud-arrow-up', 'fa-check-circle'); document.getElementById('lr-icon').classList.replace('text-slate-400', 'text-emerald-500');">
+                            <div class="flex flex-col items-center justify-center pointer-events-none">
+                                <i id="lr-icon" class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 mb-2 group-hover:text-orange-500 transition"></i>
+                                <span class="text-sm font-bold text-slate-600 group-hover:text-orange-600 transition" id="lr-filename">اضغط لاختيار صورة الإيصال</span>
+                                <span class="text-[10px] text-slate-400 mt-1">PNG, JPG, PDF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bg-white p-4 border-t border-slate-100 rounded-b-3xl">
+                <button onclick="saveLinkedReturn()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-3 rounded-xl transition shadow-lg shadow-orange-200/50 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-save"></i> <span>حفظ المرتجع</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra Expenses Modal (توصيل خارجي وبنزين) -->
+    <div id="extra-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="extra-modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-purple-50 rounded-t-2xl">
+                <h3 class="font-black text-lg text-purple-800"><i class="fa-solid fa-gas-pump text-purple-500 ml-2"></i> تكاليف إضافية للطلب</h3>
+                <button onclick="closeExtraModal()" class="text-purple-400 hover:text-purple-600 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-sm border border-purple-200">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto custom-scrollbar flex-1 space-y-4">
+                <!-- التوصيل الخارجي -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+                    <div data-tip="أجرة توصيل الطلب لمندوب خارجي. تُخصم من إجمالي إيراد الطلب (تقلّل صافي الربح).">
+                        <label class="block text-xs font-bold text-slate-500 mb-1">مبلغ التوصيل الخارجي (إن وجد)</label>
+                        <div class="relative">
+                            <input type="number" id="extra-ext-delivery" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-purple-500" placeholder="0">
+                            <span class="absolute left-3 top-2 text-slate-400 text-sm">ريال</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-1">يُخصم من إيرادات الطلب الكلية.</p>
+                    </div>
+                    <div data-tip="صورة/PDF لإيصال أو حوالة التوصيل الخارجي. اختياري.">
+                        <label class="block text-[10px] font-bold text-slate-500 mb-1">إيصال الحوالة (صورة/PDF)</label>
+                        <input type="file" id="extra-ext-file" accept="image/*,.pdf" class="w-full text-[10px] file:ml-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200">
+                    </div>
+                    <div class="border border-orange-200 bg-orange-50 p-2 rounded-lg" data-tip="إذا دفع موظف هذا التوصيل من جيبه، فعّل الخيار واكتب اسمه — لتُسجّل مطالبة له في صفحة المطالبات تلقائياً.">
+                        <label class="flex items-center gap-2 cursor-pointer text-orange-800 font-bold text-[11px]">
+                            <input type="checkbox" id="extra-ext-is-claim" onchange="document.getElementById('extra-ext-emp').classList.toggle('hidden', !this.checked)" class="w-4 h-4 text-orange-600 rounded">
+                            مطالبة لموظف (دفعها من جيبه)
+                        </label>
+                        <input type="text" id="extra-ext-emp" placeholder="اسم الموظف" class="hidden w-full mt-2 bg-white border border-orange-300 rounded-lg px-2 py-1.5 text-xs">
+                    </div>
+                </div>
+
+                <!-- الإرجاع للمستودع -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+                    <div data-tip="تكلفة إرجاع الأثاث للمستودع بعد المناسبة. تُخصم من إيراد الطلب.">
+                        <label class="block text-xs font-bold text-slate-500 mb-1">مبلغ الإرجاع للمستودع (إن وجد)</label>
+                        <div class="relative">
+                            <input type="number" id="extra-wh-delivery" class="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-purple-500" placeholder="0">
+                            <span class="absolute left-3 top-2 text-slate-400 text-sm">ريال</span>
+                        </div>
+                    </div>
+                    <div data-tip="صورة/PDF لإيصال أو حوالة الإرجاع للمستودع. اختياري.">
+                        <label class="block text-[10px] font-bold text-slate-500 mb-1">إيصال الحوالة (صورة/PDF)</label>
+                        <input type="file" id="extra-wh-file" accept="image/*,.pdf" class="w-full text-[10px] file:ml-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200">
+                    </div>
+                    <div class="border border-orange-200 bg-orange-50 p-2 rounded-lg" data-tip="إذا دفع موظف هذا الإرجاع من جيبه، فعّل الخيار واكتب اسمه — لتُسجّل مطالبة له تلقائياً.">
+                        <label class="flex items-center gap-2 cursor-pointer text-orange-800 font-bold text-[11px]">
+                            <input type="checkbox" id="extra-wh-is-claim" onchange="document.getElementById('extra-wh-emp').classList.toggle('hidden', !this.checked)" class="w-4 h-4 text-orange-600 rounded">
+                            مطالبة لموظف (دفعها من جيبه)
+                        </label>
+                        <input type="text" id="extra-wh-emp" placeholder="اسم الموظف" class="hidden w-full mt-2 bg-white border border-orange-300 rounded-lg px-2 py-1.5 text-xs">
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <div data-tip="بنزين عبدالرزاق لهذا الطلب. يُخصم حصراً من نسبة التشغيل 10% (محفظة التشغيل) — لا من ربح الطلب.">
+                    <label class="block text-xs font-bold text-slate-500 mb-1">بنزين عبدالرزاق للطلب</label>
+                    <div class="relative">
+                        <input type="number" id="extra-fuel" class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-purple-500" placeholder="0">
+                        <span class="absolute left-3 top-2 text-slate-400 text-sm">ريال</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-1">هذا المبلغ يُخصم حصراً من نسبة التشغيل 10% قبل توزيعها.</p>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50 rounded-b-2xl">
+                <button onclick="saveExtraToOrder(this)" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl font-bold transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-save"></i> حفظ المبالغ الإضافية
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../core/auth-checker.js"></script>
+    <script src="../../../core/image-compressor.js"></script>
+    <script src="../../../core/fs-helpers-save_v2.js"></script>
+    <script src="../../../core/db.js"></script>
+    <script src="order_actions_module.js"></script>
+    <script src="order_tracking.js"></script>
+    <script src="excel-export.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.SaddahDB.init();
+        });
+    </script>
+<script src="../../../core/whatsapp-widget.js"></script>
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+</body>
+
+</html>
+
+
+
+
+

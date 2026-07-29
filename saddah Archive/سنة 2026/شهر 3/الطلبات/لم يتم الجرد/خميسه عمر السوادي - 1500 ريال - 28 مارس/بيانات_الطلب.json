@@ -1,0 +1,250 @@
+{
+    "id": 1774733333128,
+    "date": "٢٩‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "خميسه عمر السوادي",
+        "id": "1077379517",
+        "phone": "",
+        "address": "جدة , حي الحرازات",
+        "deliveryDate": "2026-03-28",
+        "deliveryTime": "09:00",
+        "pickupDate": "2026-03-29",
+        "pickupTime": "09:00"
+    },
+    "financials": {
+        "subTotal": "1304.35",
+        "total": "1500.00 ريال",
+        "delivery": "0",
+        "deposit": "300",
+        "securityDeposit": "300",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة 10 اشخاص ",
+            "desc": "تنسيق الربيع ",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 10,
+            "total": "1043.48",
+            "totalOriginal": "1043.48",
+            "unitPrice": 1043.48,
+            "originalPrice": 1043.48
+        },
+        {
+            "name": "طاولة مدخل شامل تنسيق ",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "217.39",
+            "totalOriginal": "217.39",
+            "unitPrice": 217.39,
+            "originalPrice": 217.39
+        },
+        {
+            "name": "تنسيق مدخل بسيط",
+            "desc": "",
+            "decorDetails": "",
+            "qty": 1,
+            "chairsCount": 0,
+            "total": "43.48",
+            "totalOriginal": "43.48",
+            "unitPrice": 43.48,
+            "originalPrice": 43.48
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "الباشوات",
+            "amount": 138,
+            "total": 138,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الباشوات - 138 ريال.jpeg",
+                "name": "الباشوات - 138 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:45:19.775Z",
+            "claimId": "1781207119775629"
+        },
+        {
+            "desc": "الدانوب",
+            "amount": 8,
+            "total": 8,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "الدانوب - 8 ريال.jpeg",
+                "name": "الدانوب - 8 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:45:36.908Z",
+            "claimId": "1781207136908349"
+        },
+        {
+            "desc": "شراء من الرهوة للسيليكون",
+            "amount": 20,
+            "total": 20,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "شراء من الرهوة للسيليكون - 20 ريال.jpeg",
+                "name": "شراء من الرهوة للسيليكون - 20 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:47:00.025Z",
+            "claimId": "1781207220025726"
+        },
+        {
+            "desc": "شركة جوري الربيع للتجارة",
+            "amount": 568.73,
+            "total": 654.04,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "شركة جوري الربيع للتجارة - 654.04 ريال.pdf",
+                "name": "شركة جوري الربيع للتجارة - 654.04 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:47:39.342Z",
+            "claimId": "1781207259342124"
+        },
+        {
+            "desc": "شركة طيف البستان التجارية",
+            "amount": 48.75,
+            "total": 56.06,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "شركة طيف البستان التجارية - 56.06 ريال.pdf",
+                "name": "شركة طيف البستان التجارية - 56.06 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-11T19:48:29.742Z",
+            "claimId": "1781207309742702"
+        },
+        {
+            "desc": "بانسيه",
+            "amount": 20,
+            "total": 20,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "بانسيه - 20 ريال.jpeg",
+                "name": "بانسيه - 20 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:49:04.547Z",
+            "claimId": "1781207344547285"
+        },
+        {
+            "desc": "مطابع انجاز للنسخ و التصوير",
+            "amount": 230,
+            "total": 230,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "مطابع انجاز للنسخ و التصوير - 230 ريال.pdf",
+                "name": "مطابع انجاز للنسخ و التصوير - 230 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-17T14:02:41.004Z"
+        },
+        {
+            "desc": "( فاتورة مرتجعة )شركة جوري الربيع للتجارة",
+            "amount": -238.85,
+            "total": -238.85,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "( فاتورة مرتجعة )شركة جوري الربيع للتجارة - -238.85 ريال.jpeg",
+                "name": "( فاتورة مرتجعة )شركة جوري الربيع للتجارة - -238.85 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-17T14:06:01.042Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 300,
+            "method": "transfer",
+            "fileLink": "عربون - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 300 ريال تحويل.pdf",
+                "name": "عربون - 300 ريال تحويل.pdf",
+                "link": "عربون - 300 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:50:26.567Z"
+        },
+        {
+            "desc": "باقي المبلغ + تأمين",
+            "amount": 1500,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ + تأمين - 1500 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ + تأمين - 1500 ريال تحويل.pdf",
+                "name": "باقي المبلغ + تأمين - 1500 ريال تحويل.pdf",
+                "link": "باقي المبلغ + تأمين - 1500 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T19:50:49.241Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 1500,
+        "deductedInsurance": 0,
+        "received": 1800,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 887.25,
+        "totalExpenses": 887.25,
+        "revenue": 1500,
+        "remaining": 0,
+        "netProfit": 612.75,
+        "includeTax": true,
+        "operatingShare": 61.28,
+        "distributableProfit": 551.48,
+        "fuel": 0
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 300,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 300 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 300 ريال تحويل.pdf",
+                "name": "إرجاع التأمين - 300 ريال تحويل.pdf",
+                "link": "إرجاع التأمين - 300 ريال تحويل.pdf"
+            },
+            "date": "2026-06-11T19:51:03.055Z"
+        }
+    ]
+}

@@ -1,0 +1,146 @@
+{
+  "id": 1779294774826,
+  "date": "٢٠‏/٥‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "روان محمد المالكي",
+    "id": "1089142960",
+    "phone": "581941945",
+    "address": "الامير عبدالمجيد الجنوبي",
+    "deliveryDate": "2026-06-03",
+    "deliveryTime": "19:00",
+    "pickupDate": "2026-06-05",
+    "pickupTime": "14:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "913.05",
+    "total": "1050.01 ريال",
+    "delivery": 0,
+    "deposit": "200",
+    "securityDeposit": "300",
+    "vatRate": "15",
+    "includeTaxInProfit": true,
+    "paid": "1050.01 ريال",
+    "remaining": "0 ريال",
+    "returnDelivery": 0,
+    "fuel": 30
+  },
+  "paymentStatus": {
+    "securityReturned": true,
+    "deposit": true,
+    "remaining": true,
+    "completed": true,
+    "security": true
+  },
+  "isConfirmed": true,
+  "status": "تم الجرد",
+  "computed": {
+    "total": 1050.01,
+    "deductedInsurance": 0,
+    "received": 1350,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 100,
+    "totalExpenses": 100,
+    "revenue": 1050.01,
+    "remaining": -299.99,
+    "netProfit": 950.01,
+    "includeTax": true,
+    "operatingShare": 95,
+    "distributableProfit": 855.01,
+    "fuel": 30
+  },
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 30
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولة دائرية",
+      "desc": "قواعد ذهبية و سطح زجاجي ",
+      "decorDetails": "",
+      "qty": 3,
+      "chairsCount": 18,
+      "total": "913.05",
+      "totalOriginal": "913.05",
+      "unitPrice": 304.35,
+      "originalPrice": 304.35
+    },
+    {
+      "name": "كراسي",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 2,
+      "chairsCount": 0,
+      "total": "0.00",
+      "totalOriginal": "0.00",
+      "unitPrice": 0,
+      "originalPrice": 0
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "عامل لتوصيل الطلبية",
+      "amount": 100,
+      "total": 100,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "file",
+        "name": "عامل لتوصيل الطلبية - 100 ريال.pdf",
+        "link": "saddah://1779294774826/المصروفات/عامل لتوصيل الطلبية - 100 ريال.pdf"
+      },
+      "date": "2026-06-09T19:36:32.611Z"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 200,
+      "method": "transfer",
+      "fileLink": "عربون - 200 ريال.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "عربون - 200 ريال.pdf",
+        "link": "saddah://1779294774826/الدفعات/عربون - 200 ريال.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-09T19:33:14.650Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 850,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 850 ريال.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "باقي المبلغ - 850 ريال.pdf",
+        "link": "saddah://1779294774826/الدفعات/باقي المبلغ - 850 ريال.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-09T19:33:58.919Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 300,
+      "method": "cash",
+      "fileLink": "تأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 300 ريال كاش",
+        "name": "تأمين - 300 ريال كاش",
+        "link": "تأمين - 300 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-09T19:42:28.975Z"
+    }
+  ],
+  "returns": []
+}

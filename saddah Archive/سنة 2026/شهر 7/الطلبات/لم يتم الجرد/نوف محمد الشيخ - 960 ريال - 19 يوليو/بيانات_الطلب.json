@@ -1,0 +1,94 @@
+{
+  "id": 1784408987917,
+  "date": "١٩‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "نوف محمد الشيخ",
+    "id": "1002173977",
+    "phone": "543448513",
+    "address": "حي الحمدانية",
+    "deliveryDate": "2026-07-19",
+    "deliveryTime": "16:00",
+    "pickupDate": "2026-07-20",
+    "pickupTime": "16:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "960.00",
+    "total": "960.00 ريال",
+    "delivery": "0",
+    "deposit": "0",
+    "securityDeposit": "200",
+    "vatRate": "0"
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 960,
+    "deductedInsurance": 0,
+    "received": 0,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 60,
+    "totalExpenses": 60,
+    "revenue": 960,
+    "remaining": 960,
+    "netProfit": 900,
+    "includeTax": false,
+    "operatingShare": 90,
+    "distributableProfit": 810,
+    "fuel": 0
+  },
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "items": [
+    {
+      "name": "طاولة زجاج مستطيلة مع كراسي +تنسيق وردي(جاهز) + كروت مجانا",
+      "desc": "",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 10,
+      "total": "960.00",
+      "totalOriginal": "960.00",
+      "unitPrice": 960,
+      "originalPrice": 960
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "مغاسل الدرة البيضاء ",
+      "amount": 25,
+      "total": 25,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "مغاسل الدرة البيضاء - 25 ريال.jpg",
+        "name": "مغاسل الدرة البيضاء - 25 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-07-19T12:39:27.026Z",
+      "claimId": "1784464767026324"
+    },
+    {
+      "desc": "مؤسسة انجاز للنسخ و التصوير",
+      "amount": 35,
+      "total": 35,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "مؤسسة انجاز للنسخ و التصوير - 35 ريال.jpeg",
+        "name": "مؤسسة انجاز للنسخ و التصوير - 35 ريال.jpeg",
+        "link": ""
+      },
+      "date": "2026-07-19T15:41:57.553Z",
+      "claimId": "1784475717553947"
+    }
+  ],
+  "paymentProofs": [],
+  "returns": []
+}

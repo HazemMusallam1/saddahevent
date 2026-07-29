@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - نظام صده</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes saddahFadeUp {
+            from { opacity: 0; transform: translateY(26px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { opacity: 0; animation: saddahFadeUp .9s cubic-bezier(.22,1,.36,1) forwards; }
+        
+        /* Smooth CSS Morphing Animation */
+        @keyframes smooth-morph {
+            0%, 35% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+            50%, 85% {
+                opacity: 0;
+                filter: blur(4px);
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+        }
+        .morph-word {
+            animation: smooth-morph 6s infinite ease-in-out;
+            will-change: opacity, filter, transform;
+        }
+        .morph-word-2 {
+            animation-delay: -3s;
+        }
+
+        /* ضبط التوسيط على الجوال */
+        html, body { margin: 0; padding: 0; }
+        body { min-height: 100dvh; }
+    </style>
+</head>
+<body class="font-sans min-h-screen bg-slate-50 flex items-center justify-center p-4 relative overflow-x-hidden overflow-y-auto">
+    <!-- خلفية احترافية هادئة -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        <canvas id="particles-canvas" class="absolute inset-0 z-0 pointer-events-none w-full h-full"></canvas>
+        <div class="absolute top-0 right-0 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-indigo-200/50 to-purple-200/40 blur-[120px] pointer-events-none transform -translate-y-1/4 translate-x-1/4"></div>
+        <div class="absolute bottom-0 left-0 w-[70%] h-[70%] rounded-full bg-gradient-to-tr from-blue-200/40 to-emerald-100/40 blur-[100px] pointer-events-none transform translate-y-1/4 -translate-x-1/4"></div>
+    </div>
+
+    <div class="w-full max-w-[420px] relative z-10 mx-auto">
+        <!-- الشعار -->
+        <div class="flex flex-col items-center justify-center mb-6 mt-4">
+            <div id="logo-wrap" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mb-2 relative flex items-center justify-center">
+                <!-- الصورة الأصلية المخفية (ستظهر بعد الرسم) -->
+                <img id="real-logo" src="../../../assets/images/logo.png" alt="شعار صده" class="w-full h-full object-contain absolute inset-0 opacity-0 filter drop-shadow-xl z-0" style="opacity: 0;">
+                
+                <!-- SVG الشعار المفرغ الجاهز للانميشن (يرسم الحواف) -->
+
+                <svg id="animated-logo" viewBox="0 0 3281 1875" fill="transparent" stroke="#4f46e5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 6px 16px rgba(79,70,229,.45));" class="w-full h-full relative z-10">
+                    <path class="logo-line" d="M 1957,1468 L 1957,1472 L 1966,1474 L 1971,1479 L 1971,1482 L 1972,1483 L 1972,1534 L 1971,1535 L 1971,1548 L 1969,1551 L 1965,1553 L 1959,1554 L 1959,1558 L 1992,1558 L 1993,1557 L 1993,1554 L 1983,1552 L 1980,1549 L 1979,1546 L 1979,1536 L 1978,1535 L 1978,1490 L 1979,1489 L 1993,1505 L 2001,1516 L 2003,1517 L 2014,1532 L 2017,1534 L 2034,1556 L 2037,1559 L 2043,1559 L 2043,1479 L 2046,1474 L 2055,1472 L 2055,1468 L 2021,1468 L 2021,1472 L 2032,1474 L 2035,1478 L 2035,1485 L 2036,1486 L 2036,1534 L 2035,1535 L 2033,1534 L 2015,1511 L 2012,1509 L 1993,1485 L 1990,1483 L 1978,1468 Z"></path>
+                    <path class="logo-line" d="M 1881,1468 L 1881,1472 L 1890,1474 L 1892,1478 L 1892,1548 L 1891,1550 L 1887,1553 L 1879,1554 L 1878,1555 L 1878,1557 L 1879,1558 L 1946,1558 L 1947,1556 L 1947,1553 L 1948,1552 L 1948,1548 L 1949,1547 L 1949,1545 L 1951,1541 L 1951,1538 L 1952,1537 L 1952,1536 L 1950,1535 L 1947,1535 L 1946,1536 L 1946,1538 L 1941,1546 L 1935,1552 L 1909,1552 L 1906,1550 L 1906,1548 L 1905,1547 L 1905,1515 L 1906,1514 L 1921,1514 L 1922,1515 L 1927,1515 L 1931,1519 L 1932,1525 L 1937,1525 L 1937,1497 L 1933,1497 L 1932,1498 L 1931,1504 L 1926,1508 L 1906,1508 L 1905,1507 L 1905,1475 L 1906,1474 L 1930,1474 L 1932,1475 L 1937,1481 L 1939,1489 L 1940,1490 L 1942,1490 L 1944,1489 L 1944,1477 L 1943,1476 L 1943,1468 Z"></path>
+                    <path class="logo-line" d="M 1782,1468 L 1782,1472 L 1784,1473 L 1788,1473 L 1790,1474 L 1794,1478 L 1797,1484 L 1797,1486 L 1800,1492 L 1800,1494 L 1802,1497 L 1802,1500 L 1805,1505 L 1805,1507 L 1806,1508 L 1807,1513 L 1809,1516 L 1809,1518 L 1810,1519 L 1811,1524 L 1815,1532 L 1815,1535 L 1818,1540 L 1818,1542 L 1819,1543 L 1819,1546 L 1822,1551 L 1822,1553 L 1823,1554 L 1824,1559 L 1825,1560 L 1829,1560 L 1834,1550 L 1834,1547 L 1838,1540 L 1838,1537 L 1842,1530 L 1842,1528 L 1846,1520 L 1847,1515 L 1851,1508 L 1851,1505 L 1853,1503 L 1853,1501 L 1855,1498 L 1855,1496 L 1857,1493 L 1857,1491 L 1859,1488 L 1859,1486 L 1863,1478 L 1867,1474 L 1869,1474 L 1870,1473 L 1874,1473 L 1876,1471 L 1876,1469 L 1875,1468 L 1844,1468 L 1844,1472 L 1845,1473 L 1850,1473 L 1851,1474 L 1853,1474 L 1855,1477 L 1854,1478 L 1854,1481 L 1853,1482 L 1852,1487 L 1848,1495 L 1848,1498 L 1845,1503 L 1844,1508 L 1841,1513 L 1840,1518 L 1837,1523 L 1836,1528 L 1831,1538 L 1826,1528 L 1826,1526 L 1825,1525 L 1824,1520 L 1821,1515 L 1821,1512 L 1817,1504 L 1817,1501 L 1813,1493 L 1813,1490 L 1811,1487 L 1811,1485 L 1808,1479 L 1808,1475 L 1811,1473 L 1815,1473 L 1817,1472 L 1817,1468 Z"></path>
+                    <path class="logo-line" d="M 1709,1468 L 1709,1472 L 1718,1474 L 1721,1479 L 1721,1547 L 1718,1552 L 1707,1554 L 1707,1558 L 1774,1558 L 1775,1557 L 1775,1553 L 1779,1543 L 1779,1536 L 1778,1535 L 1775,1535 L 1772,1542 L 1768,1548 L 1763,1552 L 1737,1552 L 1734,1549 L 1734,1547 L 1733,1546 L 1733,1515 L 1734,1514 L 1749,1514 L 1750,1515 L 1755,1515 L 1759,1518 L 1760,1520 L 1760,1525 L 1765,1525 L 1766,1524 L 1765,1523 L 1765,1499 L 1766,1498 L 1765,1497 L 1761,1497 L 1760,1498 L 1760,1503 L 1759,1505 L 1755,1508 L 1735,1508 L 1734,1509 L 1733,1508 L 1733,1475 L 1734,1474 L 1759,1474 L 1764,1479 L 1767,1485 L 1768,1490 L 1771,1490 L 1772,1489 L 1772,1476 L 1771,1475 L 1771,1468 Z"></path>
+                    <path class="logo-line" d="M 1570,1468 L 1570,1472 L 1572,1473 L 1577,1473 L 1579,1474 L 1582,1478 L 1582,1548 L 1579,1552 L 1570,1554 L 1570,1558 L 1606,1558 L 1606,1554 L 1597,1552 L 1594,1545 L 1594,1514 L 1595,1513 L 1640,1513 L 1641,1514 L 1641,1548 L 1638,1552 L 1629,1554 L 1629,1558 L 1665,1558 L 1666,1557 L 1666,1554 L 1656,1552 L 1654,1550 L 1653,1547 L 1653,1479 L 1656,1474 L 1666,1472 L 1666,1468 L 1629,1468 L 1629,1472 L 1631,1473 L 1636,1473 L 1638,1474 L 1641,1478 L 1641,1506 L 1640,1507 L 1595,1507 L 1594,1506 L 1594,1481 L 1595,1480 L 1595,1477 L 1597,1474 L 1606,1472 L 1606,1468 Z"></path>
+                    <path class="logo-line" d="M 1380,1468 L 1380,1472 L 1381,1472 L 1382,1473 L 1387,1473 L 1388,1474 L 1389,1474 L 1391,1476 L 1391,1477 L 1392,1478 L 1392,1549 L 1389,1552 L 1388,1552 L 1387,1553 L 1384,1553 L 1383,1554 L 1380,1554 L 1380,1558 L 1426,1558 L 1427,1557 L 1431,1557 L 1432,1556 L 1435,1556 L 1436,1555 L 1438,1555 L 1439,1554 L 1442,1554 L 1443,1553 L 1444,1553 L 1446,1551 L 1447,1551 L 1448,1550 L 1451,1549 L 1454,1546 L 1455,1546 L 1458,1543 L 1458,1542 L 1461,1540 L 1462,1537 L 1466,1532 L 1466,1529 L 1468,1526 L 1468,1524 L 1469,1523 L 1469,1520 L 1470,1519 L 1470,1501 L 1469,1500 L 1469,1497 L 1466,1492 L 1466,1490 L 1465,1489 L 1465,1488 L 1463,1486 L 1463,1485 L 1459,1480 L 1458,1480 L 1454,1476 L 1451,1475 L 1449,1473 L 1448,1473 L 1447,1472 L 1445,1472 L 1444,1471 L 1441,1471 L 1440,1470 L 1437,1470 L 1436,1469 L 1432,1469 L 1431,1468 Z"></path>
+                    <path class="logo-line" d="M 1407,1474 L 1412,1474 L 1413,1473 L 1421,1473 L 1422,1474 L 1430,1474 L 1431,1475 L 1433,1475 L 1434,1476 L 1435,1476 L 1436,1477 L 1437,1477 L 1438,1478 L 1439,1478 L 1440,1479 L 1441,1479 L 1444,1482 L 1445,1482 L 1447,1484 L 1447,1485 L 1451,1489 L 1451,1490 L 1452,1491 L 1452,1493 L 1453,1494 L 1453,1495 L 1454,1496 L 1454,1498 L 1455,1499 L 1455,1503 L 1456,1504 L 1456,1519 L 1455,1520 L 1455,1526 L 1454,1527 L 1454,1528 L 1453,1529 L 1453,1531 L 1452,1532 L 1452,1533 L 1451,1534 L 1451,1535 L 1450,1536 L 1450,1537 L 1447,1540 L 1447,1541 L 1442,1546 L 1441,1546 L 1439,1548 L 1438,1548 L 1437,1549 L 1435,1549 L 1433,1551 L 1431,1551 L 1430,1552 L 1411,1552 L 1410,1551 L 1409,1551 L 1406,1548 L 1406,1547 L 1405,1546 L 1405,1544 L 1404,1543 L 1404,1478 L 1405,1477 L 1405,1476 Z"></path>
+                    <path class="logo-line" d="M 1277,1468 L 1277,1472 L 1278,1472 L 1279,1473 L 1284,1473 L 1285,1474 L 1286,1474 L 1287,1475 L 1287,1476 L 1288,1477 L 1288,1479 L 1289,1480 L 1289,1547 L 1288,1548 L 1288,1550 L 1286,1552 L 1285,1552 L 1284,1553 L 1280,1553 L 1279,1554 L 1277,1554 L 1277,1558 L 1323,1558 L 1324,1557 L 1328,1557 L 1329,1556 L 1332,1556 L 1333,1555 L 1335,1555 L 1336,1554 L 1339,1554 L 1340,1553 L 1343,1552 L 1345,1550 L 1348,1549 L 1351,1546 L 1352,1546 L 1357,1541 L 1357,1540 L 1360,1537 L 1360,1536 L 1361,1535 L 1361,1534 L 1362,1533 L 1362,1532 L 1365,1527 L 1365,1523 L 1366,1522 L 1366,1519 L 1367,1518 L 1367,1502 L 1366,1501 L 1366,1498 L 1365,1497 L 1365,1494 L 1364,1493 L 1363,1490 L 1361,1488 L 1360,1485 L 1357,1482 L 1357,1481 L 1356,1480 L 1355,1480 L 1351,1476 L 1348,1475 L 1346,1473 L 1345,1473 L 1344,1472 L 1342,1472 L 1341,1471 L 1338,1471 L 1337,1470 L 1334,1470 L 1333,1469 L 1329,1469 L 1328,1468 Z"></path>
+                    <path class="logo-line" d="M 1304,1474 L 1309,1474 L 1310,1473 L 1318,1473 L 1319,1474 L 1327,1474 L 1328,1475 L 1330,1475 L 1331,1476 L 1332,1476 L 1333,1477 L 1334,1477 L 1335,1478 L 1336,1478 L 1337,1479 L 1338,1479 L 1341,1482 L 1342,1482 L 1345,1485 L 1345,1486 L 1347,1488 L 1347,1489 L 1349,1491 L 1349,1492 L 1350,1493 L 1350,1495 L 1351,1496 L 1351,1498 L 1352,1499 L 1352,1502 L 1353,1503 L 1353,1521 L 1352,1522 L 1352,1525 L 1351,1526 L 1351,1528 L 1350,1529 L 1350,1532 L 1349,1533 L 1349,1534 L 1347,1536 L 1347,1537 L 1345,1539 L 1345,1540 L 1340,1545 L 1339,1545 L 1336,1548 L 1335,1548 L 1334,1549 L 1333,1549 L 1332,1550 L 1330,1550 L 1329,1551 L 1328,1551 L 1327,1552 L 1308,1552 L 1307,1551 L 1306,1551 L 1303,1548 L 1303,1547 L 1302,1546 L 1302,1543 L 1301,1542 L 1301,1480 L 1302,1479 L 1302,1476 Z"></path>
+                    <path class="logo-line" d="M 1523,1466 L 1518,1467 L 1518,1468 L 1515,1473 L 1515,1475 L 1514,1476 L 1514,1478 L 1512,1481 L 1512,1483 L 1510,1486 L 1509,1491 L 1506,1496 L 1505,1501 L 1502,1506 L 1502,1509 L 1498,1516 L 1498,1519 L 1495,1524 L 1495,1526 L 1493,1529 L 1492,1534 L 1489,1539 L 1489,1542 L 1487,1544 L 1485,1549 L 1482,1552 L 1481,1552 L 1480,1553 L 1477,1553 L 1476,1554 L 1474,1554 L 1474,1558 L 1506,1558 L 1506,1554 L 1504,1554 L 1503,1553 L 1499,1553 L 1495,1550 L 1495,1545 L 1496,1544 L 1496,1541 L 1497,1540 L 1497,1538 L 1499,1535 L 1499,1533 L 1500,1532 L 1501,1527 L 1503,1525 L 1530,1525 L 1532,1527 L 1532,1529 L 1534,1532 L 1534,1534 L 1535,1535 L 1535,1537 L 1536,1538 L 1537,1543 L 1539,1546 L 1540,1551 L 1539,1552 L 1537,1552 L 1536,1553 L 1531,1554 L 1531,1558 L 1565,1558 L 1565,1554 L 1563,1554 L 1562,1553 L 1559,1553 L 1558,1552 L 1556,1552 L 1551,1545 L 1551,1543 L 1550,1542 L 1549,1537 L 1547,1534 L 1547,1532 L 1546,1531 L 1545,1526 L 1543,1523 L 1543,1521 L 1542,1520 L 1541,1515 L 1539,1512 L 1539,1510 L 1538,1509 L 1537,1504 L 1535,1501 L 1535,1499 L 1534,1498 L 1533,1493 L 1530,1488 L 1530,1485 L 1529,1484 L 1529,1482 L 1527,1479 L 1527,1477 L 1526,1476 L 1526,1474 L 1525,1473 L 1525,1471 L 1524,1470 L 1524,1468 L 1523,1467 Z"></path>
+                    <path class="logo-line" d="M 1517,1486 L 1518,1487 L 1518,1489 L 1519,1490 L 1519,1492 L 1520,1493 L 1520,1495 L 1521,1496 L 1521,1497 L 1522,1498 L 1522,1500 L 1523,1501 L 1523,1503 L 1524,1504 L 1524,1506 L 1525,1507 L 1525,1509 L 1526,1510 L 1526,1511 L 1527,1512 L 1527,1515 L 1528,1516 L 1528,1518 L 1527,1519 L 1506,1519 L 1505,1518 L 1505,1516 L 1506,1515 L 1506,1514 L 1507,1513 L 1507,1512 L 1508,1511 L 1508,1509 L 1509,1508 L 1509,1506 L 1510,1505 L 1510,1503 L 1511,1502 L 1511,1501 L 1512,1500 L 1512,1498 L 1513,1497 L 1513,1495 L 1514,1494 L 1514,1492 L 1515,1491 L 1515,1490 L 1516,1489 L 1516,1487 Z"></path>
+                    <path class="logo-line" d="M 1229,1466 L 1228,1466 L 1227,1467 L 1225,1467 L 1225,1468 L 1223,1471 L 1223,1474 L 1219,1481 L 1218,1486 L 1215,1491 L 1214,1496 L 1211,1501 L 1210,1506 L 1209,1507 L 1209,1508 L 1208,1509 L 1208,1511 L 1206,1514 L 1206,1517 L 1202,1524 L 1201,1529 L 1198,1534 L 1197,1539 L 1196,1540 L 1192,1549 L 1189,1552 L 1188,1552 L 1187,1553 L 1184,1553 L 1183,1554 L 1181,1554 L 1181,1558 L 1213,1558 L 1213,1554 L 1211,1554 L 1210,1553 L 1206,1553 L 1202,1550 L 1202,1545 L 1203,1544 L 1203,1542 L 1204,1541 L 1204,1538 L 1206,1535 L 1206,1533 L 1207,1532 L 1207,1531 L 1208,1530 L 1208,1528 L 1210,1525 L 1238,1525 L 1239,1526 L 1239,1528 L 1240,1529 L 1240,1532 L 1242,1535 L 1242,1537 L 1244,1540 L 1244,1543 L 1245,1544 L 1245,1546 L 1246,1547 L 1246,1551 L 1244,1553 L 1241,1553 L 1240,1554 L 1238,1554 L 1238,1558 L 1272,1558 L 1272,1554 L 1270,1554 L 1269,1553 L 1266,1553 L 1265,1552 L 1264,1552 L 1259,1547 L 1258,1542 L 1255,1537 L 1255,1534 L 1254,1533 L 1254,1532 L 1253,1531 L 1253,1529 L 1251,1526 L 1251,1523 L 1249,1520 L 1249,1518 L 1248,1517 L 1248,1515 L 1247,1514 L 1246,1509 L 1243,1504 L 1243,1502 L 1242,1501 L 1242,1498 L 1239,1493 L 1239,1491 L 1238,1490 L 1238,1487 L 1237,1486 L 1237,1485 L 1236,1484 L 1236,1482 L 1234,1479 L 1234,1476 L 1233,1475 L 1233,1474 L 1232,1473 L 1232,1471 Z"></path>
+                    <path class="logo-line" d="M 1224,1486 L 1225,1487 L 1225,1489 L 1226,1490 L 1226,1491 L 1227,1492 L 1227,1495 L 1228,1496 L 1228,1498 L 1229,1499 L 1229,1500 L 1230,1501 L 1230,1503 L 1231,1504 L 1231,1506 L 1232,1507 L 1232,1509 L 1233,1510 L 1233,1512 L 1234,1513 L 1234,1514 L 1235,1515 L 1235,1517 L 1236,1518 L 1235,1519 L 1213,1519 L 1212,1518 L 1212,1517 L 1213,1516 L 1213,1513 L 1214,1512 L 1214,1511 L 1215,1510 L 1215,1509 L 1216,1508 L 1216,1506 L 1217,1505 L 1217,1503 L 1218,1502 L 1218,1501 L 1219,1500 L 1219,1498 L 1220,1497 L 1220,1496 L 1221,1495 L 1221,1492 L 1222,1491 L 1222,1490 L 1223,1489 L 1223,1487 Z"></path>
+                    <path class="logo-line" d="M 1167,1468 L 1164,1468 L 1163,1467 L 1156,1467 L 1155,1466 L 1145,1466 L 1144,1467 L 1139,1467 L 1138,1468 L 1136,1468 L 1132,1471 L 1131,1471 L 1125,1477 L 1125,1478 L 1122,1482 L 1122,1484 L 1121,1485 L 1121,1495 L 1122,1496 L 1122,1499 L 1124,1501 L 1124,1502 L 1126,1504 L 1126,1505 L 1132,1511 L 1135,1512 L 1140,1516 L 1142,1516 L 1144,1518 L 1145,1518 L 1147,1520 L 1150,1521 L 1153,1524 L 1154,1524 L 1159,1529 L 1159,1530 L 1160,1531 L 1160,1533 L 1161,1534 L 1161,1543 L 1160,1544 L 1160,1546 L 1159,1547 L 1159,1548 L 1155,1552 L 1154,1552 L 1149,1555 L 1142,1555 L 1141,1554 L 1139,1554 L 1136,1552 L 1134,1552 L 1128,1546 L 1126,1541 L 1124,1539 L 1124,1536 L 1123,1535 L 1123,1534 L 1118,1535 L 1118,1539 L 1119,1540 L 1119,1544 L 1120,1545 L 1120,1550 L 1121,1551 L 1121,1554 L 1122,1555 L 1122,1556 L 1123,1556 L 1124,1557 L 1126,1557 L 1127,1558 L 1130,1558 L 1131,1559 L 1135,1559 L 1136,1560 L 1150,1560 L 1151,1559 L 1154,1559 L 1155,1558 L 1157,1558 L 1158,1557 L 1161,1556 L 1163,1554 L 1164,1554 L 1169,1549 L 1169,1548 L 1173,1541 L 1173,1537 L 1174,1536 L 1174,1533 L 1173,1532 L 1173,1528 L 1172,1527 L 1172,1525 L 1171,1524 L 1170,1521 L 1162,1513 L 1161,1513 L 1159,1511 L 1154,1509 L 1152,1507 L 1151,1507 L 1150,1506 L 1145,1504 L 1143,1502 L 1142,1502 L 1134,1494 L 1134,1493 L 1133,1492 L 1133,1489 L 1132,1488 L 1132,1484 L 1133,1483 L 1133,1480 L 1137,1474 L 1138,1474 L 1141,1472 L 1143,1472 L 1144,1471 L 1150,1471 L 1151,1472 L 1153,1472 L 1154,1473 L 1157,1474 L 1162,1479 L 1162,1480 L 1164,1483 L 1164,1486 L 1165,1487 L 1165,1489 L 1169,1489 L 1170,1488 L 1170,1482 L 1169,1481 L 1169,1475 L 1168,1474 L 1168,1469 Z"></path>
+                    <path class="logo-line" d="M 2066,1465 L 2066,1472 L 2065,1473 L 2065,1483 L 2064,1484 L 2064,1490 L 2069,1490 L 2069,1488 L 2070,1487 L 2070,1485 L 2071,1484 L 2071,1482 L 2072,1480 L 2074,1478 L 2074,1477 L 2078,1474 L 2097,1474 L 2098,1475 L 2098,1544 L 2097,1545 L 2097,1549 L 2096,1551 L 2092,1553 L 2088,1553 L 2087,1554 L 2084,1554 L 2084,1558 L 2124,1558 L 2124,1554 L 2120,1554 L 2119,1553 L 2116,1553 L 2115,1552 L 2113,1552 L 2110,1548 L 2110,1475 L 2111,1474 L 2130,1474 L 2136,1480 L 2136,1482 L 2139,1488 L 2139,1490 L 2143,1490 L 2143,1476 L 2142,1475 L 2142,1465 L 2138,1465 L 2138,1466 L 2135,1468 L 2073,1468 L 2071,1467 L 2070,1465 Z"></path>
+                    <path class="logo-line" d="M 1479,1417 L 1479,1419 L 1480,1419 L 1480,1417 Z"></path>
+                    <path class="logo-line" d="M 1483,1381 L 1483,1382 L 1484,1382 L 1484,1381 Z"></path>
+                    <path class="logo-line" d="M 1059,1089 L 1061,1109 L 1060,1126 L 1058,1138 L 1054,1149 L 1050,1154 L 1050,1157 L 1073,1161 L 1086,1165 L 1091,1165 L 1093,1167 L 1079,1187 L 1071,1204 L 1065,1225 L 1062,1246 L 1062,1264 L 1066,1290 L 1072,1309 L 1081,1326 L 1090,1338 L 1109,1354 L 1127,1363 L 1146,1368 L 1157,1369 L 1193,1368 L 1212,1363 L 1229,1355 L 1240,1347 L 1251,1336 L 1259,1325 L 1267,1309 L 1268,1303 L 1271,1297 L 1275,1276 L 1276,1242 L 1272,1215 L 1267,1198 L 1254,1172 L 1242,1156 L 1225,1139 L 1207,1126 L 1180,1112 L 1159,1104 L 1130,1096 L 1100,1091 Z"></path>
+                    <path class="logo-line" d="M 1078,1205 L 1082,1198 L 1082,1196 L 1084,1194 L 1086,1189 L 1089,1186 L 1090,1183 L 1093,1180 L 1093,1179 L 1099,1172 L 1099,1171 L 1103,1168 L 1104,1169 L 1113,1170 L 1114,1171 L 1116,1171 L 1120,1173 L 1123,1173 L 1124,1174 L 1128,1174 L 1129,1175 L 1135,1176 L 1139,1178 L 1143,1178 L 1144,1179 L 1146,1179 L 1147,1180 L 1149,1180 L 1153,1182 L 1156,1182 L 1162,1185 L 1168,1186 L 1174,1189 L 1176,1189 L 1177,1190 L 1185,1192 L 1190,1195 L 1193,1195 L 1195,1197 L 1199,1198 L 1200,1199 L 1202,1199 L 1204,1201 L 1219,1208 L 1221,1210 L 1222,1210 L 1224,1212 L 1231,1216 L 1244,1229 L 1244,1230 L 1247,1233 L 1249,1237 L 1249,1239 L 1250,1240 L 1250,1243 L 1251,1244 L 1251,1254 L 1250,1255 L 1250,1257 L 1247,1263 L 1241,1269 L 1227,1277 L 1223,1277 L 1222,1278 L 1220,1278 L 1216,1280 L 1213,1280 L 1212,1281 L 1205,1281 L 1204,1282 L 1199,1282 L 1198,1283 L 1189,1283 L 1188,1284 L 1170,1284 L 1169,1285 L 1159,1285 L 1158,1284 L 1141,1284 L 1140,1283 L 1131,1283 L 1130,1282 L 1124,1282 L 1123,1281 L 1113,1280 L 1110,1278 L 1104,1277 L 1092,1271 L 1083,1263 L 1083,1262 L 1081,1260 L 1080,1257 L 1077,1253 L 1077,1250 L 1076,1249 L 1075,1243 L 1074,1242 L 1074,1220 L 1075,1219 L 1075,1216 L 1077,1212 Z"></path>
+                    <path class="logo-line" d="M 1311,1282 L 1317,1310 L 1330,1333 L 1356,1355 L 1395,1368 L 1439,1367 L 1481,1349 L 1508,1322 L 1527,1279 L 1544,1309 L 1573,1338 L 1603,1354 L 1643,1363 L 1806,1363 L 1840,1350 L 1863,1321 L 1914,1349 L 1929,1429 L 1934,1424 L 1922,1351 L 1979,1363 L 2026,1363 L 2085,1351 L 2133,1329 L 2170,1298 L 2192,1266 L 2205,1224 L 2206,1186 L 2188,1129 L 2157,1092 L 2107,1066 L 2076,1061 L 2046,1063 L 1997,1083 L 1955,1127 L 1925,1195 L 1912,1273 L 1885,1268 L 1844,1251 L 1819,1225 L 1809,1198 L 1810,1240 L 1821,1275 L 1630,1277 L 1598,1261 L 1576,1224 L 1527,1031 L 1501,1057 L 1469,1071 L 1514,1245 L 1491,1263 L 1451,1277 L 1406,1283 L 1352,1280 L 1331,1267 L 1326,1243 L 1336,1219 L 1364,1202 L 1369,1195 L 1364,1194 L 1342,1203 L 1325,1220 L 1313,1248 Z"></path>
+                    <path class="logo-line" d="M 2181,1195 L 2182,1205 L 2181,1206 L 2181,1211 L 2178,1217 L 2178,1219 L 2174,1226 L 2161,1239 L 2156,1243 L 2146,1248 L 2144,1250 L 2138,1252 L 2136,1254 L 2134,1254 L 2121,1260 L 2112,1262 L 2109,1264 L 2105,1264 L 2097,1267 L 2093,1267 L 2092,1268 L 2088,1268 L 2087,1269 L 2083,1269 L 2082,1270 L 2078,1270 L 2077,1271 L 2073,1271 L 2067,1273 L 2057,1273 L 2056,1274 L 2049,1274 L 2048,1275 L 2041,1275 L 2040,1276 L 2033,1276 L 2032,1277 L 1997,1277 L 1996,1278 L 1942,1277 L 1941,1276 L 1925,1275 L 1921,1273 L 1922,1272 L 1923,1262 L 1927,1252 L 1927,1249 L 1930,1243 L 1931,1238 L 1935,1231 L 1935,1229 L 1944,1213 L 1957,1196 L 1975,1179 L 1988,1170 L 2005,1161 L 2007,1161 L 2014,1157 L 2023,1155 L 2026,1153 L 2030,1153 L 2031,1152 L 2043,1150 L 2044,1149 L 2049,1149 L 2050,1148 L 2062,1148 L 2063,1147 L 2100,1148 L 2101,1149 L 2107,1149 L 2117,1152 L 2126,1153 L 2132,1156 L 2138,1157 L 2143,1160 L 2148,1161 L 2164,1171 L 2174,1181 L 2178,1187 L 2178,1189 Z"></path>
+                    <path class="logo-line" d="M 1376,985 L 1373,984 L 1371,987 L 1371,990 L 1379,999 L 1381,1004 L 1383,1006 L 1383,1008 L 1385,1012 L 1385,1015 L 1386,1016 L 1386,1027 L 1382,1034 L 1378,1037 L 1372,1040 L 1360,1040 L 1359,1039 L 1359,1032 L 1357,1028 L 1357,1025 L 1353,1016 L 1349,1011 L 1345,1010 L 1344,1009 L 1342,1009 L 1337,1013 L 1337,1016 L 1336,1017 L 1336,1027 L 1337,1028 L 1337,1034 L 1341,1042 L 1341,1044 L 1339,1046 L 1337,1047 L 1334,1047 L 1333,1048 L 1327,1048 L 1326,1047 L 1324,1047 L 1320,1045 L 1314,1039 L 1314,1037 L 1313,1036 L 1313,1034 L 1311,1030 L 1310,1020 L 1311,1019 L 1311,1014 L 1312,1013 L 1312,1010 L 1313,1009 L 1313,1006 L 1314,1005 L 1314,1002 L 1315,1000 L 1313,998 L 1309,997 L 1308,1001 L 1307,1002 L 1307,1004 L 1306,1005 L 1306,1007 L 1305,1008 L 1305,1010 L 1304,1011 L 1304,1014 L 1303,1015 L 1303,1021 L 1302,1022 L 1302,1040 L 1303,1041 L 1303,1047 L 1304,1048 L 1304,1051 L 1307,1056 L 1307,1058 L 1309,1062 L 1312,1065 L 1312,1066 L 1319,1072 L 1321,1072 L 1326,1075 L 1340,1075 L 1345,1072 L 1347,1072 L 1350,1069 L 1351,1069 L 1357,1062 L 1359,1064 L 1361,1064 L 1364,1066 L 1367,1066 L 1368,1067 L 1378,1067 L 1379,1066 L 1382,1066 L 1388,1063 L 1392,1059 L 1394,1058 L 1395,1055 L 1398,1051 L 1399,1045 L 1400,1044 L 1400,1028 L 1399,1027 L 1399,1022 L 1398,1021 L 1397,1016 L 1394,1011 L 1394,1009 L 1391,1005 L 1389,1000 L 1382,992 L 1382,991 Z"></path>
+                    <path class="logo-line" d="M 1342,1014 L 1345,1014 L 1346,1015 L 1347,1015 L 1350,1018 L 1350,1020 L 1351,1021 L 1351,1022 L 1352,1023 L 1352,1025 L 1353,1026 L 1353,1031 L 1352,1032 L 1352,1034 L 1351,1035 L 1351,1036 L 1350,1037 L 1349,1036 L 1348,1036 L 1344,1032 L 1344,1031 L 1342,1029 L 1342,1028 L 1341,1027 L 1341,1026 L 1340,1025 L 1340,1016 Z"></path>
+                    <path class="logo-line" d="M 1627,286 L 1591,351 L 1578,388 L 1582,421 L 1599,445 L 1619,458 L 1619,472 L 1573,484 L 1573,609 L 1561,621 L 1561,552 L 1517,538 L 1517,523 L 1546,494 L 1551,468 L 1542,437 L 1510,379 L 1471,463 L 1473,489 L 1485,508 L 1505,523 L 1505,538 L 1461,551 L 1461,599 L 1410,573 L 1375,563 L 1372,633 L 1381,683 L 1330,666 L 1295,662 L 1303,702 L 1333,757 L 1378,802 L 1426,831 L 1366,850 L 1319,879 L 1372,911 L 1436,927 L 1501,924 L 1549,907 L 1569,960 L 1625,1022 L 1677,970 L 1697,934 L 1704,906 L 1750,924 L 1824,926 L 1890,907 L 1935,879 L 1890,850 L 1830,831 L 1876,803 L 1923,756 L 1948,712 L 1961,666 L 1928,666 L 1871,685 L 1881,633 L 1878,563 L 1793,600 L 1792,551 L 1749,538 L 1749,523 L 1778,497 L 1784,468 L 1775,437 L 1745,380 L 1718,427 L 1704,467 L 1707,491 L 1738,523 L 1738,538 L 1693,551 L 1689,617 L 1682,608 L 1682,486 L 1633,472 L 1633,459 L 1649,450 L 1668,426 L 1675,394 L 1669,368 Z"></path>
+                    <path class="logo-line" d="M 1691,620 L 1692,619 L 1693,620 L 1692,621 Z"></path>
+                </svg>
+            </div>
+            
+            <!-- Morphing Text Container -->
+            <div class="relative flex items-center justify-center w-full h-12 fade-up mt-2" style="animation-delay:.8s;">
+                <span class="morph-word absolute inline-block text-3xl font-black text-slate-800 tracking-tight text-center w-full select-none">مرحباً بك</span>
+                <span class="morph-word morph-word-2 absolute inline-block text-3xl font-black text-slate-800 tracking-tight text-center w-full select-none opacity-0">في نظام صده</span>
+            </div>
+
+            <p class="text-slate-500 text-sm mt-2 font-medium fade-up" style="animation-delay:.95s">بوابة إدارة العمليات والمبيعات</p>
+        </div>
+
+        <!-- بطاقة تسجيل الدخول -->
+        <div class="bg-white/60 backdrop-blur-2xl rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/80 fade-up relative" style="animation-delay:1.1s">
+            <div class="absolute inset-0 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
+            <form id="login-form" class="space-y-6 relative z-10" autocomplete="on">
+                <div>
+                    <label class="text-[13px] font-bold text-slate-700 block mb-2 mr-1">اسم المستخدم</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                            <i class="fa-solid fa-user text-sm"></i>
+                        </div>
+                        <input type="text" id="username" autocomplete="username" required placeholder="أدخل اسم المستخدم" 
+                            class="w-full bg-white/50 backdrop-blur-md border border-slate-200/60 rounded-2xl pr-11 pl-4 py-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white/80 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all duration-300 shadow-inner">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[13px] font-bold text-slate-700 block mb-2 mr-1">كلمة المرور</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                            <i class="fa-solid fa-lock text-sm"></i>
+                        </div>
+                        <input type="password" id="password" autocomplete="current-password" required placeholder="••••••••" 
+                            class="w-full bg-white/50 backdrop-blur-md border border-slate-200/60 rounded-2xl pr-11 pl-12 py-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white/80 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all duration-300 shadow-inner" style="letter-spacing: 0.1em;">
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 hover:text-indigo-600 transition-colors focus:outline-none">
+                            <i class="fa-solid fa-eye text-sm" id="toggle-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="login-error" class="hidden text-sm font-bold text-red-600 bg-red-50/80 backdrop-blur-md border border-red-100 rounded-2xl px-4 py-3.5 text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="error-text"></span>
+                </div>
+
+                <button type="button" id="fast-login-btn" class="hidden w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-[0_8px_20px_-6px_rgba(16,185,129,0.5)] hover:shadow-[0_12px_25px_-6px_rgba(16,185,129,0.6)] hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-4 text-[15px] border border-emerald-400/20">
+                    <i class="fa-solid fa-fingerprint text-xl"></i> الدخول السريع (FaceID / بصمة)
+                </button>
+
+                <button type="submit" id="login-btn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-[0_8px_20px_-6px_rgba(79,70,229,0.5)] hover:shadow-[0_12px_25px_-6px_rgba(79,70,229,0.6)] hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-4 text-[15px] border border-indigo-400/20">
+                    تسجيل الدخول <i class="fa-solid fa-arrow-left text-sm relative top-[1px]"></i>
+                </button>
+            </form>
+        </div>
+
+
+        <!-- حقوق النشر -->
+        <p class="text-center text-slate-400 text-xs font-medium mt-10 fade-up" style="animation-delay:1.25s">
+            جميع الحقوق محفوظة &copy; نظام صده
+        </p>
+    </div>
+
+    <!-- مكتبة Anime.js v4 — نسخة IIFE عامة (متوافقة مع متصفحات الجوال والمتصفح المدمج) -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4/lib/anime.iife.min.js"></script>
+    <!-- انميشن رسم الشعار الاحترافي -->
+    <script>
+        (function () {
+            if (!window.anime || !anime.svg) return; // فشل تحميل المكتبة → شبكة الأمان تُظهر الشعار
+            var animate = anime.animate, createTimeline = anime.createTimeline,
+                svg = anime.svg, stagger = anime.stagger, utils = anime.utils;
+
+            // الحالات الابتدائية
+            var lines = svg.createDrawable('.logo-line');
+            lines.forEach(function (l) { l.draw = '0 0'; });          // الحواف غير مرسومة
+            utils.set('#logo-wrap', { opacity: 0, scale: 0.82 });
+
+            createTimeline({
+                defaults: { ease: 'outQuart' },
+                onComplete: function () {
+                    // طفو لطيف مستمر يمنح الشعار حياة
+                    animate('#logo-wrap', { translateY: [0, -9], duration: 2800, loop: true, alternate: true, ease: 'inOutSine' });
+                }
+            })
+            // 1) دخول ناعم لحاوية الشعار
+            .add('#logo-wrap', { opacity: [0, 1], scale: [0.82, 1], duration: 800, ease: 'outExpo' })
+            // 2) رسم حواف الشعار من المنتصف نحو الأطراف
+            .add(lines, { draw: ['0 0', '0 1'], duration: 1600, delay: stagger(45, { from: 'center' }), ease: 'inOutQuad' }, '-=350')
+            // 3) ظهور الشعار الملوّن بنبضة أنيقة
+            .add('#real-logo', { opacity: [0, 1], scale: [0.9, 1], duration: 900, ease: 'outBack' }, '-=450')
+            // 4) تلاشي طبقة الرسم بالتزامن
+            .add('#animated-logo', { opacity: [1, 0], duration: 700, ease: 'outQuad' }, '<');
+        })();
+    </script>
+
+    <script>
+        // شبكة أمان: لو تعذّر تحميل مكتبة الانميشن (إنترنت/حجب CDN) أظهر الشعار الأصلي
+        setTimeout(() => {
+            const img = document.getElementById('real-logo');
+            if (img && getComputedStyle(img).opacity === '0') {
+                const wrap = document.getElementById('logo-wrap');
+                if (wrap) { wrap.style.opacity = '1'; wrap.style.transform = 'none'; }
+                img.style.transition = 'opacity .6s ease';
+                img.style.opacity = '1';
+                const svgEl = document.getElementById('animated-logo');
+                if (svgEl) svgEl.style.opacity = '0';
+            }
+        }, 4500);
+
+        const form = document.getElementById('login-form');
+        const errEl = document.getElementById('login-error');
+        const errText = document.getElementById('error-text');
+        const btn = document.getElementById('login-btn');
+        const passInput = document.getElementById('password');
+        const toggleBtn = document.getElementById('toggle-password');
+        const toggleIcon = document.getElementById('toggle-icon');
+
+        // إظهار/إخفاء كلمة المرور
+        toggleBtn.addEventListener('click', () => {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                passInput.style.letterSpacing = 'normal';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                passInput.style.letterSpacing = '0.1em';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        });
+
+        // إن كان مسجّلاً دخوله مسبقاً، حوّله للرئيسية
+        (async () => {
+            try {
+                const r = await fetch('auth.php?action=me', { cache: 'no-store' });
+                const me = JSON.parse(await r.text());
+                if (me && me.authed) location.replace('index.html');
+            } catch (e) { /* PHP غير متاح (تشغيل محلي) */ }
+        })();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errEl.classList.add('hidden');
+            btn.disabled = true; 
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحقق...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            try {
+                const r = await fetch('auth.php?action=login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify({ username: document.getElementById('username').value, password: passInput.value })
+                });
+                const data = JSON.parse(await r.text());
+                if (r.ok && data.authed) { 
+                    if (!localStorage.getItem('saddahFastLoginCredId') && window.PublicKeyCredential) {
+                        promptFastLoginSetup();
+                    } else {
+                        location.replace('index.html');
+                    }
+                    return; 
+                }
+                errText.textContent = data.error || 'بيانات الدخول غير صحيحة.';
+                errEl.classList.remove('hidden');
+            } catch (err) {
+                errText.textContent = 'تعذّر الاتصال بالخادم. تأكد من اتصالك.';
+                errEl.classList.remove('hidden');
+            }
+            btn.disabled = false; 
+            btn.innerHTML = 'تسجيل الدخول <i class="fa-solid fa-arrow-left text-sm relative top-[1px]"></i>';
+            btn.classList.remove('opacity-80', 'cursor-not-allowed');
+        });
+    </script>
+    <!-- Fast Login Setup Modal -->
+    <div id="fast-login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300 relative overflow-hidden" id="fast-login-modal-content">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+            <div class="flex justify-center mb-6 mt-2">
+                <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500 shadow-inner">
+                    <i class="fa-solid fa-fingerprint text-4xl"></i>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-center text-slate-800 mb-2">تفعيل الدخول السريع</h3>
+            <p class="text-center text-slate-500 text-sm mb-8 leading-relaxed">هل ترغب بتفعيل تسجيل الدخول باستخدام البصمة أو التعرف على الوجه (FaceID) لتسريع دخولك في المرات القادمة؟</p>
+            <div class="flex flex-col gap-3">
+                <button id="enable-fast-login-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i> نعم، تفعيل
+                </button>
+                <button id="skip-fast-login-btn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 rounded-xl transition-all">
+                    تخطي
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fast Login JS Logic -->
+    <script>
+        const fastLoginUsername = localStorage.getItem('saddahFastLoginUsername');
+        const fastLoginCredId = localStorage.getItem('saddahFastLoginCredId');
+        
+        const fastLoginBtn = document.getElementById('fast-login-btn');
+        const fastLoginModal = document.getElementById('fast-login-modal');
+        const fastLoginModalContent = document.getElementById('fast-login-modal-content');
+        const loginBtn = document.getElementById('login-btn');
+
+        // دوال مساعدة لتحويل الـ ArrayBuffer
+        function bufferToBase64(buffer) {
+            return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
+        }
+        function base64ToBuffer(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) { bytes[i] = binary.charCodeAt(i); }
+            return bytes.buffer;
+        }
+
+        // أظهر زر الدخول السريع إذا كان مفعلًا
+        if (fastLoginCredId && fastLoginUsername && window.PublicKeyCredential) {
+            fastLoginBtn.classList.remove('hidden');
+            loginBtn.classList.add('hidden'); // إخفاء زر الدخول العادي كنوع من التركيز
+            
+            // يمكن للمستخدم إظهار الدخول العادي بمجرد التفاعل مع حقول النص
+            document.getElementById('password').addEventListener('input', () => {
+                loginBtn.classList.remove('hidden');
+            });
+        }
+
+        // تنفيذ عملية الدخول السريع عند النقر
+        fastLoginBtn.addEventListener('click', async () => {
+            try {
+                fastLoginBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري الاتصال...';
+                
+                // جلب رمز التحدي العشوائي من السيرفر
+                let r = await fetch('auth.php?action=webauthn_challenge');
+                let challengeData = await r.json();
+                if (!challengeData.challenge) throw new Error('فشل جلب تحدي السيرفر');
+                
+                const challengeArray = base64ToBuffer(challengeData.challenge);
+                
+                const options = {
+                    publicKey: {
+                        challenge: challengeArray,
+                        timeout: 60000,
+                        userVerification: "required"
+                    }
+                };
+
+                // تحديد المفتاح المحفوظ لطلب البصمة مباشرة (يمنع ظهور شاشة اختيار حسابات قوقل)
+                if (fastLoginCredId) {
+                    options.publicKey.allowCredentials = [{
+                        type: 'public-key',
+                        id: base64ToBuffer(fastLoginCredId)
+                    }];
+                }
+                
+                // هنا تظهر البصمة للمستخدم
+                const assertion = await navigator.credentials.get(options);
+
+                // تجهيز التوقيع والمصادقة لإرسالها
+                fastLoginBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحقق...';
+                
+                const payload = {
+                    username: fastLoginUsername,
+                    credId: assertion.id,
+                    authData: bufferToBase64(assertion.response.authenticatorData),
+                    clientData: bufferToBase64(assertion.response.clientDataJSON),
+                    signature: bufferToBase64(assertion.response.signature)
+                };
+
+                r = await fetch('auth.php?action=webauthn_verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = JSON.parse(await r.text());
+                if (r.ok && data.authed) { 
+                    location.replace('index.html'); 
+                } else {
+                    throw new Error(data.error || 'فشل التحقق من التوقيع');
+                }
+            } catch (err) {
+                console.error(err);
+                errText.textContent = err.message || 'تم إلغاء أو فشل الدخول السريع. الرجاء استخدام كلمة المرور.';
+                errEl.classList.remove('hidden');
+                fastLoginBtn.innerHTML = '<i class="fa-solid fa-fingerprint text-xl"></i> الدخول السريع (FaceID / بصمة)';
+                loginBtn.classList.remove('hidden');
+            }
+        });
+
+        // التعامل مع تفعيل البصمة بعد تسجيل الدخول بنجاح
+        async function promptFastLoginSetup() {
+            // التحقق من دعم الجهاز
+            if (!window.PublicKeyCredential) {
+                location.replace('index.html');
+                return;
+            }
+            
+            // إظهار النافذة
+            fastLoginModal.classList.remove('opacity-0', 'pointer-events-none');
+            fastLoginModalContent.classList.remove('scale-95');
+            fastLoginModalContent.classList.add('scale-100');
+
+            document.getElementById('skip-fast-login-btn').onclick = () => {
+                location.replace('index.html');
+            };
+
+            document.getElementById('enable-fast-login-btn').onclick = async () => {
+                const btn = document.getElementById('enable-fast-login-btn');
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري التفعيل...';
+                
+                try {
+                    // طلب تحدي من السيرفر لربط التسجيل به
+                    let r = await fetch('auth.php?action=webauthn_challenge');
+                    let challengeData = await r.json();
+                    if (!challengeData.challenge) throw new Error('فشل جلب التحدي');
+                    
+                    const challengeArray = base64ToBuffer(challengeData.challenge);
+                    const userid = new Uint8Array(16);
+                    window.crypto.getRandomValues(userid);
+
+                    const cred = await navigator.credentials.create({
+                        publicKey: {
+                            challenge: challengeArray,
+                            rp: { name: "نظام صده", id: location.hostname },
+                            user: { id: userid, name: document.getElementById('username').value, displayName: "مستخدم صده" },
+                            pubKeyCredParams: [{type: "public-key", alg: -7}, {type: "public-key", alg: -257}],
+                            authenticatorSelection: { 
+                                authenticatorAttachment: "platform", 
+                                userVerification: "required",
+                                residentKey: "discouraged" // لضمان بقائها في الجهاز وعدم رفعها לסحابة خارجية
+                            },
+                            timeout: 60000
+                        }
+                    });
+
+                    // استخراج المفتاح العام من البصمة
+                    let pubKeyBuffer = null;
+                    if (cred && cred.response && typeof cred.response.getPublicKey === 'function') {
+                        pubKeyBuffer = cred.response.getPublicKey();
+                    } else if (cred && cred.response && typeof cred.response.getPublicKeyAlgorithm === 'function') {
+                        throw new Error('متصفحك غير مدعوم للحصول على المفتاح الأصلي.');
+                    }
+                    
+                    if (!pubKeyBuffer) {
+                        throw new Error('فشل قراءة المفتاح من جهازك.');
+                    }
+                    
+                    // إذا نجح تسجيل البصمة، نطلب توكن من السيرفر
+                    r = await fetch('auth.php?action=webauthn_register', { 
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            credId: bufferToBase64(cred.rawId),
+                            pubKey: bufferToBase64(pubKeyBuffer)
+                        })
+                    });
+                    
+                    const data = await r.json();
+                    
+                    if (data.ok) {
+                        localStorage.setItem('saddahFastLoginCredId', bufferToBase64(cred.rawId));
+                        localStorage.setItem('saddahFastLoginUsername', document.getElementById('username').value);
+                    } else {
+                        throw new Error(data.error || 'فشل الحفظ في السيرفر');
+                    }
+                    
+                } catch (err) {
+                    console.error("Fast login setup failed", err);
+                    alert('فشل تفعيل البصمة: ' + err.message);
+                } finally {
+                    location.replace('index.html');
+                }
+            };
+        }
+        
+        const originalFormSubmit = form.onsubmit; // لا يوجد onsubmit حاليا إنما مستمع أحداث. سأبحث عن الاستدعاء أعلاه.
+    </script>
+
+
+<script>
+    if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").catch(console.error);
+    }
+</script>
+
+<!-- Particles Animation (MagicUI Vanilla Clone) -->
+<script>
+    (function() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        
+        const particles = [];
+        // Dynamically adjust quantity based on device capability (less on mobile = perfectly smooth)
+        const quantity = window.innerWidth < 768 ? 50 : 100;
+        const color = 'rgba(79, 70, 229, 0.6)'; // text-indigo-600
+        
+        // Debounce resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }, 200);
+        });
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.15;
+                this.vy = (Math.random() - 0.5) * 0.15;
+                this.size = Math.random() * 2 + 1;
+            }
+            
+            update() {
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+                
+                this.x += this.vx + (Math.random() - 0.5) * 0.05;
+                this.y += this.vy + (Math.random() - 0.5) * 0.05;
+                
+                if (this.x < 0) { this.x = 0; this.vx *= -1; }
+                else if (this.x > width) { this.x = width; this.vx *= -1; }
+                
+                if (this.y < 0) { this.y = 0; this.vy *= -1; }
+                else if (this.y > height) { this.y = height; this.vy *= -1; }
+            }
+        }
+        
+        for (let i = 0; i < quantity; i++) {
+            particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw all particles in a single path (Massive GPU/CPU boost)
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            for (let i = 0; i < quantity; i++) {
+                particles[i].update();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.arc(particles[i].x, particles[i].y, particles[i].size, 0, Math.PI * 2);
+            }
+            ctx.fill();
+            
+            // Draw lines using fast squared distance checks
+            ctx.lineWidth = 1.0;
+            for (let i = 0; i < quantity; i++) {
+                for (let j = i + 1; j < quantity; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distSq = dx * dx + dy * dy;
+                    
+                    if (distSq < 10000) { // 100 * 100
+                        let dist = Math.sqrt(distSq);
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(167, 139, 250, ${0.25 - (dist / 100) * 0.25})`;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    })();
+</script>
+</body>
+</html>
+
+
+
+
+

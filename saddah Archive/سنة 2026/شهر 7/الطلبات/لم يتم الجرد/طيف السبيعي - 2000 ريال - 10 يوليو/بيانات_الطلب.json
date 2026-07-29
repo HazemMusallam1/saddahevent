@@ -1,0 +1,182 @@
+{
+  "id": 1783700988709,
+  "date": "١٠‏/٧‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "طيف السبيعي",
+    "id": "-",
+    "phone": "504676808",
+    "address": "المحاميد",
+    "deliveryDate": "2026-07-10",
+    "deliveryTime": "15:00",
+    "pickupDate": "2026-07-11",
+    "pickupTime": "12:00",
+    "deliveryPerson": "عاطف",
+    "returnPerson": "عاطف"
+  },
+  "financials": {
+    "subTotal": "2000.00",
+    "total": "2000.00 ريال",
+    "delivery": "0",
+    "deposit": "300",
+    "securityDeposit": "300",
+    "vatRate": "0",
+    "includeTaxInProfit": true
+  },
+  "paymentStatus": [],
+  "isConfirmed": false,
+  "computed": {
+    "total": 2000,
+    "deductedInsurance": 0,
+    "received": 2300,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 111.5,
+    "totalExpenses": 111.5,
+    "revenue": 2000,
+    "remaining": 0,
+    "netProfit": 1888.5,
+    "includeTax": true,
+    "operatingShare": 188.85,
+    "distributableProfit": 1699.65,
+    "fuel": 0
+  },
+  "delivery": {
+    "deliveryPerson": "عاطف",
+    "returnPerson": "عاطف"
+  },
+  "items": [
+    {
+      "name": "3 طاولات زجاج مع تنسيق ",
+      "desc": " 3 طاولات سطح زجاجي و قواعد ذهبية , مع تنسيق جاهز (اللون الابيض و الاخضر )",
+      "decorDetails": "",
+      "qty": 1,
+      "chairsCount": 24,
+      "total": "2000.00",
+      "totalOriginal": "2000.00",
+      "unitPrice": 2000,
+      "originalPrice": 2000
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "عالم التوفير",
+      "amount": 34.5,
+      "total": 34.5,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "عالم التوفير - 34.5 ريال.jpg",
+        "name": "عالم التوفير - 34.5 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-07-10T16:36:57.910Z",
+      "claimId": "1783701417911972"
+    },
+    {
+      "desc": "بشار العتيبي (بقالة)",
+      "amount": 12,
+      "total": 12,
+      "paid": 12,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "بشار العتيبي (بقالة) - 12 ريال.jpg",
+        "name": "بشار العتيبي (بقالة) - 12 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-07-10T16:37:49.496Z",
+      "claimId": "1783701469496133"
+    },
+    {
+      "desc": "شركه خدمات التقنية (بقالة)",
+      "amount": 15,
+      "total": 15,
+      "paid": 15,
+      "discount": 0,
+      "attachment": {
+        "type": "image/jpeg",
+        "data": "شركه خدمات التقنية (بقالة) - 15 ريال.jpg",
+        "name": "شركه خدمات التقنية (بقالة) - 15 ريال.jpg",
+        "link": ""
+      },
+      "date": "2026-07-10T16:39:12.294Z",
+      "claimId": "178370155229414"
+    },
+    {
+      "desc": "عامل للتوصيل ",
+      "amount": 50,
+      "total": 50,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عامل للتوصيل - 50 ريال.pdf",
+        "name": "عامل للتوصيل - 50 ريال.pdf",
+        "link": ""
+      },
+      "date": "2026-07-11T20:27:46.238Z"
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "باقي المبلغ",
+      "amount": 1700,
+      "method": "transfer",
+      "fileLink": "باقي المبلغ - 1700 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "باقي المبلغ - 1700 ريال تحويل.pdf",
+        "name": "باقي المبلغ - 1700 ريال تحويل.pdf",
+        "link": "باقي المبلغ - 1700 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-11T20:44:37.794Z"
+    },
+    {
+      "desc": "عربون",
+      "amount": 300,
+      "method": "transfer",
+      "fileLink": "عربون - 300 ريال تحويل.pdf",
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عربون - 300 ريال تحويل.pdf",
+        "name": "عربون - 300 ريال تحويل.pdf",
+        "link": "عربون - 300 ريال تحويل.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-07-11T20:45:13.731Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 300,
+      "method": "cash",
+      "fileLink": "تأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 300 ريال كاش",
+        "name": "تأمين - 300 ريال كاش",
+        "link": "تأمين - 300 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-07-11T20:45:21.933Z"
+    }
+  ],
+  "returns": [
+    {
+      "desc": "إرجاع التأمين",
+      "refund": 300,
+      "deducted": 0,
+      "method": "cash",
+      "fileLink": "إرجاع التأمين - 300 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "إرجاع التأمين - 300 ريال كاش",
+        "name": "إرجاع التأمين - 300 ريال كاش",
+        "link": "إرجاع التأمين - 300 ريال كاش"
+      },
+      "date": "2026-07-11T20:45:48.357Z"
+    }
+  ]
+}

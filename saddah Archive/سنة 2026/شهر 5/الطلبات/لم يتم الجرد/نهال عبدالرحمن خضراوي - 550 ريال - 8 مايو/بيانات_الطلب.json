@@ -1,0 +1,150 @@
+{
+    "id": 1776860968321,
+    "date": "٢٢‏/٤‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "نهال عبدالرحمن خضراوي",
+        "id": "1075243939",
+        "phone": "543709097",
+        "address": "راديسون بلو - شارع قريش , قاعة نوفا",
+        "deliveryDate": "2026-05-08",
+        "deliveryTime": "13:30",
+        "pickupDate": "2026-05-09",
+        "pickupTime": "10:00",
+        "deliveryPerson": "عاطف",
+        "returnPerson": "افاق"
+    },
+    "financials": {
+        "subTotal": "391.32",
+        "total": "550.00 ريال",
+        "delivery": 0,
+        "deposit": "100",
+        "securityDeposit": "200",
+        "vatRate": "15",
+        "includeTaxInProfit": true,
+        "paid": "750 ريال",
+        "remaining": "0 ريال",
+        "returnDelivery": 0,
+        "fuel": 20
+    },
+    "items": [
+        {
+            "name": "طاولات كوكتيل (بار)",
+            "desc": "قواعد ذهبية و سطج زجاجي",
+            "decorDetails": "",
+            "qty": 6,
+            "chairsCount": 0,
+            "total": "391.32",
+            "totalOriginal": "391.32",
+            "unitPrice": 65.22,
+            "originalPrice": 65.22
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "عمال لطلب نهال و سهام مقسم 25 ريال لكل طلب ",
+            "amount": 25,
+            "total": 25,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عمال لطلب نهال و سهام مقسم 25 ريال لكل طلب - 25 ريال.pdf",
+                "name": "عمال لطلب نهال و سهام مقسم 25 ريال لكل طلب - 25 ريال.pdf",
+                "link": ""
+            },
+            "date": "2026-06-09T19:52:07.259Z",
+            "claimId": "1781034727259530"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 100,
+            "method": "transfer",
+            "fileLink": "عربون - 100 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 100 ريال تحويل.pdf",
+                "name": "عربون - 100 ريال تحويل.pdf",
+                "link": "عربون - 100 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T19:50:06.549Z"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 450,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ - 450 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ - 450 ريال تحويل.pdf",
+                "name": "باقي المبلغ - 450 ريال تحويل.pdf",
+                "link": "باقي المبلغ - 450 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T19:50:17.433Z"
+        },
+        {
+            "desc": "تأمين",
+            "amount": 200,
+            "method": "transfer",
+            "fileLink": "تأمين - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "تأمين - 200 ريال تحويل.pdf",
+                "name": "تأمين - 200 ريال تحويل.pdf",
+                "link": "تأمين - 200 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-09T19:50:28.488Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": false,
+    "status": "تم الجرد",
+    "extraFinancials": {
+        "externalDelivery": 0,
+        "warehouseDelivery": 0,
+        "abdulrazzaqFuel": 20
+    },
+    "returns": [
+        {
+            "desc": "إرجاع التأمين",
+            "refund": 200,
+            "deducted": 0,
+            "method": "transfer",
+            "fileLink": "إرجاع التأمين - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "إرجاع التأمين - 200 ريال تحويل.pdf",
+                "name": "إرجاع التأمين - 200 ريال تحويل.pdf",
+                "link": "إرجاع التأمين - 200 ريال تحويل.pdf"
+            },
+            "date": "2026-06-09T19:51:06.420Z"
+        }
+    ],
+    "computed": {
+        "total": 550,
+        "deductedInsurance": 0,
+        "received": 750,
+        "extDelivery": 0,
+        "whDelivery": 0,
+        "otherExpenses": 25,
+        "totalExpenses": 25,
+        "revenue": 550,
+        "remaining": 0,
+        "netProfit": 525,
+        "includeTax": true,
+        "operatingShare": 52.5,
+        "distributableProfit": 472.5,
+        "fuel": 20
+    }
+}

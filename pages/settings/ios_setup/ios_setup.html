@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script>window.SaddahBase = '../../..';</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ربط الآيفون (Shortcut) - نظام صده</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../../assets/css/app-responsive.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../assets/css/tailwind.css?v=2">
+    <style> body { background:#f1f5f9; } .mono { font-family: ui-monospace, monospace; } </style>
+</head>
+<body class="font-sans text-slate-800">
+    <div class="max-w-lg mx-auto p-4">
+        <div class="flex items-center gap-3 mb-5">
+            <a href="../../index.html" class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-500"><i class="fa-solid fa-arrow-right"></i></a>
+            <div>
+                <h1 class="text-lg font-black flex items-center gap-2"><i class="fa-brands fa-apple text-slate-700"></i> ربط الآيفون — مشاركة الإيصالات</h1>
+                <p class="text-xs text-slate-400 font-bold">إعداد لمرة واحدة عبر اختصار Shortcuts</p>
+            </div>
+        </div>
+
+        <!-- الرمز ورابط الرفع -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm mb-4 space-y-4">
+            <div>
+                <div class="flex items-center justify-between mb-1">
+                    <label class="text-xs font-bold text-slate-500">رمز الرفع الشخصي (سرّي)</label>
+                    <button onclick="resetToken()" class="text-[11px] font-bold text-red-500 hover:text-red-600"><i class="fa-solid fa-rotate"></i> توليد رمز جديد</button>
+                </div>
+                <div class="flex gap-2">
+                    <input id="token" readonly class="flex-1 mono text-xs bg-slate-50 border border-slate-300 rounded-lg px-3 py-2.5 select-all" value="جارٍ التحميل…">
+                    <button onclick="copy('token')" class="bg-slate-800 text-white text-xs font-bold px-3 rounded-lg"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <p class="text-[11px] text-amber-600 font-bold mt-1">لا تشاركه مع أحد. لو تسرّب اضغط «توليد رمز جديد».</p>
+            </div>
+            <div>
+                <label class="text-xs font-bold text-slate-500 block mb-1">رابط الرفع</label>
+                <div class="flex gap-2">
+                    <input id="url" readonly class="flex-1 mono text-xs bg-slate-50 border border-slate-300 rounded-lg px-3 py-2.5 select-all">
+                    <button onclick="copy('url')" class="bg-slate-800 text-white text-xs font-bold px-3 rounded-lg"><i class="fa-solid fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- خطوات الاختصار -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+            <h2 class="font-black text-slate-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-list-ol text-emerald-500"></i> خطوات إنشاء الاختصار على الآيفون</h2>
+            <ol class="space-y-3 text-sm text-slate-700 list-decimal pr-5 leading-relaxed">
+                <li>افتح تطبيق <b>الاختصارات (Shortcuts)</b> ← اضغط <b>+</b> لإنشاء اختصار جديد، وسمّه <b>«توثيق صده»</b>.</li>
+                <li>من إعدادات الاختصار (أيقونة المعلومات ⓘ) فعّل <b>«عرض في ورقة المشاركة» (Show in Share Sheet)</b>، واجعل نوع الإدخال <b>صور</b>.</li>
+                <li>أضف إجراء <b>«الحصول على محتويات عنوان URL» (Get Contents of URL)</b>، واضبطه كالتالي:
+                    <ul class="list-disc pr-5 mt-1.5 space-y-1 text-[13px] text-slate-600">
+                        <li>العنوان: <span class="mono bg-slate-100 px-1 rounded" id="url2"></span></li>
+                        <li>الطريقة (Method): <b>POST</b></li>
+                        <li>الجسم (Request Body): <b>Form</b></li>
+                        <li>أضف حقل ملف باسم <span class="mono bg-slate-100 px-1 rounded">file</span> وقيمته = <b>مدخلات الاختصار (Shortcut Input)</b></li>
+                        <li>أضف حقل نص باسم <span class="mono bg-slate-100 px-1 rounded">token</span> وقيمته = <b>رمزك أعلاه</b></li>
+                    </ul>
+                </li>
+                <li>أضف إجراء <b>«الحصول على قيمة قاموس» (Get Dictionary Value)</b>: المفتاح <span class="mono bg-slate-100 px-1 rounded">open</span> من نتيجة الطلب السابق.</li>
+                <li>أضف إجراء <b>«فتح عناوين URL» (Open URLs)</b> وضع بداخله <b>قيمة القاموس</b> (مخرجات الخطوة السابقة) — هذا يفتح صفحة التوثيق بالصورة جاهزة.</li>
+                <li>احفظ. الآن من واتساب: افتح صورة الإيصال ← <b>مشاركة</b> ← <b>«توثيق صده»</b> ← يفتح الموقع وتختار النوع والطلب.</li>
+            </ol>
+            <p class="text-[12px] text-slate-400 mt-4">ملاحظة: لازم تكون مسجّل دخول في سفاري على الموقع حتى تُحفظ على الطلب.</p>
+        </div>
+    </div>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+        let CSRF = '';
+
+        function copy(id) {
+            const el = $(id); el.select(); el.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(el.value).then(() => { el.classList.add('ring-2','ring-emerald-400'); setTimeout(()=>el.classList.remove('ring-2','ring-emerald-400'), 600); });
+        }
+
+        async function resetToken() {
+            if (!confirm('توليد رمز جديد سيُلغي الرمز الحالي ويتطلب تحديث الاختصار. متابعة؟')) return;
+            try {
+                const r = await fetch('auth.php?action=shareToken', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8', 'X-CSRF-Token': CSRF },
+                    body: JSON.stringify({ reset: true })
+                });
+                const d = await r.json();
+                if (d.token) { setToken(d.token); }
+            } catch (e) { alert('تعذّر توليد الرمز'); }
+        }
+
+        function setToken(t) {
+            $('token').value = t;
+            const base = location.origin;
+            const uploadUrl = base + '/api/ios_upload.php';
+            $('url').value = uploadUrl;
+            $('url2').innerText = uploadUrl;
+        }
+
+        (async () => {
+            // تأكد أنك مسجّل دخول، ثم اجلب الرمز والـ CSRF
+            try {
+                const me = await (await fetch('auth.php?action=me', { cache: 'no-store' })).json();
+                if (!me || !me.authed) { location.replace('login.html'); return; }
+                CSRF = me.csrf || '';
+                const t = await (await fetch('auth.php?action=shareToken', { cache: 'no-store' })).json();
+                if (t.token) setToken(t.token);
+            } catch (e) {
+                document.body.innerHTML = '<div class="p-8 text-center text-red-500 font-bold">تعذّر الاتصال بالخادم. تأكد أن PHP مفعّل (النظام يعمل على الاستضافة).</div>';
+            }
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+

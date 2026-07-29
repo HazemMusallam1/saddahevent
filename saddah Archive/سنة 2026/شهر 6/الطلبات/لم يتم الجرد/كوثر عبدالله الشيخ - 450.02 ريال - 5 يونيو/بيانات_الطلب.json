@@ -1,0 +1,153 @@
+{
+  "id": 1780601567935,
+  "date": "٤‏/٦‏/٢٠٢٦",
+  "client": {
+    "type": "individual",
+    "name": "كوثر عبدالله الشيخ",
+    "id": "1017952449",
+    "phone": "598002226",
+    "address": "مستشفى شرق جدة , المبنى الاداري ",
+    "deliveryDate": "2026-06-05",
+    "deliveryTime": "21:00",
+    "pickupDate": "2026-06-06",
+    "pickupTime": "13:00",
+    "deliveryPerson": "",
+    "returnPerson": ""
+  },
+  "financials": {
+    "subTotal": "391.32",
+    "total": "450.02 ريال",
+    "delivery": 0,
+    "deposit": "100",
+    "securityDeposit": "100",
+    "vatRate": "15",
+    "includeTaxInProfit": true,
+    "returnDelivery": 0,
+    "fuel": 30
+  },
+  "paymentStatus": {
+    "securityReturned": true,
+    "deposit": true,
+    "completed": true,
+    "remaining": true,
+    "security": true
+  },
+  "isConfirmed": true,
+  "computed": {
+    "total": 450.02,
+    "deductedInsurance": 0,
+    "received": 550,
+    "extDelivery": 0,
+    "whDelivery": 0,
+    "otherExpenses": 70,
+    "totalExpenses": 70,
+    "revenue": 450.02,
+    "remaining": 0.02,
+    "netProfit": 380.02,
+    "includeTax": true,
+    "operatingShare": 38,
+    "distributableProfit": 342.02,
+    "fuel": 30
+  },
+  "excludeFromPortfolio": false,
+  "status": "تم الجرد",
+  "extraFinancials": {
+    "externalDelivery": 0,
+    "warehouseDelivery": 0,
+    "abdulrazzaqFuel": 30
+  },
+  "items": [
+    {
+      "name": "طاولة كوكتيل ",
+      "desc": "قواعد ذهبية و سطح زجاجي , ارتفاع 120 سم",
+      "decorDetails": "",
+      "qty": 6,
+      "chairsCount": 0,
+      "total": "391.32",
+      "totalOriginal": "391.32",
+      "unitPrice": 65.22,
+      "originalPrice": 65.22
+    }
+  ],
+  "expenses": [
+    {
+      "desc": "عامل توصيل للطلب",
+      "amount": 70,
+      "total": 70,
+      "paid": 0,
+      "discount": 0,
+      "attachment": {
+        "type": "application/pdf",
+        "data": "عامل توصيل للطلب - 20 ريال تحويل.pdf",
+        "name": "عامل توصيل للطلب - 20 ريال تحويل.pdf",
+        "link": ""
+      },
+      "date": "2026-06-26T14:46:12.922Z",
+      "cashPaid": 50,
+      "transferPaid": 20
+    }
+  ],
+  "paymentProofs": [
+    {
+      "desc": "عربون",
+      "amount": 100,
+      "method": "transfer",
+      "fileLink": "عربون - 100 ريال.pdf",
+      "attachment": {
+        "type": "file",
+        "name": "عربون - 100 ريال.pdf",
+        "link": "saddah://1780601567935/الدفعات/عربون - 100 ريال.pdf"
+      },
+      "settledToInstitution": true,
+      "date": "2026-06-09T19:24:21.543Z"
+    },
+    {
+      "desc": "باقي المبلغ",
+      "amount": 350,
+      "method": "cash",
+      "fileLink": "باقي المبلغ - 350 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "باقي المبلغ - 350 ريال كاش",
+        "name": "باقي المبلغ - 350 ريال كاش",
+        "link": "باقي المبلغ - 350 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-09T19:39:01.665Z"
+    },
+    {
+      "desc": "تأمين",
+      "amount": 100,
+      "method": "cash",
+      "fileLink": "تأمين - 100 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "تأمين - 100 ريال كاش",
+        "name": "تأمين - 100 ريال كاش",
+        "link": "تأمين - 100 ريال كاش"
+      },
+      "settledToInstitution": false,
+      "date": "2026-06-09T19:39:21.726Z"
+    }
+  ],
+  "returns": [
+    {
+      "desc": "إرجاع التأمين",
+      "refund": 100,
+      "deducted": 0,
+      "method": "cash",
+      "fileLink": "إرجاع التأمين - 100 ريال كاش",
+      "attachment": {
+        "type": "folder",
+        "data": "إرجاع التأمين - 100 ريال كاش",
+        "name": "إرجاع التأمين - 100 ريال كاش",
+        "link": "إرجاع التأمين - 100 ريال كاش"
+      },
+      "date": "2026-06-09T19:39:56.297Z"
+    }
+  ],
+  "delivery": {
+    "deliveryPerson": "",
+    "returnPerson": ""
+  }
+}

@@ -1,0 +1,108 @@
+{
+    "id": 1773331729426,
+    "date": "١٢‏/٣‏/٢٠٢٦",
+    "client": {
+        "type": "individual",
+        "name": "رؤى سعود صابر",
+        "id": "٢٠٢٥٤٤٢٠٠",
+        "phone": "",
+        "address": "حي الشاطئ ، ردسي مول ، بوابة 4",
+        "deliveryDate": "2026-03-14",
+        "deliveryTime": "01:00",
+        "pickupDate": "2026-03-15",
+        "pickupTime": "01:00"
+    },
+    "financials": {
+        "subTotal": "443.46",
+        "total": "560.00 ريال",
+        "delivery": "43.50",
+        "deposit": "200",
+        "securityDeposit": "200",
+        "vatRate": "15",
+        "includeTaxInProfit": true
+    },
+    "items": [
+        {
+            "name": "طاولة بار(كوكتيل)",
+            "desc": "قواعد ذهبية ، سطح زجاجي ",
+            "decorDetails": "",
+            "qty": 6,
+            "chairsCount": 0,
+            "total": "443.46",
+            "totalOriginal": "443.46",
+            "unitPrice": 73.91,
+            "originalPrice": 73.91
+        }
+    ],
+    "expenses": [
+        {
+            "desc": "افاق توصيل و ارجاع ",
+            "amount": 100,
+            "total": 100,
+            "paid": 0,
+            "discount": 0,
+            "attachment": {
+                "type": "image/jpeg",
+                "data": "افاق توصيل و ارجاع - 100 ريال.jpeg",
+                "name": "افاق توصيل و ارجاع - 100 ريال.jpeg",
+                "link": ""
+            },
+            "date": "2026-06-11T19:59:26.761Z"
+        }
+    ],
+    "paymentProofs": [
+        {
+            "desc": "عربون",
+            "amount": 200,
+            "method": "transfer",
+            "fileLink": "عربون - 200 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "عربون - 200 ريال تحويل.pdf",
+                "name": "عربون - 200 ريال تحويل.pdf",
+                "link": "عربون - 200 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T20:00:04.585Z"
+        },
+        {
+            "desc": "باقي المبلغ",
+            "amount": 160,
+            "method": "transfer",
+            "fileLink": "باقي المبلغ - 160 ريال تحويل.pdf",
+            "attachment": {
+                "type": "application/pdf",
+                "data": "باقي المبلغ - 160 ريال تحويل.pdf",
+                "name": "باقي المبلغ - 160 ريال تحويل.pdf",
+                "link": "باقي المبلغ - 160 ريال تحويل.pdf"
+            },
+            "settledToInstitution": true,
+            "date": "2026-06-11T20:00:40.674Z"
+        }
+    ],
+    "paymentStatus": {
+        "securityReturned": true,
+        "deposit": true,
+        "security": true,
+        "remaining": true,
+        "completed": true
+    },
+    "isConfirmed": true,
+    "status": "جديد",
+    "computed": {
+        "total": 560,
+        "deductedInsurance": 0,
+        "received": 360,
+        "extDelivery": 43.5,
+        "whDelivery": 0,
+        "otherExpenses": 100,
+        "totalExpenses": 143.5,
+        "revenue": 560,
+        "remaining": 200,
+        "netProfit": 416.5,
+        "includeTax": true,
+        "operatingShare": 41.65,
+        "distributableProfit": 374.85,
+        "fuel": 0
+    }
+}
