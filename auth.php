@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 // منع طباعة أي تحذير/خطأ داخل رد JSON (يمنع كسر الرد وتشغيل تجاوز الدخول)
 ini_set('display_errors', '0');
 // ============================================================================
