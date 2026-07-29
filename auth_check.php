@@ -29,7 +29,7 @@ if ($page === 'index.html') {
     // Validate path looks like pages/domain/.../file.html
     if (!preg_match('#^pages/([a-zA-Z0-9_\-]+/)+[a-zA-Z0-9_\-]+\.html$#', $page)) {
         http_response_code(404);
-        echo '404 — الصفحة غير موجودة أو المسار غير صحيح';
+        echo '404 — الصفحة غير موجودة أو المسار غير صحيح. المدخل: [' . htmlspecialchars($page) . ']';
         exit;
     }
     $filepath = __DIR__ . '/' . $page;
