@@ -5,7 +5,9 @@
 //  POST : يستقبل القاعدة كاملة، يفرّغ الجداول ثم يعيد إدراجها (حفظ ذرّي)
 //  نقل بلا فقدان: كل صف يحفظ كائنه الأصلي كاملاً في عمود *_json.
 // ============================================================================
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate');
