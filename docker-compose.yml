@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    container_name: saddah_erp_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_NAME: saddah_db
+      DB_USER: saddah_user
+      DB_PASS: saddah_pass123
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: saddah_erp_db
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: saddah_db
+      MYSQL_USER: saddah_user
+      MYSQL_PASSWORD: saddah_pass123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

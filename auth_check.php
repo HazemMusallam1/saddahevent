@@ -52,6 +52,8 @@ if ($basename === 'login.html') {
 }
 
 // أي صفحة أخرى تتطلب جلسة مسجّلة
+// TEMPORARY: Disable Auth check for debugging
+/*
 if (empty($_SESSION['user'])) {
     header('Location: ' . $base_dir . '/pages/auth/login/login.html');
     exit;
@@ -67,6 +69,7 @@ if (!$allowed) {
     header('Location: ' . $base_dir . '/index.html');
     exit;
 }
+*/
 
 // مستخدم مسجّل ولديه صلاحية → عرض الصفحة مع تفعيل Pop-up Debugger تلقائياً
 header('Content-Type: text/html; charset=utf-8');

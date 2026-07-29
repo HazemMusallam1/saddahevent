@@ -23,7 +23,7 @@
   if (!document.querySelector('link[href*="whatsapp-widget.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'css/whatsapp-widget.css';
+    link.href = (window.SaddahBase || '.') + '/assets/css/whatsapp-widget.css';
     document.head.appendChild(link);
   }
 

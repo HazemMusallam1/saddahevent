@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المخزون - نظام صده</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="../../../manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
     <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
     <!-- Header -->
     <div class="glass-header sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../../index.html" class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition group">
+            <a href="../../../index.html" class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition group">
                 <div
                     class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-blue-50 transition">
                     <i class="fa-solid fa-arrow-right text-sm"></i>
@@ -391,7 +391,7 @@
             }
             // تحميل inventory.js مع معالجة الأخطاء
             let s_inventory = document.createElement('script');
-            s_inventory.src = '.js';
+            s_inventory.src = 'inventory.js';
             s_inventory.onerror = function() {
                 console.error('فشل تحميل inventory.js');
                 alert('حدث خطأ في تحميل صفحة المخزون. حاول تحديث الصفحة.');

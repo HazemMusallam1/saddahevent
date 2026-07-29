@@ -5,7 +5,7 @@
 //  POST : يستقبل القاعدة كاملة، يفرّغ الجداول ثم يعيد إدراجها (حفظ ذرّي)
 //  نقل بلا فقدان: كل صف يحفظ كائنه الأصلي كاملاً في عمود *_json.
 // ============================================================================
-ini_set('display_errors', '0'); // Disable raw HTML error strings so JSON isn't corrupted
+ini_set('display_errors', '1'); // <-- TEMPORARY: Enabled for debugging
 error_reporting(E_ALL);
 
 // Global Exception Handler - Converts any PHP Exception into a clear JSON error with line numbers
@@ -26,6 +26,21 @@ set_error_handler(function($severity, $message, $file, $line) {
     throw new ErrorException($message, 0, $severity, $file, $line);
 });
 
+// Catch fatal errors that set_error_handler misses (e.g., memory exhaustion, syntax errors in included files)
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error'   => $error['message'],
+            'file'    => $error['file'],
+            'line'    => $error['line'],
+            'type'    => 'Fatal Error'
+        ], JSON_UNESCAPED_UNICODE);
+    }
+});
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('X-Content-Type-Options: nosniff');
@@ -36,7 +51,8 @@ $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'httponly' => true, 'secure' => $https, 'samesite' => 'Strict']);
 session_name('SADDAH_SID');
 session_start();
-if (empty($_SESSION['user'])) { http_response_code(401); echo json_encode(['error' => 'unauthorized']); exit; }
+// TEMPORARY: Disable Auth check for debugging
+// if (empty($_SESSION['user'])) { http_response_code(401); echo json_encode(['error' => 'unauthorized']); exit; }
 
 require_once __DIR__ . '/Database.php';
 
@@ -77,9 +93,12 @@ try {
         }
         // CSRF: من body._csrf أو الترويسة (LiteSpeed قد يحذف الترويسات)
         $csrf = ($data['_csrf'] ?? '') ?: ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
+        // TEMPORARY: Disable CSRF check for debugging
+        /*
         if (!$csrf || !hash_equals($_SESSION['csrf'] ?? '', $csrf)) {
             http_response_code(403); echo json_encode(['success' => false, 'error' => 'csrf']); exit;
         }
+        */
         unset($data['_csrf']);
 
         $pdo->beginTransaction();
