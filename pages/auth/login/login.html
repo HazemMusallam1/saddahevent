@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <script>window.SaddahBase = '../../..';</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول - نظام صده</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="../../../manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/images/icon-192.png">
     <link rel="apple-touch-icon" href="../../../assets/images/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -230,9 +230,9 @@
         // إن كان مسجّلاً دخوله مسبقاً، حوّله للرئيسية
         (async () => {
             try {
-                const r = await fetch('auth.php?action=me', { cache: 'no-store' });
+                const r = await fetch('../../../auth.php?action=me', { cache: 'no-store' });
                 const me = JSON.parse(await r.text());
-                if (me && me.authed) location.replace('index.html');
+                if (me && me.authed) location.replace('../../../index.html');
             } catch (e) { /* PHP غير متاح (تشغيل محلي) */ }
         })();
 
@@ -243,7 +243,7 @@
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحقق...';
             btn.classList.add('opacity-80', 'cursor-not-allowed');
             try {
-                const r = await fetch('auth.php?action=login', {
+                const r = await fetch('../../../auth.php?action=login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     body: JSON.stringify({ username: document.getElementById('username').value, password: passInput.value })
@@ -253,7 +253,7 @@
                     if (!localStorage.getItem('saddahFastLoginCredId') && window.PublicKeyCredential) {
                         promptFastLoginSetup();
                     } else {
-                        location.replace('index.html');
+                        location.replace('../../../index.html');
                     }
                     return; 
                 }
