@@ -389,7 +389,7 @@
         async function promptFastLoginSetup() {
             // التحقق من دعم الجهاز
             if (!window.PublicKeyCredential) {
-                location.replace('index.html');
+                location.replace('../../../index.html');
                 return;
             }
             
@@ -399,7 +399,7 @@
             fastLoginModalContent.classList.add('scale-100');
 
             document.getElementById('skip-fast-login-btn').onclick = () => {
-                location.replace('index.html');
+                location.replace('../../../index.html');
             };
 
             document.getElementById('enable-fast-login-btn').onclick = async () => {
@@ -408,7 +408,7 @@
                 
                 try {
                     // طلب تحدي من السيرفر لربط التسجيل به
-                    let r = await fetch('auth.php?action=webauthn_challenge');
+                    let r = await fetch('../../../auth.php?action=webauthn_challenge');
                     let challengeData = await r.json();
                     if (!challengeData.challenge) throw new Error('فشل جلب التحدي');
                     
@@ -444,7 +444,7 @@
                     }
                     
                     // إذا نجح تسجيل البصمة، نطلب توكن من السيرفر
-                    r = await fetch('auth.php?action=webauthn_register', { 
+                    r = await fetch('../../../auth.php?action=webauthn_register', { 
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -466,7 +466,7 @@
                     console.error("Fast login setup failed", err);
                     alert('فشل تفعيل البصمة: ' + err.message);
                 } finally {
-                    location.replace('index.html');
+                    location.replace('../../../index.html');
                 }
             };
         }
