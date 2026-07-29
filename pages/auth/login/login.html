@@ -328,7 +328,7 @@
                 fastLoginBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري الاتصال...';
                 
                 // جلب رمز التحدي العشوائي من السيرفر
-                let r = await fetch('auth.php?action=webauthn_challenge');
+                let r = await fetch('../../../auth.php?action=webauthn_challenge');
                 let challengeData = await r.json();
                 if (!challengeData.challenge) throw new Error('فشل جلب تحدي السيرفر');
                 
@@ -364,7 +364,7 @@
                     signature: bufferToBase64(assertion.response.signature)
                 };
 
-                r = await fetch('auth.php?action=webauthn_verify', {
+                r = await fetch('../../../auth.php?action=webauthn_verify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     body: JSON.stringify(payload)
@@ -372,7 +372,7 @@
                 
                 const data = JSON.parse(await r.text());
                 if (r.ok && data.authed) { 
-                    location.replace('index.html'); 
+                    location.replace('../../../index.html'); 
                 } else {
                     throw new Error(data.error || 'فشل التحقق من التوقيع');
                 }
